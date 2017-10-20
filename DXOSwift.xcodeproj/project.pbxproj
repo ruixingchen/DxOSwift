@@ -19,6 +19,7 @@
 		801D6B2F1F976DC600CEAE64 /* mainPageSample.html in Resources */ = {isa = PBXBuildFile; fileRef = 801D6B2D1F976C3500CEAE64 /* mainPageSample.html */; };
 		8031A72B1F98FB1600010540 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8031A72A1F98FB1600010540 /* ArrayExtension.swift */; };
 		8031A72D1F99054C00010540 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8031A72C1F99054C00010540 /* UIColorExtension.swift */; };
+		804AC1AB1F99B1C4006A052E /* CameraDataBaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804AC1AA1F99B1C4006A052E /* CameraDataBaseTableViewCell.swift */; };
 		805786651F960A92006D2B3C /* DXOService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805786641F960A92006D2B3C /* DXOService.swift */; };
 		8057866B1F960CEF006D2B3C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805786681F960CEA006D2B3C /* Log.swift */; };
 		8057866C1F960CEF006D2B3C /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805786691F960CEA006D2B3C /* Misc.swift */; };
@@ -59,6 +60,7 @@
 		801D6B2D1F976C3500CEAE64 /* mainPageSample.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = mainPageSample.html; sourceTree = "<group>"; };
 		8031A72A1F98FB1600010540 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		8031A72C1F99054C00010540 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		804AC1AA1F99B1C4006A052E /* CameraDataBaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDataBaseTableViewCell.swift; sourceTree = "<group>"; };
 		805786641F960A92006D2B3C /* DXOService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXOService.swift; sourceTree = "<group>"; };
 		805786671F960CEA006D2B3C /* RXError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RXError.swift; sourceTree = "<group>"; };
 		805786681F960CEA006D2B3C /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 		80C3F5E01F993AF800F5D3E3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				804AC1AA1F99B1C4006A052E /* CameraDataBaseTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -512,6 +515,7 @@
 				805786651F960A92006D2B3C /* DXOService.swift in Sources */,
 				80C3F5E21F993B0700F5D3E3 /* CameraReviewsController.swift in Sources */,
 				80C3F5F81F99563200F5D3E3 /* CameraManager.swift in Sources */,
+				804AC1AB1F99B1C4006A052E /* CameraDataBaseTableViewCell.swift in Sources */,
 				8057866B1F960CEF006D2B3C /* Log.swift in Sources */,
 				80C3F5EC1F9942CD00F5D3E3 /* Mobile.swift in Sources */,
 				80C3F5F01F99441600F5D3E3 /* Device.swift in Sources */,

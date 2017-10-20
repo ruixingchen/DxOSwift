@@ -12,9 +12,7 @@ class CameraDataBaseController: RXTableViewController {
 
     override func firstViewWillAppear(_ animated: Bool) {
         super.firstViewWillAppear(animated)
-        DXOService.cameraDataBase { (inError) in
-            
-        }
+
     }
 
     override func firstViewDidAppear(_ animated: Bool) {

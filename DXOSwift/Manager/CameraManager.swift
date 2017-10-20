@@ -35,33 +35,33 @@ class CameraManager {
         do {
             let createTableString:String = """
 CREATE TABLE "\(tableName)" (
-    "id" text PRIMARY KEY,
-    "price" text,
+    "id" INTEGER PRIMARY KEY,
+    "price" INTEGER,
     "year" TEXT,
     "brand" TEXT,
-    "rankDxo" TEXT,
-    "rankColor" TEXT,
-    "rankDyn" TEXT,
-    "rankLln" TEXT,
-    "rankDxo_ranking" TEXT,
-    "rankColor_ranking" TEXT,
-    "rankDyn_ranking" TEXT,
-    "rankLln_ranking" TEXT,
+    "rankDxo" INTEGER,
+    "rankColor" REAL,
+    "rankDyn" REAL,
+    "rankLln" INTEGER,
+    "rankDxo_ranking" INTEGER,
+    "rankColor_ranking" INTEGER,
+    "rankDyn_ranking" INTEGER,
+    "rankLln_ranking" INTEGER,
     "name" TEXT,
-    "pixelDepth" TEXT,
+    "pixelDepth" REAL,
     "sensor" TEXT,
     "type" TEXT,
     "status" TEXT,
     "launchDate" TEXT,
     "launchDateGraph" TEXT,
-    "sensorraw" TEXT,
+    "sensorraw" REAL,
     "link" TEXT,
     "chapo" TEXT,
     "linkReview" TEXT,
-    "maximum_iso" TEXT,
+    "maximum_iso" INTEGER,
     "raw_format" TEXT,
     "autofocus" TEXT,
-    "resolutionvideo" TEXT,
+    "resolutionvideo" INTEGER,
     "flash" TEXT,
     "video" TEXT,
     "waterproof" TEXT,
@@ -175,7 +175,8 @@ CREATE TABLE "\(tableName)" (
                 rollback.pointee = true
             }
         }
-
     }
+
+    
 
 }
