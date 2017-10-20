@@ -5,8 +5,8 @@ PODS:
   - GDPerformanceView-Swift (1.2.0)
   - Kanna (2.1.1)
   - Kingfisher (4.1.1)
-  - MJRefresh (3.1.14)
-  - netfox (1.10.2)
+  - MJRefresh (3.1.14.1)
+  - netfox (1.10.5)
   - ObjcExceptionBridging (1.0.1):
     - ObjcExceptionBridging/ObjcExceptionBridging (= 1.0.1)
   - ObjcExceptionBridging/ObjcExceptionBridging (1.0.1)
@@ -45,8 +45,8 @@ SPEC CHECKSUMS:
   GDPerformanceView-Swift: 5f12f13dcdca4cb87f91ef91ba6b50981421c57f
   Kanna: 9b4b086c218703f2b94f5b21a466217dd2f9332e
   Kingfisher: 6793a473357b5dbee42b0068ef203fe8325f259e
-  MJRefresh: 6642e35b3227a5447b9fd5e17c552c90196c9859
-  netfox: d79c75b682a2e2d85202f79abc69ca4c15ba780c
+  MJRefresh: 238e6a37e2dba12160ee3b79f6d2a2b26abcab42
+  netfox: 597a3436073889c24d0af3a2aac9d73db779ae3a
   ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
   SDCycleScrollView: d0fd5fe40a80918371fd8939214eb3be81033d83
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41

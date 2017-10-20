@@ -43,7 +43,7 @@ class Camera: Device {
     var waterproof : String!
     var year : String!
 
-    init(fromJson json: JSON!){
+    init(fromJson json: JSON){
         if json.isEmpty{
             return
         }

@@ -28,6 +28,7 @@
 		8069039C1F9607C1005BA062 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8069039B1F9607C1005BA062 /* AppDelegate.swift */; };
 		806903A31F9607C1005BA062 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806903A21F9607C1005BA062 /* Assets.xcassets */; };
 		806903A61F9607C1005BA062 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 806903A41F9607C1005BA062 /* LaunchScreen.storyboard */; };
+		80BD2FF31F998F7D00396B45 /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BD2FF21F998F7D00396B45 /* DataBaseManager.swift */; };
 		80C3F5DA1F99308C00F5D3E3 /* NewsDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5D91F99308C00F5D3E3 /* NewsDetailController.swift */; };
 		80C3F5E21F993B0700F5D3E3 /* CameraReviewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5E11F993B0700F5D3E3 /* CameraReviewsController.swift */; };
 		80C3F5E41F993C5200F5D3E3 /* LensReviewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5E31F993C5200F5D3E3 /* LensReviewsController.swift */; };
@@ -69,6 +70,7 @@
 		806903A21F9607C1005BA062 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		806903A51F9607C1005BA062 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		806903A71F9607C1005BA062 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		80BD2FF21F998F7D00396B45 /* DataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
 		80C3F5D91F99308C00F5D3E3 /* NewsDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailController.swift; sourceTree = "<group>"; };
 		80C3F5E11F993B0700F5D3E3 /* CameraReviewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraReviewsController.swift; sourceTree = "<group>"; };
 		80C3F5E31F993C5200F5D3E3 /* LensReviewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LensReviewsController.swift; sourceTree = "<group>"; };
@@ -260,14 +262,14 @@
 			isa = PBXGroup;
 			children = (
 				8069039B1F9607C1005BA062 /* AppDelegate.swift */,
-				80C3F5F61F99562100F5D3E3 /* Manager */,
-				801D6B2A1F976BEB00CEAE64 /* Resource */,
 				805786731F967831006D2B3C /* Common */,
-				805786701F9626D8006D2B3C /* Extension */,
-				805786661F960CD5006D2B3C /* Util */,
 				805786631F960A85006D2B3C /* Service */,
 				805786621F960A79006D2B3C /* Model */,
+				80C3F5F61F99562100F5D3E3 /* Manager */,
 				805786611F960A79006D2B3C /* Module */,
+				801D6B2A1F976BEB00CEAE64 /* Resource */,
+				805786701F9626D8006D2B3C /* Extension */,
+				805786661F960CD5006D2B3C /* Util */,
 				806903A21F9607C1005BA062 /* Assets.xcassets */,
 				806903A41F9607C1005BA062 /* LaunchScreen.storyboard */,
 				806903A71F9607C1005BA062 /* Info.plist */,
@@ -328,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				80C3F5F71F99563200F5D3E3 /* CameraManager.swift */,
+				80BD2FF21F998F7D00396B45 /* DataBaseManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				80C3F5E81F9942BD00F5D3E3 /* Camera.swift in Sources */,
 				8031A72D1F99054C00010540 /* UIColorExtension.swift in Sources */,
 				801D6B291F97691400CEAE64 /* NewsController.swift in Sources */,
+				80BD2FF31F998F7D00396B45 /* DataBaseManager.swift in Sources */,
 				8069039C1F9607C1005BA062 /* AppDelegate.swift in Sources */,
 				80C3F5DA1F99308C00F5D3E3 /* NewsDetailController.swift in Sources */,
 				800165591F98E2A30010F2BE /* ReviewBadgeView.swift in Sources */,
