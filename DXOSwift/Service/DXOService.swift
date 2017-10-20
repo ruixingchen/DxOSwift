@@ -278,7 +278,7 @@ class DXOService {
         }
     }
 
-    class func cameraDataBase(completion:((RXError?)->Void)?){
+    class func cameraTested(completion:((RXError?)->Void)?){
         let handleClosure:(Data?, ServiceError?)->Void = { (inData, inError) in
             var outError:RXError?
             var outObject:[Camera]?
@@ -317,6 +317,7 @@ class DXOService {
             handleClosure(inData, inError)
         }
     }
+
 
 
 }

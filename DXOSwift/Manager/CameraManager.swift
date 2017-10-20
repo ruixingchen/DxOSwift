@@ -10,7 +10,7 @@ import Foundation
 import SwiftyJSON
 import FMDB
 
-/// manage the camera data base, use SQLite with FMDB, the data will be stored in sql
+/// manage the camera data base, may use sql to store the data, but for now time we only store it in ram
 class CameraManager {
 
     var yearMax:Int = 0
@@ -26,12 +26,11 @@ class CameraManager {
     var colorMax:Int = 0
     var colorMin:Int = 0
 
-    private let tableName:String = "cameraDataBase"
-
     static let shared:CameraManager = CameraManager()
 
     private init(){
         //create Table
+        /*
         do {
             let createTableString:String = """
 CREATE TABLE "\(tableName)" (
@@ -72,8 +71,9 @@ CREATE TABLE "\(tableName)" (
         }catch {
             log.error("create camera table failed, error: \(error)")
         }
+ */
     }
-
+    /*
     /// reload all the data base, rewrite the DB if there is right data, or do nothing
     func reloadDataBase(jsonObject:JSON){
         yearMax = jsonObject["year"]["max"].int ?? yearMax
@@ -176,7 +176,30 @@ CREATE TABLE "\(tableName)" (
             }
         }
     }
+ */
 
+    func reloadTestedCamera(jsonObject:JSON){
+        yearMax = jsonObject["year"]["max"].int ?? yearMax
+        yearMin = jsonObject["year"]["min"].int ?? yearMin
+        priceMax = jsonObject["price"]["max"].double ?? priceMax
+        priceMin = jsonObject["price"]["min"].double ?? priceMin
+        dxoScoreMax = jsonObject["rankDxo"]["max"].int ?? dxoScoreMax
+        dxoScoreMin = jsonObject["rankDxo"]["min"].int ?? dxoScoreMin
+        dynamicRangeMax = jsonObject["rankDyn"]["max"].double ?? dynamicRangeMax
+        dynamicRangeMin = jsonObject["rankDyn"]["min"].double ?? dynamicRangeMin
+        LlnMax = jsonObject["rankLln"]["max"].int ?? LlnMax
+        LlnMin = jsonObject["rankLln"]["min"].int ?? LlnMin
+        colorMax = jsonObject["rankColor"]["max"].int ?? colorMax
+        colorMin = jsonObject["rankColor"]["min"].int ?? colorMin
+
+        var cameraArray:[Camera] = []
+        for cameraJson in jsonObject["data"].arrayValue {
+            cameraArray.append(Camera(fromJson: cameraJson))
+        }
+        log.verbose("test camera ")
+    }
+
+    
     
 
 }

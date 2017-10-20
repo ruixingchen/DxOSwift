@@ -10,6 +10,8 @@ import UIKit
 
 class CameraDataBaseController: RXTableViewController {
 
+    var dataSource:NSMutableArray = NSMutableArray() //two dimension
+
     override func firstViewWillAppear(_ animated: Bool) {
         super.firstViewWillAppear(animated)
 
@@ -19,5 +21,7 @@ class CameraDataBaseController: RXTableViewController {
         super.firstViewDidAppear(animated)
 
     }
+
+
 
 }

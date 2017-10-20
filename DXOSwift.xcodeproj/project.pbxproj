@@ -60,6 +60,9 @@
 		801D6B2D1F976C3500CEAE64 /* mainPageSample.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = mainPageSample.html; sourceTree = "<group>"; };
 		8031A72A1F98FB1600010540 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		8031A72C1F99054C00010540 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		8033C1651F9A6A2300892286 /* Test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Test.storyboard; sourceTree = "<group>"; };
+		8033C1661F9A6A5800892286 /* TestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewCell.swift; sourceTree = "<group>"; };
+		8033C1671F9A6A5800892286 /* TestTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestTableViewCell.xib; sourceTree = "<group>"; };
 		804AC1AA1F99B1C4006A052E /* CameraDataBaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDataBaseTableViewCell.swift; sourceTree = "<group>"; };
 		805786641F960A92006D2B3C /* DXOService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXOService.swift; sourceTree = "<group>"; };
 		805786671F960CEA006D2B3C /* RXError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RXError.swift; sourceTree = "<group>"; };
@@ -148,6 +151,9 @@
 			isa = PBXGroup;
 			children = (
 				801D6B2B1F976BEB00CEAE64 /* HTMLSample */,
+				8033C1651F9A6A2300892286 /* Test.storyboard */,
+				8033C1661F9A6A5800892286 /* TestTableViewCell.swift */,
+				8033C1671F9A6A5800892286 /* TestTableViewCell.xib */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
