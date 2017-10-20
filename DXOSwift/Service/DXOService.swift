@@ -8,6 +8,10 @@
 
 import Foundation
 import Kanna
+import SwiftyJSON
+#if DEBUG || debug
+    import netfox
+#endif
 
 enum ServiceError:Error {
     case badUrl
@@ -22,11 +26,16 @@ enum ServiceError:Error {
 class DXOService {
 
     struct Define {
-        static let fakeNews:Bool = true
+        static let logRequestDetail:Bool = false
+
+        static let fakeNews:Bool = false
         static let fakeNewsFile:String = "newsSample.html"
 
         static let fakeMainPage:Bool = false
         static let fakeMainPageFile:String = "mainPageSample.html"
+
+        static let fakeCameraDataBase:Bool = false
+        static let fakeCameraDataBaseFile:String = "cameraDataBase.json"
     }
 
     /// the basic request
@@ -34,12 +43,14 @@ class DXOService {
         let sessionConfig:URLSessionConfiguration = URLSessionConfiguration.default
         sessionConfig.timeoutIntervalForRequest = request.timeoutInterval
         sessionConfig.timeoutIntervalForResource = request.timeoutInterval
+        #if DEBUG || debug
+            sessionConfig.protocolClasses?.insert(NFXProtocol.self, at: 0)
+        #endif
         let session:URLSession = URLSession(configuration: sessionConfig)
         session.dataTask(with: request) { (inData, inResponse, inError) in
-            #if DEBUG
-                //shall we log all request?
-                //TODO: - log request result
-            #endif
+            if Define.logRequestDetail {
+                //log the detail
+            }
             completion?(inData, inError)
         }.resume()
     }
@@ -65,7 +76,6 @@ class DXOService {
 
     class func extractReviewList(htmlDocument:HTMLDocument)->[Review]{
         let newsNodes:XPathObject = htmlDocument.xpath("//div[contains(@class, 'col post-item')]")
-        log.verbose("news nodes:\(newsNodes.count)")
         var reviewList:[Review] = []
         for newsNode in newsNodes {
             let title:String = newsNode.xpath(".//h5[contains(@class,'post-title')]/text()").first?.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
@@ -94,7 +104,7 @@ class DXOService {
                     if scoreBadgeNodeClass.contains("lens") {
                         deviceType = ReviewDeviceType.lens
                     }else if scoreBadgeNodeClass.contains("camera") {
-                        deviceType = ReviewDeviceType.senser
+                        deviceType = ReviewDeviceType.camera
                     }else if scoreBadgeNodeClass.contains("mobile") {
                         deviceType = ReviewDeviceType.mobile
                     }
@@ -129,7 +139,9 @@ class DXOService {
                 }
                 review.tag.append(text)
             }
-            log.verbose(review.description)
+            if Define.logRequestDetail {
+                log.verbose(review.description)
+            }
             reviewList.append(review)
         }
         return reviewList
@@ -203,7 +215,7 @@ class DXOService {
         #if DEBUG
             if Define.fakeMainPage {
                 DispatchQueue.global().async {
-                    let data = try! Data.init(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: Define.fakeMainPageFile, ofType: nil)!))
+                    let data = Data(forResource: Define.fakeMainPageFile)!
                     handleClosure(data, nil)
                 }
                 return
@@ -252,7 +264,7 @@ class DXOService {
         #if DEBUG
             if Define.fakeNews {
                 DispatchQueue.global().async {
-                    let data = try! Data.init(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: Define.fakeNewsFile, ofType: nil)!))
+                    let data = Data(forResource: Define.fakeNewsFile)!
                     handleClosure(data, nil)
                 }
                 return
@@ -266,6 +278,45 @@ class DXOService {
         }
     }
 
+    class func cameraDataBase(completion:((RXError?)->Void)?){
+        let handleClosure:(Data?, ServiceError?)->Void = { (inData, inError) in
+            var outError:RXError?
+            var outObject:[Camera]?
+
+            defer {
+                if outError != nil {
+                    log.info("cameraDataBase request with error:\n\(outError!.description)")
+                }
+                completion?(outError)
+            }
+
+            if inError != nil {
+                outError = RXError(error: inError!, errorDescription: "in error is not nil")
+                return
+            }else if inData == nil {
+                outError = RXError(error: ServiceError.noResponse, errorDescription: "in data is nil")
+                return
+            }
+            let json:JSON = JSON.init(data: inData!)
+            CameraManager.shared.reloadDataBase(jsonObject: json)
+        }
+
+        #if DEBUG
+            if Define.fakeCameraDataBase {
+                DispatchQueue.global().async {
+                    let data = Data(forResource: Define.fakeCameraDataBaseFile)!
+                    handleClosure(data, nil)
+                }
+                return
+            }
+        #endif
+
+        let url:URL = URL(string: "https://www.dxomark.com/daksensor/ajax/jsontested")!
+        let request:URLRequest = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 30)
+        serviceRequest(request: request) { (inData, inError) in
+            handleClosure(inData, inError)
+        }
+    }
 
 
 }

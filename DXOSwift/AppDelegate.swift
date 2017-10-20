@@ -18,6 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+        Device.test()
+        return true
+
         window = UIWindow()
         window?.rootViewController = MainTabBarController()
         window?.makeKeyAndVisible()
@@ -26,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             GDPerformanceMonitor.sharedInstance.startMonitoring()
             NFX.sharedInstance().start()
         #endif
+
+
 
         return true
     }

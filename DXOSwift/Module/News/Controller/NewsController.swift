@@ -10,9 +10,10 @@ import UIKit
 import MJRefresh
 import SDCycleScrollView
 import SnapKit
+import Toast_Swift
 
 /// the main controller
-class NewsController: RXTableViewController {
+class NewsController: RXTableViewController, SDCycleScrollViewDelegate {
 
     private var cycleScrollView:SDCycleScrollView?
 
@@ -21,14 +22,20 @@ class NewsController: RXTableViewController {
     private var dataSource:NSMutableArray = [] //one dimension
     private var topTopicDataSource:NSMutableArray = [] //one dimension
 
+    var page:Int = 0
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubviews()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        cycleScrollView?.adjustWhenControllerViewWillAppera()
+    }
+
     override func firstViewWillAppear(_ animated: Bool) {
         super.firstViewWillAppear(animated)
-        cycleScrollView?.adjustWhenControllerViewWillAppera()
     }
 
     override func firstViewDidLayoutSubviews() {
@@ -44,7 +51,7 @@ class NewsController: RXTableViewController {
     override func setupTableView() {
         super.setupTableView()
         tableView.tableFooterView = UIView()
-        tableView.contentInsetAdjustmentBehavior = .always
+//        tableView.contentInsetAdjustmentBehavior = .always
         tableView.estimatedRowHeight = 0
         tableView.rowHeight = 100
 
@@ -65,7 +72,7 @@ class NewsController: RXTableViewController {
     }
 
     @objc func footerRefreshAction(){
-        headerRefresh()
+        footerRefresh()
     }
 
     @objc func didTapSearchButton(){
@@ -89,6 +96,7 @@ class NewsController: RXTableViewController {
                 }
                 DispatchQueue.main.async {
                     self?.tableView.refreshControl?.endRefreshing()
+                    try? self?.view.toastViewForMessage("please try again", title: "Failed", image: nil, style: ToastStyle.init())
                 }
                 return
             }else if self == nil {
@@ -103,6 +111,7 @@ class NewsController: RXTableViewController {
                     self?.cycleScrollView?.bannerImageViewContentMode = .scaleAspectFill
                     self?.cycleScrollView?.autoScrollTimeInterval = 3
                     self?.cycleScrollView?.titleLabelHeight = 60
+                    self?.cycleScrollView?.delegate = self!
                     var imageArray:[String] = []
                     var titleArray:[String] = []
                     for i in inTopTopic! {
@@ -114,6 +123,7 @@ class NewsController: RXTableViewController {
                     self?.cycleScrollView?.frame = CGRect(x: 0, y: 0, width: self!.tableView.bounds.width, height: self!.cycleScrollViewHeight)
                     self?.tableView.tableHeaderView = self?.cycleScrollView
                 }
+                self?.page = 1
                 self?.dataSource = NSMutableArray(array: inNews!)
                 self?.tableView.refreshControl?.endRefreshing()
                 self?.tableView.reloadData()
@@ -131,8 +141,46 @@ class NewsController: RXTableViewController {
     }
 
     func footerRefresh() {
-
+        //we load the next page
+        DXOService.news(page: page+1) {[weak self] (inReviews, inError) in
+            if inError != nil || inReviews == nil {
+                if inError != nil {
+                    log.debug("news with error: \(inError!.description)")
+                }else if inReviews == nil {
+                    log.debug("news news nil")
+                }else {
+                    log.debug("news unknown error")
+                }
+                DispatchQueue.main.async {
+                    try? self?.view.toastViewForMessage("please try again", title: "Failed", image: nil, style: ToastStyle.init())
+                    self?.tableView.mj_footer?.endRefreshing()
+                }
+                return
+            }else if self == nil {
+                log.info("self deinited")
+                return
+            }
+            DispatchQueue.main.async {
+                if inReviews!.isEmpty {
+                    self?.tableView.mj_footer?.endRefreshingWithNoMoreData()
+                }else{
+                    self?.tableView.beginUpdates()
+                    let originCount:Int = self!.dataSource.count
+                    let newDataSource:NSMutableArray = NSMutableArray(array: self!.dataSource as! [Any])
+                    for i in 0..<inReviews!.count {
+                        newDataSource.add(inReviews![i])
+                        self?.tableView.insertRows(at: [IndexPath(row: originCount+i,section:0)], with: .none)
+                    }
+                    self?.dataSource = newDataSource
+                    self?.tableView.endUpdates()
+                    self?.tableView.mj_footer?.endRefreshing()
+                    self?.page += 1
+                }
+            }
+        }
     }
+
+    //MARK: - TableView
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
@@ -156,6 +204,12 @@ class NewsController: RXTableViewController {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        guard let review:Review = self.dataSource.safeGet(at: indexPath.row) as? Review else {
+            return
+        }
+        let detail:NewsDetailController = NewsDetailController(review: review)
+        detail.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(detail, animated: true)
     }
 
     //MARK: - ScrollViewDelegate
@@ -164,7 +218,26 @@ class NewsController: RXTableViewController {
         if scrollView != tableView {
             return
         }
+    }
 
+    //MARK: - SDCycleScrollViewDelegate
+
+    func cycleScrollView(_ cycleScrollView: SDCycleScrollView!, didSelectItemAt index: Int) {
+        guard let review:Review = self.topTopicDataSource.safeGet(at: index) as? Review else {
+            log.error("can not get top topic for index \(index), data source count:\(self.topTopicDataSource.count)")
+            return
+        }
+        if review.targetUrl.hasSuffix("www.dxomark.com/Cameras/") || review.targetUrl.hasSuffix("www.dxomark.com/Cameras") {
+            //go to camera DB
+            let camerasDataBaseController:CameraDataBaseController = CameraDataBaseController()
+            self.navigationController?.pushViewController(camerasDataBaseController, animated: true)
+        }else if review.targetUrl.hasSuffix("www.dxomark.com/Lenses/") || review.targetUrl.hasSuffix("www.dxomark.com/Lenses") {
+            //go to lenses DB
+        }else {
+            let detail:NewsDetailController = NewsDetailController(review: review)
+            detail.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(detail, animated: true)
+        }
 
     }
 

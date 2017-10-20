@@ -12,6 +12,7 @@ target 'DXOSwift' do
     pod 'Toast-Swift', '~> 2.0'
     pod 'StatefulViewController', '~> 3.0'
     pod 'Kanna', '~> 2.1.0'
+    pod 'SwiftyJSON', '~> 3.1'
 
     #DEBUG
     pod 'GDPerformanceView-Swift', :configurations => ['Debug']
@@ -24,7 +25,7 @@ target 'DXOSwift' do
     pod 'SDCycleScrollView','~> 1.73'
 end
 post_install do |installer|
-    oldSwiftTargets = ['Toast-Swift', 'StatefulViewController', 'Kanna', 'GDPerformanceView-Swift']
+    oldSwiftTargets = ['Toast-Swift', 'StatefulViewController', 'Kanna', 'SwiftyJSON', 'GDPerformanceView-Swift']
     installer.pods_project.targets.each do |target|
         if oldSwiftTargets.include? target.name
             target.build_configurations.each do |config|

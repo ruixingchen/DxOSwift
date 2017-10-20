@@ -22,7 +22,7 @@ class MainTabBarController: UITabBarController {
 
     private func initViewControllers(){
         let newsNav:UINavigationController = UINavigationController(rootViewController: NewsController())
-        newsNav.title = "News"
+        newsNav.title = "DXO"
         let viewControllers:[UINavigationController] = [newsNav]
         for i in viewControllers {
             i.navigationBar.isTranslucent = false

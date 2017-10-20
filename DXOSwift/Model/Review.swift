@@ -9,7 +9,7 @@
 import Foundation
 
 enum ReviewDeviceType:Int {
-    case senser = 1
+    case camera = 1
     case lens = 2
     case mobile = 3
 }

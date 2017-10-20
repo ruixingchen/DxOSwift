@@ -15,12 +15,14 @@ extension String {
     ///
     /// - Parameter length: the length of charactors you want to keep
     /// - Returns: the abstract
-    func abstract(length:Int = 20)->String{
+    func abstract(length:Int = 20, addDot:Bool = true)->String{
         if self.characters.count <= length {
             return self
         }
         var str:String = String(self[...self.index(self.startIndex, offsetBy: length)])
-        str.append("...")
+        if addDot {
+            str.append("...")
+        }
         return str
     }
 

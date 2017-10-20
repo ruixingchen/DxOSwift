@@ -28,6 +28,18 @@
 		8069039C1F9607C1005BA062 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8069039B1F9607C1005BA062 /* AppDelegate.swift */; };
 		806903A31F9607C1005BA062 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806903A21F9607C1005BA062 /* Assets.xcassets */; };
 		806903A61F9607C1005BA062 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 806903A41F9607C1005BA062 /* LaunchScreen.storyboard */; };
+		80C3F5DA1F99308C00F5D3E3 /* NewsDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5D91F99308C00F5D3E3 /* NewsDetailController.swift */; };
+		80C3F5E21F993B0700F5D3E3 /* CameraReviewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5E11F993B0700F5D3E3 /* CameraReviewsController.swift */; };
+		80C3F5E41F993C5200F5D3E3 /* LensReviewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5E31F993C5200F5D3E3 /* LensReviewsController.swift */; };
+		80C3F5E81F9942BD00F5D3E3 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5E71F9942BD00F5D3E3 /* Camera.swift */; };
+		80C3F5EA1F9942C600F5D3E3 /* Lens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5E91F9942C600F5D3E3 /* Lens.swift */; };
+		80C3F5EC1F9942CD00F5D3E3 /* Mobile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5EB1F9942CD00F5D3E3 /* Mobile.swift */; };
+		80C3F5F01F99441600F5D3E3 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5EF1F99441600F5D3E3 /* Device.swift */; };
+		80C3F5F41F9951CC00F5D3E3 /* CameraDataBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5F31F9951CC00F5D3E3 /* CameraDataBaseController.swift */; };
+		80C3F5F81F99563200F5D3E3 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5F71F99563200F5D3E3 /* CameraManager.swift */; };
+		80DAAC6F1F996EAC003648BF /* lensDataBase.json in Resources */ = {isa = PBXBuildFile; fileRef = 80DAAC6E1F996C58003648BF /* lensDataBase.json */; };
+		80DAAC711F996FAB003648BF /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DAAC701F996FAB003648BF /* DataExtension.swift */; };
+		80DAAC721F9972F0003648BF /* cameraDataBase.json in Resources */ = {isa = PBXBuildFile; fileRef = 80C3F5F51F99556E00F5D3E3 /* cameraDataBase.json */; };
 		F09CA3A31F057DBCA09A2991 /* Pods_DXOSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A741648CA6650E4F914EA2E /* Pods_DXOSwift.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +69,18 @@
 		806903A21F9607C1005BA062 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		806903A51F9607C1005BA062 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		806903A71F9607C1005BA062 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		80C3F5D91F99308C00F5D3E3 /* NewsDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailController.swift; sourceTree = "<group>"; };
+		80C3F5E11F993B0700F5D3E3 /* CameraReviewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraReviewsController.swift; sourceTree = "<group>"; };
+		80C3F5E31F993C5200F5D3E3 /* LensReviewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LensReviewsController.swift; sourceTree = "<group>"; };
+		80C3F5E71F9942BD00F5D3E3 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		80C3F5E91F9942C600F5D3E3 /* Lens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lens.swift; sourceTree = "<group>"; };
+		80C3F5EB1F9942CD00F5D3E3 /* Mobile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mobile.swift; sourceTree = "<group>"; };
+		80C3F5EF1F99441600F5D3E3 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		80C3F5F31F9951CC00F5D3E3 /* CameraDataBaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDataBaseController.swift; sourceTree = "<group>"; };
+		80C3F5F51F99556E00F5D3E3 /* cameraDataBase.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = cameraDataBase.json; sourceTree = "<group>"; };
+		80C3F5F71F99563200F5D3E3 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
+		80DAAC6E1F996C58003648BF /* lensDataBase.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lensDataBase.json; sourceTree = "<group>"; };
+		80DAAC701F996FAB003648BF /* DataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
 		D581D841187F3A1593E1BC5D /* Pods-DXOSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DXOSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DXOSwift/Pods-DXOSwift.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				801D6B281F97691400CEAE64 /* NewsController.swift */,
+				80C3F5D91F99308C00F5D3E3 /* NewsDetailController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -128,6 +153,8 @@
 			children = (
 				801D6B2C1F976BF900CEAE64 /* newsSample.html */,
 				801D6B2D1F976C3500CEAE64 /* mainPageSample.html */,
+				80C3F5F51F99556E00F5D3E3 /* cameraDataBase.json */,
+				80DAAC6E1F996C58003648BF /* lensDataBase.json */,
 			);
 			path = HTMLSample;
 			sourceTree = "<group>";
@@ -137,6 +164,8 @@
 			children = (
 				801D6B261F9768B000CEAE64 /* MainTabBarController.swift */,
 				801D6B221F97686900CEAE64 /* News */,
+				80C3F5DE1F993AF800F5D3E3 /* Camera */,
+				80C3F5DB1F993AF800F5D3E3 /* Lens */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -145,6 +174,10 @@
 			isa = PBXGroup;
 			children = (
 				8057866D1F961DEB006D2B3C /* Review.swift */,
+				80C3F5E71F9942BD00F5D3E3 /* Camera.swift */,
+				80C3F5E91F9942C600F5D3E3 /* Lens.swift */,
+				80C3F5EB1F9942CD00F5D3E3 /* Mobile.swift */,
+				80C3F5EF1F99441600F5D3E3 /* Device.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -173,6 +206,7 @@
 				805786711F963797006D2B3C /* StringExtension.swift */,
 				8031A72A1F98FB1600010540 /* ArrayExtension.swift */,
 				8031A72C1F99054C00010540 /* UIColorExtension.swift */,
+				80DAAC701F996FAB003648BF /* DataExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -226,6 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				8069039B1F9607C1005BA062 /* AppDelegate.swift */,
+				80C3F5F61F99562100F5D3E3 /* Manager */,
 				801D6B2A1F976BEB00CEAE64 /* Resource */,
 				805786731F967831006D2B3C /* Common */,
 				805786701F9626D8006D2B3C /* Extension */,
@@ -238,6 +273,63 @@
 				806903A71F9607C1005BA062 /* Info.plist */,
 			);
 			path = DXOSwift;
+			sourceTree = "<group>";
+		};
+		80C3F5DB1F993AF800F5D3E3 /* Lens */ = {
+			isa = PBXGroup;
+			children = (
+				80C3F5DC1F993AF800F5D3E3 /* Controller */,
+				80C3F5DD1F993AF800F5D3E3 /* View */,
+			);
+			path = Lens;
+			sourceTree = "<group>";
+		};
+		80C3F5DC1F993AF800F5D3E3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				80C3F5E31F993C5200F5D3E3 /* LensReviewsController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		80C3F5DD1F993AF800F5D3E3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		80C3F5DE1F993AF800F5D3E3 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				80C3F5DF1F993AF800F5D3E3 /* Controller */,
+				80C3F5E01F993AF800F5D3E3 /* View */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		80C3F5DF1F993AF800F5D3E3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				80C3F5E11F993B0700F5D3E3 /* CameraReviewsController.swift */,
+				80C3F5F31F9951CC00F5D3E3 /* CameraDataBaseController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		80C3F5E01F993AF800F5D3E3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		80C3F5F61F99562100F5D3E3 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				80C3F5F71F99563200F5D3E3 /* CameraManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,9 +395,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				806903A61F9607C1005BA062 /* LaunchScreen.storyboard in Resources */,
+				80DAAC721F9972F0003648BF /* cameraDataBase.json in Resources */,
 				801D6B2E1F976DC400CEAE64 /* newsSample.html in Resources */,
 				801D6B2F1F976DC600CEAE64 /* mainPageSample.html in Resources */,
 				806903A31F9607C1005BA062 /* Assets.xcassets in Resources */,
+				80DAAC6F1F996EAC003648BF /* lensDataBase.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +438,7 @@
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/StatefulViewController/StatefulViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/UITableView+FDTemplateLayoutCell/UITableView_FDTemplateLayoutCell.framework",
 				"${BUILT_PRODUCTS_DIR}/XCGLogger/XCGLogger.framework",
@@ -361,6 +456,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StatefulViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITableView_FDTemplateLayoutCell.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCGLogger.framework",
@@ -396,15 +492,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80C3F5F41F9951CC00F5D3E3 /* CameraDataBaseController.swift in Sources */,
+				80C3F5E81F9942BD00F5D3E3 /* Camera.swift in Sources */,
 				8031A72D1F99054C00010540 /* UIColorExtension.swift in Sources */,
 				801D6B291F97691400CEAE64 /* NewsController.swift in Sources */,
 				8069039C1F9607C1005BA062 /* AppDelegate.swift in Sources */,
+				80C3F5DA1F99308C00F5D3E3 /* NewsDetailController.swift in Sources */,
 				800165591F98E2A30010F2BE /* ReviewBadgeView.swift in Sources */,
+				80DAAC711F996FAB003648BF /* DataExtension.swift in Sources */,
+				80C3F5E41F993C5200F5D3E3 /* LensReviewsController.swift in Sources */,
 				805786721F963797006D2B3C /* StringExtension.swift in Sources */,
 				801D6B271F9768B000CEAE64 /* MainTabBarController.swift in Sources */,
+				80C3F5EA1F9942C600F5D3E3 /* Lens.swift in Sources */,
 				801D6B201F97645900CEAE64 /* RXBlankTableViewCell.swift in Sources */,
 				805786651F960A92006D2B3C /* DXOService.swift in Sources */,
+				80C3F5E21F993B0700F5D3E3 /* CameraReviewsController.swift in Sources */,
+				80C3F5F81F99563200F5D3E3 /* CameraManager.swift in Sources */,
 				8057866B1F960CEF006D2B3C /* Log.swift in Sources */,
+				80C3F5EC1F9942CD00F5D3E3 /* Mobile.swift in Sources */,
+				80C3F5F01F99441600F5D3E3 /* Device.swift in Sources */,
 				801D6B1F1F97645600CEAE64 /* RXViewController.swift in Sources */,
 				800165551F98E2090010F2BE /* NewsTableViewCell.swift in Sources */,
 				8057866C1F960CEF006D2B3C /* Misc.swift in Sources */,
