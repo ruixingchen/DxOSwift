@@ -8,7 +8,6 @@
 
 import Foundation
 import SwiftyJSON
-import FMDB
 
 /// manage the camera data base, may use sql to store the data, but for now time we only store it in ram
 class CameraManager {
@@ -28,155 +27,14 @@ class CameraManager {
 
     static let shared:CameraManager = CameraManager()
 
-    private init(){
-        //create Table
-        /*
-        do {
-            let createTableString:String = """
-CREATE TABLE "\(tableName)" (
-    "id" INTEGER PRIMARY KEY,
-    "price" INTEGER,
-    "year" TEXT,
-    "brand" TEXT,
-    "rankDxo" INTEGER,
-    "rankColor" REAL,
-    "rankDyn" REAL,
-    "rankLln" INTEGER,
-    "rankDxo_ranking" INTEGER,
-    "rankColor_ranking" INTEGER,
-    "rankDyn_ranking" INTEGER,
-    "rankLln_ranking" INTEGER,
-    "name" TEXT,
-    "pixelDepth" REAL,
-    "sensor" TEXT,
-    "type" TEXT,
-    "status" TEXT,
-    "launchDate" TEXT,
-    "launchDateGraph" TEXT,
-    "sensorraw" REAL,
-    "link" TEXT,
-    "chapo" TEXT,
-    "linkReview" TEXT,
-    "maximum_iso" INTEGER,
-    "raw_format" TEXT,
-    "autofocus" TEXT,
-    "resolutionvideo" INTEGER,
-    "flash" TEXT,
-    "video" TEXT,
-    "waterproof" TEXT,
-"image" TEXT
-);
-"""
-            try DataBaseManager.shared.mainDB.executeUpdate(createTableString, values: [])
-        }catch {
-            log.error("create camera table failed, error: \(error)")
-        }
- */
-    }
-    /*
-    /// reload all the data base, rewrite the DB if there is right data, or do nothing
-    func reloadDataBase(jsonObject:JSON){
-        yearMax = jsonObject["year"]["max"].int ?? yearMax
-        yearMin = jsonObject["year"]["min"].int ?? yearMin
-        priceMax = jsonObject["price"]["max"].double ?? priceMax
-        priceMin = jsonObject["price"]["min"].double ?? priceMin
-        dxoScoreMax = jsonObject["rankDxo"]["max"].int ?? dxoScoreMax
-        dxoScoreMin = jsonObject["rankDxo"]["min"].int ?? dxoScoreMin
-        dynamicRangeMax = jsonObject["rankDyn"]["max"].double ?? dynamicRangeMax
-        dynamicRangeMin = jsonObject["rankDyn"]["min"].double ?? dynamicRangeMin
-        LlnMax = jsonObject["rankLln"]["max"].int ?? LlnMax
-        LlnMin = jsonObject["rankLln"]["min"].int ?? LlnMin
-        colorMax = jsonObject["rankColor"]["max"].int ?? colorMax
-        colorMin = jsonObject["rankColor"]["min"].int ?? colorMin
+    var testedCamera:[Camera] = []
+    var reviewCamera:[Camera] = []
 
-        var cameraArray:[Camera] = []
-        for cameraJson in jsonObject["data"].arrayValue {
-            cameraArray.append(Camera(fromJson: cameraJson))
-        }
-
-        //reload sql
-        let queue = FMDatabaseQueue(path: DataBaseManager.shared.dbPath)
-        queue.inTransaction { (db, rollback) in
-            do {
-                try db.executeUpdate("DELETE FROM \(tableName)", values: [])
-                let insertString:String = """
-                INSERT INTO \(tableName) (
-                id,
-                price,
-                year,
-                brand,
-                rankDxo,
-                rankColor,
-                rankDyn,
-                rankLln,
-                rankDxo_ranking,
-                rankColor_ranking,
-                rankDyn_ranking,
-                rankLln_ranking,
-                name,
-                pixelDepth,
-                sensor,
-                type,
-                status,
-                launchDate,
-                launchDateGraph,
-                sensorraw,
-                link,
-                chapo,
-                linkReview,
-                maximum_iso,
-                raw_format,
-                autofocus,
-                resolutionvideo,
-                flash,
-                video,
-                waterproof,
-                image
-                )
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
-                """
-                for camera in cameraArray {
-                    try db.executeUpdate(insertString, values: [
-                        camera.id,
-                        camera.price,
-                        camera.year,
-                        camera.brand,
-                        camera.rankDxo,
-                        camera.rankColor,
-                        camera.rankDyn,
-                        camera.rankLln,
-                        camera.rankDxoRanking,
-                        camera.rankColorRanking,
-                        camera.rankDynRanking,
-                        camera.rankLlnRanking,
-                        camera.name,
-                        camera.pixelDepth,
-                        camera.sensor,
-                        camera.type,
-                        camera.status,
-                        camera.launchDate,
-                        camera.launchDateGraph,
-                        camera.sensorraw,
-                        camera.link,
-                        camera.chapo,
-                        camera.linkReview,
-                        camera.maximumIso,
-                        camera.rawFormat,
-                        camera.autofocus,
-                        camera.resolutionvideo,
-                        camera.flash,
-                        camera.video,
-                        camera.waterproof,
-                        camera.image
-                        ])
-                }
-            } catch {
-                log.error("reload camera DB failed, error:\(error)")
-                rollback.pointee = true
-            }
-        }
+    var testedCameraReady:Bool {
+        return testedCamera.count != 0
     }
- */
+
+    private init(){}
 
     func reloadTestedCamera(jsonObject:JSON){
         yearMax = jsonObject["year"]["max"].int ?? yearMax
@@ -192,14 +50,23 @@ CREATE TABLE "\(tableName)" (
         colorMax = jsonObject["rankColor"]["max"].int ?? colorMax
         colorMin = jsonObject["rankColor"]["min"].int ?? colorMin
 
+        let formatter:DateFormatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+
         var cameraArray:[Camera] = []
         for cameraJson in jsonObject["data"].arrayValue {
-            cameraArray.append(Camera(fromJson: cameraJson))
+            let camera:Camera = Camera(fromJson: cameraJson)
+            camera.launchTime = formatter.date(from: camera.launchDateGraph)?.timeIntervalSince1970 ?? 0
+            cameraArray.append(camera)
         }
         log.verbose("test camera ")
+        self.testedCamera = cameraArray.sorted(by: { (p1, p2) -> Bool in
+            return p1.launchTime > p2.launchTime
+        })
     }
 
-    
-    
+}
 
+extension CameraManager {
+    
 }

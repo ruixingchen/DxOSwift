@@ -19,6 +19,7 @@
 		801D6B2F1F976DC600CEAE64 /* mainPageSample.html in Resources */ = {isa = PBXBuildFile; fileRef = 801D6B2D1F976C3500CEAE64 /* mainPageSample.html */; };
 		8031A72B1F98FB1600010540 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8031A72A1F98FB1600010540 /* ArrayExtension.swift */; };
 		8031A72D1F99054C00010540 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8031A72C1F99054C00010540 /* UIColorExtension.swift */; };
+		8041B6A61F9C6B890087938C /* CameraDataBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8041B6A51F9C6B890087938C /* CameraDataBaseController.swift */; };
 		804AC1AB1F99B1C4006A052E /* CameraDataBaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804AC1AA1F99B1C4006A052E /* CameraDataBaseTableViewCell.swift */; };
 		805786651F960A92006D2B3C /* DXOService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805786641F960A92006D2B3C /* DXOService.swift */; };
 		8057866B1F960CEF006D2B3C /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805786681F960CEA006D2B3C /* Log.swift */; };
@@ -29,19 +30,20 @@
 		8069039C1F9607C1005BA062 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8069039B1F9607C1005BA062 /* AppDelegate.swift */; };
 		806903A31F9607C1005BA062 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806903A21F9607C1005BA062 /* Assets.xcassets */; };
 		806903A61F9607C1005BA062 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 806903A41F9607C1005BA062 /* LaunchScreen.storyboard */; };
+		808F54C21F9C4A1E00F0A2C4 /* DeviceDataBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808F54C11F9C4A1E00F0A2C4 /* DeviceDataBaseController.swift */; };
 		80BD2FF31F998F7D00396B45 /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BD2FF21F998F7D00396B45 /* DataBaseManager.swift */; };
 		80C3F5DA1F99308C00F5D3E3 /* NewsDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5D91F99308C00F5D3E3 /* NewsDetailController.swift */; };
-		80C3F5E21F993B0700F5D3E3 /* CameraReviewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5E11F993B0700F5D3E3 /* CameraReviewsController.swift */; };
-		80C3F5E41F993C5200F5D3E3 /* LensReviewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5E31F993C5200F5D3E3 /* LensReviewsController.swift */; };
+		80C3F5E21F993B0700F5D3E3 /* CameraReviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5E11F993B0700F5D3E3 /* CameraReviewController.swift */; };
+		80C3F5E41F993C5200F5D3E3 /* LensReviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5E31F993C5200F5D3E3 /* LensReviewController.swift */; };
 		80C3F5E81F9942BD00F5D3E3 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5E71F9942BD00F5D3E3 /* Camera.swift */; };
 		80C3F5EA1F9942C600F5D3E3 /* Lens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5E91F9942C600F5D3E3 /* Lens.swift */; };
 		80C3F5EC1F9942CD00F5D3E3 /* Mobile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5EB1F9942CD00F5D3E3 /* Mobile.swift */; };
 		80C3F5F01F99441600F5D3E3 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5EF1F99441600F5D3E3 /* Device.swift */; };
-		80C3F5F41F9951CC00F5D3E3 /* CameraDataBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5F31F9951CC00F5D3E3 /* CameraDataBaseController.swift */; };
 		80C3F5F81F99563200F5D3E3 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5F71F99563200F5D3E3 /* CameraManager.swift */; };
-		80DAAC6F1F996EAC003648BF /* lensDataBase.json in Resources */ = {isa = PBXBuildFile; fileRef = 80DAAC6E1F996C58003648BF /* lensDataBase.json */; };
+		80DAAC6F1F996EAC003648BF /* testedLens.json in Resources */ = {isa = PBXBuildFile; fileRef = 80DAAC6E1F996C58003648BF /* testedLens.json */; };
 		80DAAC711F996FAB003648BF /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DAAC701F996FAB003648BF /* DataExtension.swift */; };
-		80DAAC721F9972F0003648BF /* cameraDataBase.json in Resources */ = {isa = PBXBuildFile; fileRef = 80C3F5F51F99556E00F5D3E3 /* cameraDataBase.json */; };
+		80DAAC721F9972F0003648BF /* testedCamera.json in Resources */ = {isa = PBXBuildFile; fileRef = 80C3F5F51F99556E00F5D3E3 /* testedCamera.json */; };
+		80E689481F9BFB3200577D41 /* MoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E689471F9BFB3200577D41 /* MoreController.swift */; };
 		F09CA3A31F057DBCA09A2991 /* Pods_DXOSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A741648CA6650E4F914EA2E /* Pods_DXOSwift.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +65,7 @@
 		8033C1651F9A6A2300892286 /* Test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Test.storyboard; sourceTree = "<group>"; };
 		8033C1661F9A6A5800892286 /* TestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewCell.swift; sourceTree = "<group>"; };
 		8033C1671F9A6A5800892286 /* TestTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestTableViewCell.xib; sourceTree = "<group>"; };
+		8041B6A51F9C6B890087938C /* CameraDataBaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDataBaseController.swift; sourceTree = "<group>"; };
 		804AC1AA1F99B1C4006A052E /* CameraDataBaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDataBaseTableViewCell.swift; sourceTree = "<group>"; };
 		805786641F960A92006D2B3C /* DXOService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DXOService.swift; sourceTree = "<group>"; };
 		805786671F960CEA006D2B3C /* RXError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RXError.swift; sourceTree = "<group>"; };
@@ -75,19 +78,20 @@
 		806903A21F9607C1005BA062 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		806903A51F9607C1005BA062 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		806903A71F9607C1005BA062 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		808F54C11F9C4A1E00F0A2C4 /* DeviceDataBaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDataBaseController.swift; sourceTree = "<group>"; };
 		80BD2FF21F998F7D00396B45 /* DataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
 		80C3F5D91F99308C00F5D3E3 /* NewsDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailController.swift; sourceTree = "<group>"; };
-		80C3F5E11F993B0700F5D3E3 /* CameraReviewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraReviewsController.swift; sourceTree = "<group>"; };
-		80C3F5E31F993C5200F5D3E3 /* LensReviewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LensReviewsController.swift; sourceTree = "<group>"; };
+		80C3F5E11F993B0700F5D3E3 /* CameraReviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraReviewController.swift; sourceTree = "<group>"; };
+		80C3F5E31F993C5200F5D3E3 /* LensReviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LensReviewController.swift; sourceTree = "<group>"; };
 		80C3F5E71F9942BD00F5D3E3 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		80C3F5E91F9942C600F5D3E3 /* Lens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lens.swift; sourceTree = "<group>"; };
 		80C3F5EB1F9942CD00F5D3E3 /* Mobile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mobile.swift; sourceTree = "<group>"; };
 		80C3F5EF1F99441600F5D3E3 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
-		80C3F5F31F9951CC00F5D3E3 /* CameraDataBaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDataBaseController.swift; sourceTree = "<group>"; };
-		80C3F5F51F99556E00F5D3E3 /* cameraDataBase.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = cameraDataBase.json; sourceTree = "<group>"; };
+		80C3F5F51F99556E00F5D3E3 /* testedCamera.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testedCamera.json; sourceTree = "<group>"; };
 		80C3F5F71F99563200F5D3E3 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
-		80DAAC6E1F996C58003648BF /* lensDataBase.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lensDataBase.json; sourceTree = "<group>"; };
+		80DAAC6E1F996C58003648BF /* testedLens.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testedLens.json; sourceTree = "<group>"; };
 		80DAAC701F996FAB003648BF /* DataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
+		80E689471F9BFB3200577D41 /* MoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreController.swift; sourceTree = "<group>"; };
 		D581D841187F3A1593E1BC5D /* Pods-DXOSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DXOSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DXOSwift/Pods-DXOSwift.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,8 +167,8 @@
 			children = (
 				801D6B2C1F976BF900CEAE64 /* newsSample.html */,
 				801D6B2D1F976C3500CEAE64 /* mainPageSample.html */,
-				80C3F5F51F99556E00F5D3E3 /* cameraDataBase.json */,
-				80DAAC6E1F996C58003648BF /* lensDataBase.json */,
+				80C3F5F51F99556E00F5D3E3 /* testedCamera.json */,
+				80DAAC6E1F996C58003648BF /* testedLens.json */,
 			);
 			path = HTMLSample;
 			sourceTree = "<group>";
@@ -176,6 +180,7 @@
 				801D6B221F97686900CEAE64 /* News */,
 				80C3F5DE1F993AF800F5D3E3 /* Camera */,
 				80C3F5DB1F993AF800F5D3E3 /* Lens */,
+				80E689441F9BFB2500577D41 /* More */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -297,7 +302,7 @@
 		80C3F5DC1F993AF800F5D3E3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				80C3F5E31F993C5200F5D3E3 /* LensReviewsController.swift */,
+				80C3F5E31F993C5200F5D3E3 /* LensReviewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -321,8 +326,9 @@
 		80C3F5DF1F993AF800F5D3E3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				80C3F5E11F993B0700F5D3E3 /* CameraReviewsController.swift */,
-				80C3F5F31F9951CC00F5D3E3 /* CameraDataBaseController.swift */,
+				80C3F5E11F993B0700F5D3E3 /* CameraReviewController.swift */,
+				808F54C11F9C4A1E00F0A2C4 /* DeviceDataBaseController.swift */,
+				8041B6A51F9C6B890087938C /* CameraDataBaseController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -342,6 +348,30 @@
 				80BD2FF21F998F7D00396B45 /* DataBaseManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		80E689441F9BFB2500577D41 /* More */ = {
+			isa = PBXGroup;
+			children = (
+				80E689451F9BFB2500577D41 /* Controller */,
+				80E689461F9BFB2500577D41 /* View */,
+			);
+			path = More;
+			sourceTree = "<group>";
+		};
+		80E689451F9BFB2500577D41 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				80E689471F9BFB3200577D41 /* MoreController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		80E689461F9BFB2500577D41 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -407,11 +437,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				806903A61F9607C1005BA062 /* LaunchScreen.storyboard in Resources */,
-				80DAAC721F9972F0003648BF /* cameraDataBase.json in Resources */,
+				80DAAC721F9972F0003648BF /* testedCamera.json in Resources */,
 				801D6B2E1F976DC400CEAE64 /* newsSample.html in Resources */,
 				801D6B2F1F976DC600CEAE64 /* mainPageSample.html in Resources */,
 				806903A31F9607C1005BA062 /* Assets.xcassets in Resources */,
-				80DAAC6F1F996EAC003648BF /* lensDataBase.json in Resources */,
+				80DAAC6F1F996EAC003648BF /* testedLens.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,22 +534,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80C3F5F41F9951CC00F5D3E3 /* CameraDataBaseController.swift in Sources */,
 				80C3F5E81F9942BD00F5D3E3 /* Camera.swift in Sources */,
 				8031A72D1F99054C00010540 /* UIColorExtension.swift in Sources */,
 				801D6B291F97691400CEAE64 /* NewsController.swift in Sources */,
 				80BD2FF31F998F7D00396B45 /* DataBaseManager.swift in Sources */,
 				8069039C1F9607C1005BA062 /* AppDelegate.swift in Sources */,
 				80C3F5DA1F99308C00F5D3E3 /* NewsDetailController.swift in Sources */,
+				808F54C21F9C4A1E00F0A2C4 /* DeviceDataBaseController.swift in Sources */,
 				800165591F98E2A30010F2BE /* ReviewBadgeView.swift in Sources */,
 				80DAAC711F996FAB003648BF /* DataExtension.swift in Sources */,
-				80C3F5E41F993C5200F5D3E3 /* LensReviewsController.swift in Sources */,
+				80C3F5E41F993C5200F5D3E3 /* LensReviewController.swift in Sources */,
+				80E689481F9BFB3200577D41 /* MoreController.swift in Sources */,
 				805786721F963797006D2B3C /* StringExtension.swift in Sources */,
 				801D6B271F9768B000CEAE64 /* MainTabBarController.swift in Sources */,
 				80C3F5EA1F9942C600F5D3E3 /* Lens.swift in Sources */,
 				801D6B201F97645900CEAE64 /* RXBlankTableViewCell.swift in Sources */,
 				805786651F960A92006D2B3C /* DXOService.swift in Sources */,
-				80C3F5E21F993B0700F5D3E3 /* CameraReviewsController.swift in Sources */,
+				80C3F5E21F993B0700F5D3E3 /* CameraReviewController.swift in Sources */,
 				80C3F5F81F99563200F5D3E3 /* CameraManager.swift in Sources */,
 				804AC1AB1F99B1C4006A052E /* CameraDataBaseTableViewCell.swift in Sources */,
 				8057866B1F960CEF006D2B3C /* Log.swift in Sources */,
@@ -530,6 +561,7 @@
 				8057866C1F960CEF006D2B3C /* Misc.swift in Sources */,
 				8031A72B1F98FB1600010540 /* ArrayExtension.swift in Sources */,
 				8057866F1F961FAB006D2B3C /* RXError.swift in Sources */,
+				8041B6A61F9C6B890087938C /* CameraDataBaseController.swift in Sources */,
 				801D6B211F97645900CEAE64 /* RXTableViewCell.swift in Sources */,
 				8057866E1F961DEB006D2B3C /* Review.swift in Sources */,
 				801D6B1E1F97645600CEAE64 /* RXTableViewController.swift in Sources */,
@@ -669,7 +701,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruixingchenlife.DXOSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -685,7 +717,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruixingchenlife.DXOSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

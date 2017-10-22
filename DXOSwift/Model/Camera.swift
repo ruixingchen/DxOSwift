@@ -43,6 +43,8 @@ class Camera: Device {
     var waterproof : String!
     var year : String!
 
+    var launchTime:TimeInterval = 0
+
     init(fromJson json: JSON){
         if json.isEmpty{
             return
@@ -62,23 +64,11 @@ class Camera: Device {
         launchDateGraph = json["launchDateGraph"].stringValue
         link = json["link"].stringValue
         if !(link?.isEmpty ?? true) {
-            if !link!.hasPrefix("http") {
-                if link!.hasPrefix("/"){
-                    link = "https://www.dxomark.com".appending(link!)
-                }else{
-                    link = "https://www.dxomark.com/".appending(link!)
-                }
-            }
+            link = DXOService.cpmpleteURLWithPath(path: link)
         }
         linkReview = json["linkReview"].stringValue
         if !(linkReview?.isEmpty ?? true) {
-            if !linkReview!.hasPrefix("http") {
-                if linkReview!.hasPrefix("/"){
-                    linkReview = "https://www.dxomark.com".appending(linkReview!)
-                }else{
-                    linkReview = "https://www.dxomark.com/".appending(linkReview!)
-                }
-            }
+            linkReview = DXOService.cpmpleteURLWithPath(path: linkReview)
         }
         maximumIso = json["maximum_iso"].intValue
         name = json["name"].stringValue
@@ -120,7 +110,7 @@ extension Camera {
         case apsh = "sensor_apsh"
         case fullFrame = "sensor_fullframe"
         case mediumFormat = "sensor_medium"
-        case unknow = ""
+        case unknow
     }
 
     enum Brand: String {
@@ -146,6 +136,7 @@ extension Camera {
         case dji = "DJI"
         case gopro = "GoPro"
         case yuneec = "YUNEEC"
+        case unknown
     }
 
     enum CameraType: String {
@@ -164,5 +155,6 @@ extension Camera {
         case drone = "drone"
         case smartPhone = "smartphone"
         case actionCamera = "actioncamera"
+        case unknown
     }
 }

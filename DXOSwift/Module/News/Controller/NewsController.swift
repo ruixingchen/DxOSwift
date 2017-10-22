@@ -229,7 +229,7 @@ class NewsController: RXTableViewController, SDCycleScrollViewDelegate {
         }
         if review.targetUrl.hasSuffix("www.dxomark.com/Cameras/") || review.targetUrl.hasSuffix("www.dxomark.com/Cameras") {
             //go to camera DB
-            let camerasDataBaseController:CameraDataBaseController = CameraDataBaseController()
+            let camerasDataBaseController:DeviceDataBaseController = DeviceDataBaseController(deviceType: DeviceDataBaseController.DeviceType.camera)
             self.navigationController?.pushViewController(camerasDataBaseController, animated: true)
         }else if review.targetUrl.hasSuffix("www.dxomark.com/Lenses/") || review.targetUrl.hasSuffix("www.dxomark.com/Lenses") {
             //go to lenses DB

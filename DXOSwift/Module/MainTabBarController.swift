@@ -21,9 +21,24 @@ class MainTabBarController: UITabBarController {
     }
 
     private func initViewControllers(){
+        var viewControllers:[UINavigationController] = []
+
         let newsNav:UINavigationController = UINavigationController(rootViewController: NewsController())
         newsNav.title = "DXO"
-        let viewControllers:[UINavigationController] = [newsNav]
+        viewControllers.append(newsNav)
+
+        let cameraNav:UINavigationController = UINavigationController(rootViewController: CameraReviewController())
+        cameraNav.title = "Camera"
+        viewControllers.append(cameraNav)
+
+        let lensNav:UINavigationController = UINavigationController(rootViewController: LensReviewController())
+        lensNav.title = "Lens"
+        viewControllers.append(lensNav)
+
+        let moreNav:UINavigationController = UINavigationController(rootViewController: MoreController())
+        moreNav.title = "More"
+        viewControllers.append(moreNav)
+
         for i in viewControllers {
             i.navigationBar.isTranslucent = false
             i.navigationBar.barTintColor = UIColor.dxoBlue

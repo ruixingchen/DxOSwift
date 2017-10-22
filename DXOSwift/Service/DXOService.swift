@@ -34,8 +34,8 @@ class DXOService {
         static let fakeMainPage:Bool = false
         static let fakeMainPageFile:String = "mainPageSample.html"
 
-        static let fakeCameraDataBase:Bool = false
-        static let fakeCameraDataBaseFile:String = "cameraDataBase.json"
+        static let fakeTestedCamera:Bool = true
+        static let fakeTestedCameraFile:String = "testedCamera.json"
     }
 
     /// the basic request
@@ -278,7 +278,7 @@ class DXOService {
         }
     }
 
-    class func cameraTested(completion:((RXError?)->Void)?){
+    class func testedCamera(completion:((RXError?)->Void)?){
         let handleClosure:(Data?, ServiceError?)->Void = { (inData, inError) in
             var outError:RXError?
             var outObject:[Camera]?
@@ -298,13 +298,13 @@ class DXOService {
                 return
             }
             let json:JSON = JSON.init(data: inData!)
-            CameraManager.shared.reloadDataBase(jsonObject: json)
+            CameraManager.shared.reloadTestedCamera(jsonObject: json)
         }
 
         #if DEBUG
-            if Define.fakeCameraDataBase {
+            if Define.fakeTestedCamera {
                 DispatchQueue.global().async {
-                    let data = Data(forResource: Define.fakeCameraDataBaseFile)!
+                    let data = Data(forResource: Define.fakeTestedCameraFile)!
                     handleClosure(data, nil)
                 }
                 return
@@ -318,6 +318,19 @@ class DXOService {
         }
     }
 
+}
 
+extension DXOService {
+
+    class func cpmpleteURLWithPath(path:String)->String {
+        if path.hasPrefix("http") {
+            return path
+        }
+        if path.hasPrefix("/"){
+            return "https://www.dxomark.com".appending(path)
+        }else{
+            return "https://www.dxomark.com/".appending(path)
+        }
+    }
 
 }
