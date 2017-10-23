@@ -26,7 +26,11 @@ class NewsController: RXTableViewController, SDCycleScrollViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "DXO"
+        self.navigationController?.tabBarItem = UITabBarItem(title: "DXO", image: nil, tag: 1000)
         setupSubviews()
+        self.tableView.refreshControl?.beginRefreshing()
+        headerRefreshAction()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -43,11 +47,6 @@ class NewsController: RXTableViewController, SDCycleScrollViewDelegate {
 
     }
 
-    override func firstViewDidAppear(_ animated: Bool) {
-        super.firstViewDidAppear(animated)
-        headerRefreshAction()
-    }
-
     override func setupTableView() {
         super.setupTableView()
         tableView.tableFooterView = UIView()
@@ -61,6 +60,11 @@ class NewsController: RXTableViewController, SDCycleScrollViewDelegate {
         self.navigationItem.rightBarButtonItem = searchButton
         let imageView:UIImageView = UIImageView(image: UIImage(named: "dxo_logo"))
 //        self.navigationItem.titleView = imageView
+
+        let rc:UIRefreshControl = UIRefreshControl()
+        rc.addTarget(self, action: #selector(self.headerRefreshAction), for: UIControlEvents.valueChanged)
+        self.tableView.refreshControl = rc
+
     }
 
     //MARK: - Action
@@ -94,7 +98,7 @@ class NewsController: RXTableViewController, SDCycleScrollViewDelegate {
                 }
                 DispatchQueue.main.async {
                     self?.tableView.refreshControl?.endRefreshing()
-                    try? self?.view.toastViewForMessage("please try again", title: "Failed", image: nil, style: ToastStyle.init())
+                    self?.view.makeToast("request failed, pull to refresh again", duration: 3, position: self!.view.center)
                 }
                 return
             }else if self == nil {
@@ -150,8 +154,8 @@ class NewsController: RXTableViewController, SDCycleScrollViewDelegate {
                     log.debug("news unknown error")
                 }
                 DispatchQueue.main.async {
-                    try? self?.view.toastViewForMessage("please try again", title: "Failed", image: nil, style: ToastStyle.init())
                     self?.tableView.mj_footer?.endRefreshing()
+                    self?.view.makeToast("request failed", duration: 3, position: self!.view.center)
                 }
                 return
             }else if self == nil {

@@ -26,6 +26,12 @@ enum ServiceError:Error {
 class DXOService {
 
     struct Define {
+        #if DEBUG || debug
+            static let commonTimeoutInterval:Double = 5
+        #else
+            static let commonTimeoutInterval:Double = 30
+        #endif
+
         static let logRequestDetail:Bool = false
 
         static let fakeNews:Bool = false
@@ -34,11 +40,12 @@ class DXOService {
         static let fakeMainPage:Bool = false
         static let fakeMainPageFile:String = "mainPageSample.html"
 
-        static let fakeCameraReview:Bool = false
-        static let fakeCameraReviewFile:String = ""
-
         static let fakeTestedCamera:Bool = true
         static let fakeTestedCameraFile:String = "testedCamera.json"
+    }
+
+    class func commonURLRequest(url:URL)->URLRequest{
+        return URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: Define.commonTimeoutInterval)
     }
 
     /// the basic request
@@ -181,7 +188,7 @@ class DXOService {
     }
 
     /// request for a review list, suitable for multi pages
-    class func commonReviewList(urlString:String, completion:(([Review]?, RXError?)->Void)?){
+    class func commonReviewList(request:URLRequest, completion:(([Review]?, RXError?)->Void)?){
         let handleClosure:(Data?, ServiceError?)->Void = { (inData, inError) in
             var outError:RXError?
             var outObject:[Review]?
@@ -210,19 +217,6 @@ class DXOService {
             log.verbose("extract reviews with \(reviews.count)")
             outObject = reviews
         }
-
-        #if DEBUG
-            if Define.fakeNews {
-                DispatchQueue.global().async {
-                    let data = Data(forResource: Define.fakeNewsFile)!
-                    handleClosure(data, nil)
-                }
-                return
-            }
-        #endif
-
-        let url:URL = URL(string: "https://www.dxomark.com/news/page/\(page)/")!
-        let request:URLRequest = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 30)
         serviceRequest(request: request) { (inData, inError) in
             handleClosure(inData, inError)
         }
@@ -274,7 +268,7 @@ class DXOService {
         #endif
 
         let url:URL = URL(string: "https://www.dxomark.com")!
-        let request:URLRequest = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 30)
+        let request:URLRequest = commonURLRequest(url: url)
         serviceRequest(request: request) { (inData, inError) in
             handleClosure(inData, inError)
         }
@@ -282,61 +276,40 @@ class DXOService {
 
     /// get the news, the first page is the same as main page
     class func news(page:Int, completion:(([Review]?, RXError?)->Void)?){
-
-        let handleClosure:(Data?, ServiceError?)->Void = { (inData, inError) in
-            var outError:RXError?
-            var outObject:[Review]?
-
-            defer {
-                if outError != nil {
-                    log.info("news request with error:\n\(outError!.description)")
-                }
-                completion?(outObject, outError)
-            }
-
-            if inError != nil {
-                outError = RXError(error: inError!, errorDescription: "in error is not nil")
-                return
-            }else if inData == nil {
-                outError = RXError(error: ServiceError.noResponse, errorDescription: "in data is nil")
-                return
-            }
-            //start to parse the HTML document
-            guard let htmlDocument:HTMLDocument = HTML(html: inData!, encoding: .utf8) else {
-                outError = RXError(error: ServiceError.badResponse, errorDescription: "bad html response")
-                return
-            }
-            //we only parse news here
-            let reviews:[Review] = extractReviewList(htmlDocument: htmlDocument)
-            log.verbose("extract reviews with \(reviews.count)")
-            outObject = reviews
-        }
-
-        #if DEBUG
-            if Define.fakeNews {
-                DispatchQueue.global().async {
-                    let data = Data(forResource: Define.fakeNewsFile)!
-                    handleClosure(data, nil)
-                }
-                return
-            }
-        #endif
-
         let url:URL = URL(string: "https://www.dxomark.com/news/page/\(page)/")!
-        let request:URLRequest = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 30)
-        serviceRequest(request: request) { (inData, inError) in
-            handleClosure(inData, inError)
+        let request:URLRequest = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: Define.commonTimeoutInterval)
+        commonReviewList(request: request) { (inObject, inError) in
+            completion?(inObject, inError)
         }
     }
 
     class func cameraReview(page:Int, completion:(([Review]?, RXError?)->Void)?) {
-        let handleClosure:(Data?, ServiceError?)->Void = { (inData, inError) in
+        let url:URL = URL(string: "https://www.dxomark.com/category/camera-reviews/page/\(page)/")!
+        let request:URLRequest = commonURLRequest(url: url)
+        commonReviewList(request: request) { (inObject, inError) in
+            completion?(inObject, inError)
+        }
+    }
+
+    class func mobileReview(page:Int, completion:(([Review]?, RXError?)->Void)?) {
+        let url:URL = URL(string: "https://www.dxomark.com/category/mobile-reviews/page/\(page)/")!
+        let request:URLRequest = commonURLRequest(url: url)
+        commonReviewList(request: request) { (inObject, inError) in
+            completion?(inObject, inError)
+        }
+    }
+
+    class func mobileChart(completion:(([Review]?, RXError?)->Void)?){
+        let url:URL = URL(string:"https://www.dxomark.com/category/mobile-reviews")!
+        let request:URLRequest = commonURLRequest(url: url)
+
+        serviceRequest(request: request) { (inData, inError) in
             var outError:RXError?
             var outObject:[Review]?
 
             defer {
                 if outError != nil {
-                    log.info("cameraReview request with error:\n\(outError!.description)")
+                    log.info("request with error:\n\(outError!.description)")
                 }
                 completion?(outObject, outError)
             }
@@ -353,25 +326,21 @@ class DXOService {
                 outError = RXError(error: ServiceError.badResponse, errorDescription: "bad html response")
                 return
             }
-            let reviews:[Review] = extractReviewList(htmlDocument: htmlDocument)
-            log.verbose("extract reviews with \(reviews.count)")
-            outObject = reviews
-        }
-
-        #if DEBUG
-            if Define.fakeCameraReview {
-                DispatchQueue.global().async {
-                    let data = Data(forResource: Define.fakeCameraReviewFile)!
-                    handleClosure(data, nil)
+            let nodes:XPathObject = htmlDocument.xpath("//div[@id='mobilesTopScoringTab']/div[contains(@class,'listElement')]")
+            var reviews:[Review] = []
+            for node in nodes {
+                let title:String = node.xpath(".//a").first?.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
+                let href:String = node.xpath(".//a/@href").first?.text ?? ""
+                let score:Int = node.xpath(".//div[@class='deviceScore']").first?.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).toInt() ?? 0
+                if title.isEmpty || href.isEmpty || score == 0 {
+                    log.info("parse mobile chart failed")
+                    continue
                 }
-                return
+                let review:Review = Review(title: title, url: href)
+                review.score = score
+                reviews.append(review)
             }
-        #endif
-
-        let url:URL = URL(string: "https://www.dxomark.com/category/camera-reviews/page/\(page)/")!
-        let request:URLRequest = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 30)
-        serviceRequest(request: request) { (inData, inError) in
-            handleClosure(inData, inError)
+            outObject = reviews
         }
     }
 
@@ -409,7 +378,7 @@ class DXOService {
         #endif
 
         let url:URL = URL(string: "https://www.dxomark.com/daksensor/ajax/jsontested")!
-        let request:URLRequest = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 30)
+        let request:URLRequest = commonURLRequest(url: url)
         serviceRequest(request: request) { (inData, inError) in
             handleClosure(inData, inError)
         }

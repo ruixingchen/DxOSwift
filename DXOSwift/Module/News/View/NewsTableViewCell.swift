@@ -39,7 +39,7 @@ class NewsTableViewCell: RXTableViewCell {
         abstractLabel.font = UIFont.systemFont(ofSize: 14)
         abstractLabel.textColor = UIColor.gray
         abstractLabel.textAlignment = .left
-        abstractLabel.numberOfLines = 0
+        abstractLabel.numberOfLines = 2
         self.contentView.addSubview(abstractLabel)
 
         setupAutoLayout()

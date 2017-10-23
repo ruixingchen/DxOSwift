@@ -1,8 +1,8 @@
 //
-//  CameraReviewController.swift
+//  MobileReviewController.swift
 //  DXOSwift
 //
-//  Created by ruixingchen on 20/10/2017.
+//  Created by ruixingchen on 23/10/2017.
 //  Copyright © 2017 ruixingchen. All rights reserved.
 //
 
@@ -10,17 +10,14 @@ import UIKit
 import MJRefresh
 import Toast_Swift
 
-class CameraReviewController: RXTableViewController {
+class MobileReviewController: RXTableViewController {
 
     var dataSource:NSMutableArray = NSMutableArray()
     var page:Int = 1
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Camera Review"
-        let tabBarItem:UITabBarItem = UITabBarItem(title: "Camera", image: nil, selectedImage: nil)
-        self.tabBarItem = tabBarItem
-        self.navigationController?.tabBarItem = tabBarItem
+        self.title = "Mobile Review"
         setupSubviews()
         self.tableView.refreshControl?.beginRefreshing()
         headerRefreshAction()
@@ -28,15 +25,17 @@ class CameraReviewController: RXTableViewController {
 
     override func setupTableView() {
         super.setupTableView()
+        let rc:UIRefreshControl = UIRefreshControl()
+        rc.addTarget(self, action: #selector(self.headerRefreshAction), for: UIControlEvents.valueChanged)
+        self.tableView.refreshControl = rc
+
         tableView.tableFooterView = UIView()
         tableView.estimatedRowHeight = 0
         tableView.rowHeight = 100
     }
 
     func setupSubviews(){
-        let rc:UIRefreshControl = UIRefreshControl()
-        rc.addTarget(self, action: #selector(self.headerRefreshAction), for: UIControlEvents.valueChanged)
-        self.tableView.refreshControl = rc
+
     }
 
     @objc func headerRefreshAction(){
@@ -44,7 +43,7 @@ class CameraReviewController: RXTableViewController {
     }
 
     func headerRefresh(){
-        DXOService.cameraReview(page: 1) {[weak self] (inObject, inError) in
+        DXOService.mobileReview(page: 1) {[weak self] (inObject, inError) in
             if inError != nil || inObject == nil {
                 DispatchQueue.main.async {
                     self?.tableView.refreshControl?.endRefreshing()
@@ -79,7 +78,7 @@ class CameraReviewController: RXTableViewController {
     }
 
     func footerRefresh(){
-        DXOService.cameraReview(page: page+1) {[weak self] (inReviews, inError) in
+        DXOService.mobileReview(page: page+1) {[weak self] (inReviews, inError) in
             if inError != nil || inReviews == nil {
                 if inError != nil {
                     log.debug("news with error: \(inError!.description)")
@@ -148,3 +147,4 @@ class CameraReviewController: RXTableViewController {
     }
 
 }
+

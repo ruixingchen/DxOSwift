@@ -12,7 +12,10 @@ class LensReviewController: RXTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Lens"
+        self.title = "Lens Review"
+        let tabBarItem:UITabBarItem = UITabBarItem(title: "Lens", image: nil, selectedImage: nil)
+        self.tabBarItem = tabBarItem
+        self.navigationController?.tabBarItem = tabBarItem
     }
 
 }
