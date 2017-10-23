@@ -51,10 +51,8 @@ class NewsController: RXTableViewController, SDCycleScrollViewDelegate {
     override func setupTableView() {
         super.setupTableView()
         tableView.tableFooterView = UIView()
-//        tableView.contentInsetAdjustmentBehavior = .always
         tableView.estimatedRowHeight = 0
         tableView.rowHeight = 100
-
     }
 
     func setupSubviews(){

@@ -88,9 +88,6 @@ extension DeviceDataBaseController {
 
         var listType:DeviceDataBaseController.LensConfig.ListType = DeviceDataBaseController.LensConfig.ListType.list
         var sortType:LensConfig.Sort = LensConfig.Sort.score
-
-
-
     }
 
     struct CameraConfig {
