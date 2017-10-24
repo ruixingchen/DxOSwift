@@ -107,13 +107,16 @@ class NewsController: GenericReviewListController, SDCycleScrollViewDelegate {
         DispatchQueue.main.async {
 
             if let inTopTopic = userInfo?["top"] as? [Review] {
+                if self.cycleScrollView == nil {
+                    self.cycleScrollView = SDCycleScrollView()
+                    self.cycleScrollView?.bannerImageViewContentMode = .scaleAspectFill
+                    self.cycleScrollView?.autoScrollTimeInterval = 3
+                    self.cycleScrollView?.titleLabelHeight = 60
+                    self.cycleScrollView?.delegate = self
+                }
                 self.topTopicDataSource = NSMutableArray(array: inTopTopic)
                 self.cycleScrollViewHeight = self.view.bounds.width/1.75
-                self.cycleScrollView = SDCycleScrollView()
-                self.cycleScrollView?.bannerImageViewContentMode = .scaleAspectFill
-                self.cycleScrollView?.autoScrollTimeInterval = 3
-                self.cycleScrollView?.titleLabelHeight = 60
-                self.cycleScrollView?.delegate = self
+
                 var imageArray:[String] = []
                 var titleArray:[String] = []
                 for i in inTopTopic {
@@ -162,17 +165,20 @@ class NewsController: GenericReviewListController, SDCycleScrollViewDelegate {
             log.error("can not get top topic for index \(index), data source count:\(self.topTopicDataSource.count)")
             return
         }
+        var nextController:UIViewController?
         if review.targetUrl.hasSuffix("www.dxomark.com/Cameras/") || review.targetUrl.hasSuffix("www.dxomark.com/Cameras") {
             //go to camera DB
-            let camerasDataBaseController:DeviceDataBaseController = DeviceDataBaseController(deviceType: DeviceDataBaseController.DeviceType.camera)
-            self.navigationController?.pushViewController(camerasDataBaseController, animated: true)
+            nextController = DeviceDataBaseController(deviceType: DeviceDataBaseController.DeviceType.camera)
         }else if review.targetUrl.hasSuffix("www.dxomark.com/Lenses/") || review.targetUrl.hasSuffix("www.dxomark.com/Lenses") {
             //go to lenses DB
         }else {
-            let detail:NewsDetailController = NewsDetailController(review: review)
-            detail.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(detail, animated: true)
+            nextController = NewsDetailController(review: review)
         }
+        if nextController == nil {
+            return
+        }
+        nextController?.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(nextController!, animated: true)
     }
 
 }

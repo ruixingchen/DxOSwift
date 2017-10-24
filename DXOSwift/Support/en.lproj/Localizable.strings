@@ -4,7 +4,43 @@
   Created by ruixingchen on 24/10/2017.
   Copyright © 2017 ruixingchen. All rights reserved. */
 
+"title_test" = "Test";
+
+"row_DXOSwift" = "ruixingchen/DXOSwift";
+
+"row_XCGLogger" = "XCGLogger";
+
+"row_SnapKit" = "SnapKit";
+
+"row_Kingfisher" = "Kingfisher";
+
+"row_Toast_Swift" = "Toast-Swift";
+
+"row_StatefulViewController" = "StatefulViewController";
+
+"row_Kanna" = "Kanna";
+
+"row_SwiftyJSON" = "SwiftyJSON";
+
+"row_GDPerformanceView_Swift" = "GDPerformanceView-Swift";
+
+"row_UITableView_FDTemplateLayoutCell" = "UITableView+FDTemplateLayoutCell";
+
+"row_FMDB" = "FMDB";
+
+"row_MJRefresh" = "MJRefresh";
+
+"row_SDCycleScrollView" = "SDCycleScrollView";
+
+"section_this_project" = "This Project";
+
+"section_other_project" = "Other Open-Source Components";
+
 "refresh_failed_try_again_later" = "Request Failed, Please Try Again Later";
+
+"thanks_open_source_thanks_github" = "Thanks Open-Source, Thanks GitHub";
+
+"your_star_the_best_motivation" = "Your Star Will Be The Best Motivation";
 
 "title_dxo" = "DXO";
 

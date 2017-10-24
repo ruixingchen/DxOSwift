@@ -84,32 +84,12 @@ class MoreController: RXTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let rowTitle:String = (self.rowTitles[indexPath.section] as! NSArray)[indexPath.row] as! String
-        var locolizedTitle:String!
-        switch rowTitle {
-        case Define.row_mobile_review:
-            locolizedTitle = "title_mobile_review".localized()
-        case Define.row_mobile_rank:
-            locolizedTitle = "title_mobile_chart".localized()
-        case Define.row_articles:
-            locolizedTitle = "title_articles".localized()
-        case Define.row_about:
-            locolizedTitle = "title_about".localized()
-        case Define.row_about_dxo:
-            locolizedTitle = "title_about_dxo".localized()
-        case Define.row_open_source:
-            locolizedTitle = "title_open_source".localized()
-        case Define.row_setting:
-            locolizedTitle = "title_settings".localized()
-        case Define.row_test:
-            locolizedTitle = "Test"
-        default:
-            locolizedTitle = ""
-        }
         var cell:UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: "cell")
         if cell == nil {
             cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
         }
-        cell?.textLabel?.text = locolizedTitle
+        cell?.textLabel?.text = rowTitle.localized()
+        cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         return cell!
     }
 
@@ -126,6 +106,8 @@ class MoreController: RXTableViewController {
             nextViewController = MobileChartController()
         case Define.row_articles:
             nextViewController = ArticlesController()
+        case Define.row_open_source:
+            nextViewController = OpenSourceController()
         case Define.row_test:
             nextViewController = TestController()
         default:
@@ -143,25 +125,25 @@ class MoreController: RXTableViewController {
 extension MoreController {
     struct Define {
         static let section_mobile:String = "section_mobile"
-        static let row_mobile_review:String = "row_mobile_review"
-        static let row_mobile_rank:String = "row_mobile_chart"
+        static let row_mobile_review:String = "title_mobile_review"
+        static let row_mobile_rank:String = "title_mobile_chart"
 
         static let section_articles:String = "section_articles"
-        static let row_articles:String = "row_articles"
+        static let row_articles:String = "title_articles"
 
         static let section_about:String = "section_about"
-        static let row_about:String = "row_about"
-        static let row_about_dxo:String = "row_about_dxo"
+        static let row_about:String = "title_about"
+        static let row_about_dxo:String = "title_about_dxo"
 
         static let section_open_source:String = "section_open_source"
-        static let row_open_source:String = "row_open_source"
+        static let row_open_source:String = "title_open_source"
 
-        static let section_setting:String = "section_setting"
-        static let row_setting:String = "row_setting"
+        static let section_setting:String = "section_settings"
+        static let row_setting:String = "title_settings"
 
         #if DEBUG || debug
         static let section_debug:String = "section_debug"
-        static let row_test:String = "row_test"
+        static let row_test:String = "title_test"
         #endif
     }
 }

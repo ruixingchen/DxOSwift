@@ -48,7 +48,6 @@ class TestController: RXTableViewController, RetryLoadingViewDelegate {
                     make.width.equalToSuperview()
                     make.height.equalToSuperview()
                 })
-                self?.view.makeToast("refresh_failed_try_again_later".localized())
             }
         }
     }

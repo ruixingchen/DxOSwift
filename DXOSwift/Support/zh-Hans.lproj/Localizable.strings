@@ -4,7 +4,43 @@
   Created by ruixingchen on 24/10/2017.
   Copyright © 2017 ruixingchen. All rights reserved. */
 
+"title_test" = "测试";
+
+"row_DXOSwift" = "ruixingchen/DXOSwift";
+
+"row_XCGLogger" = "XCGLogger";
+
+"row_SnapKit" = "SnapKit";
+
+"row_Kingfisher" = "Kingfisher";
+
+"row_Toast_Swift" = "Toast-Swift";
+
+"row_StatefulViewController" = "StatefulViewController";
+
+"row_Kanna" = "Kanna";
+
+"row_SwiftyJSON" = "SwiftyJSON";
+
+"row_GDPerformanceView_Swift" = "GDPerformanceView-Swift";
+
+"row_UITableView_FDTemplateLayoutCell" = "UITableView+FDTemplateLayoutCell";
+
+"row_FMDB" = "FMDB";
+
+"row_MJRefresh" = "MJRefresh";
+
+"row_SDCycleScrollView" = "SDCycleScrollView";
+
+"section_this_project" = "本项目";
+
+"section_other_project" = "其他开源项目";
+
 "refresh_failed_try_again_later" = "请求失败, 请稍后重试";
+
+"thanks_open_source_thanks_github" = "感谢开源, 感谢GitHub";
+
+"your_star_the_best_motivation" = "你的星星是我最大的动力";
 
 "title_dxo" = "DXO";
 

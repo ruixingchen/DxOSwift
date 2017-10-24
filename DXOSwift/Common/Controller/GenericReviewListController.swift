@@ -93,9 +93,8 @@ class GenericReviewListController: RXTableViewController, RetryLoadingViewDelega
         DispatchQueue.main.async {
             self.dataSource = NSMutableArray(array: inObject!)
             self.page = 1
-            self.tableView.refreshControl?.endRefreshing()
             self.tableView.reloadData()
-
+            self.tableView.refreshControl?.endRefreshing()
             self.installHeaderRefreshControl()
             self.installFooterRefreshControl()
         }
