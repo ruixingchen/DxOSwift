@@ -7,28 +7,14 @@
 //
 
 import UIKit
+import Toast_Swift
+import MJRefresh
 
-class LensReviewController: RXTableViewController {
+class LensReviewController: GenericReviewListController {
 
-    override init() {
-        super.init()
+    override func initFunction() {
+        super.initFunction()
         self.title = "title_lens_review".localized()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.title = "title_lens_review".localized()
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
-
-    //MARK: - RetryLoadingViewDelegate
-
-    func retryLoadingViewDidTapRetryButton(retryLoadingView: RetryLoadingView) {
-        self.tableView.refreshControl?.refreshManually()
     }
 
 }

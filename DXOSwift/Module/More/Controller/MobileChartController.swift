@@ -8,55 +8,30 @@
 
 import UIKit
 
-class MobileChartController: RXTableViewController {
+class MobileChartController: GenericReviewListController {
 
-    var dataSource:NSMutableArray = NSMutableArray()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.title = "Mobile Chart"
-        self.tableView.refreshControl?.beginRefreshing()
-        headerRefreshAction()
+    override func initFunction() {
+        super.initFunction()
+        self.title = "title_mobile_chart".localized()
     }
 
     override func setupTableView() {
         super.setupTableView()
-        let rc:UIRefreshControl = UIRefreshControl()
-        rc.addTarget(self, action: #selector(self.headerRefreshAction), for: UIControlEvents.valueChanged)
-        self.tableView.refreshControl = rc
-
-        tableView.tableFooterView = UIView()
-        tableView.estimatedRowHeight = 0
-        tableView.rowHeight = 60
+        tableView.rowHeight = 80
     }
 
-    @objc func headerRefreshAction(){
-        headerRefresh()
+    override func installFooterRefreshControl(userInfo: UserInfo? = nil) {
+        //don't need install footer refresh
+        return
     }
 
-    func headerRefresh(){
-        DXOService.mobileChart(completion: {[weak self] (inObject, inError) in
-            if inError != nil || inObject == nil {
-                DispatchQueue.main.async {
-                    self?.tableView.refreshControl?.endRefreshing()
-                    self?.view.makeToast("request failed, pull to refresh again", duration: 3, position: self!.view.center)
-                }
-                return
-            }else if self == nil {
-                log.info("self is nil")
+    override func headerRefresh() {
+        DXOService.mobileChart {[weak self] (inObject, inError) in
+            if self == nil {
                 return
             }
-
-            DispatchQueue.main.async {
-                self?.dataSource = NSMutableArray(array: inObject!)
-                self?.tableView.refreshControl?.endRefreshing()
-                self?.tableView.reloadData()
-            }
-        })
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.count
+            self?.headerRefreshHandle(inObject: inObject, inError: inError)
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -73,16 +48,6 @@ class MobileChartController: RXTableViewController {
         }
         cell?.updateContent(review: review)
         return cell!
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        guard let review:Review = self.dataSource.safeGet(at: indexPath.row) as? Review else {
-            return
-        }
-        let detail:NewsDetailController = NewsDetailController(review: review)
-        detail.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(detail, animated: true)
     }
 
 }

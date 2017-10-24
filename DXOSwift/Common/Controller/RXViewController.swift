@@ -22,7 +22,21 @@ class RXViewController: UIViewController {
     /// is this view during rotating transition?
     var isRotating:Bool = false
 
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        initFunction()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initFunction()
+    }
+
     //MARK: - Life Cycle
+
+    func initFunction(){
+
+    }
 
     override func viewDidLoad() {
         if lastViewDidLoad <= 0 {

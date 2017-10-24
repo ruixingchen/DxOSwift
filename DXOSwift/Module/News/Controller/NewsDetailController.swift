@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class NewsDetailController: RXViewController {
+class NewsDetailController: RXViewController, UIWebViewDelegate {
 
     let webView:UIWebView = UIWebView()
 
@@ -26,13 +26,10 @@ class NewsDetailController: RXViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupSubviews()
         self.title = review?.title.abstract(length: 15)
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
-    }
+        setupSubviews()
 
-    override func firstViewDidAppear(_ animated: Bool) {
-        super.firstViewDidAppear(animated)
         guard let url:URL = URL(string: review?.targetUrl ?? "") else {
             log.error("news detail catched an error Review: \(review?.description ?? "nil")")
             return
@@ -42,7 +39,7 @@ class NewsDetailController: RXViewController {
     }
 
     func setupSubviews(){
-
+        webView.delegate = self
         self.view.addSubview(webView)
         webView.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
@@ -50,4 +47,20 @@ class NewsDetailController: RXViewController {
         }
     }
 
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        log.debug("webViewDidStartLoad")
+    }
+
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        log.debug("webViewDidFinishLoad")
+    }
+
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+        log.debug("didFailLoadWithError")
+    }
+
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        log.debug("shouldStartLoadWith: \(request)")
+        return true
+    }
 }

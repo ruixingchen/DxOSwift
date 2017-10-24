@@ -13,13 +13,8 @@ class MoreController: RXTableViewController {
     var sectionTitles:[String] = []
     var rowTitles:NSMutableArray = NSMutableArray()
 
-    override init() {
-        super.init()
-        self.title = "title_more".localized()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    override func initFunction() {
+        super.initFunction()
         self.title = "title_more".localized()
     }
 
