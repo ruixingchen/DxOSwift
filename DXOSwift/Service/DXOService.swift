@@ -291,6 +291,14 @@ class DXOService {
         }
     }
 
+    class func lensReview(page:Int, completion:(([Review]?, RXError?)->Void)?) {
+        let url:URL = URL(string: "https://www.dxomark.com/category/lens-reviews/page/\(page)/")!
+        let request:URLRequest = commonURLRequest(url: url)
+        commonReviewList(request: request) { (inObject, inError) in
+            completion?(inObject, inError)
+        }
+    }
+
     class func mobileReview(page:Int, completion:(([Review]?, RXError?)->Void)?) {
         let url:URL = URL(string: "https://www.dxomark.com/category/mobile-reviews/page/\(page)/")!
         let request:URLRequest = commonURLRequest(url: url)

@@ -43,6 +43,7 @@ class MainTabBarController: UITabBarController {
             i.navigationBar.isTranslucent = false
             i.navigationBar.barTintColor = UIColor.dxoBlue
             i.navigationBar.tintColor = UIColor.white
+            i.navigationBar.barStyle = .black
             i.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         }
         self.setViewControllers(viewControllers, animated: false)

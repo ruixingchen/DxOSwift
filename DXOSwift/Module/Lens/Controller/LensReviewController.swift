@@ -17,4 +17,22 @@ class LensReviewController: GenericReviewListController {
         self.title = "title_lens_review".localized()
     }
 
+    override func headerRefresh() {
+        DXOService.lensReview(page: 1) {[weak self] (inObject, inError) in
+            if self == nil {
+                return
+            }
+            self?.headerRefreshHandle(inObject: inObject, inError: inError)
+        }
+    }
+
+    override func footerRefresh() {
+        DXOService.lensReview(page: page+1) {[weak self] (inObject, inError) in
+            if self == nil {
+                return
+            }
+            self?.footerRefreshHanle(inObject: inObject, inError: inError)
+        }
+    }
+
 }
