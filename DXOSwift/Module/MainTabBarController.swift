@@ -24,19 +24,19 @@ class MainTabBarController: UITabBarController {
         var viewControllers:[UINavigationController] = []
 
         let newsNav:UINavigationController = UINavigationController(rootViewController: NewsController())
-        newsNav.title = "DXO"
+        newsNav.tabBarItem = UITabBarItem(title: "title_dxo".localized(), image: nil, selectedImage: nil)
         viewControllers.append(newsNav)
 
         let cameraNav:UINavigationController = UINavigationController(rootViewController: CameraReviewController())
-        cameraNav.title = "Camera"
+        cameraNav.tabBarItem = UITabBarItem(title: "title_camera".localized(), image: nil, selectedImage: nil)
         viewControllers.append(cameraNav)
 
         let lensNav:UINavigationController = UINavigationController(rootViewController: LensReviewController())
-        lensNav.title = "Lens"
+        lensNav.tabBarItem = UITabBarItem(title: "title_lens".localized(), image: nil, selectedImage: nil)
         viewControllers.append(lensNav)
 
         let moreNav:UINavigationController = UINavigationController(rootViewController: MoreController())
-        moreNav.title = "More"
+        moreNav.tabBarItem = UITabBarItem(title: "title_more".localized(), image: nil, selectedImage: nil)
         viewControllers.append(moreNav)
 
         for i in viewControllers {

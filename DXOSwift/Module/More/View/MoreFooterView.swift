@@ -29,7 +29,7 @@ class MoreFooterView: UIView {
             make.top.equalToSuperview()
             make.centerX.equalToSuperview()
             make.width.equalTo(250)
-            make.height.equalTo(35)
+            make.height.equalTo(30)
         }
     }
 

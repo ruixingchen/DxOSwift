@@ -13,9 +13,10 @@ import SnapKit
 import Toast_Swift
 
 /// the main controller
-class NewsController: RXTableViewController, SDCycleScrollViewDelegate {
+class NewsController: RXTableViewController, SDCycleScrollViewDelegate, RetryLoadingViewDelegate {
 
     private var cycleScrollView:SDCycleScrollView?
+    private var retryLoadingView:RetryLoadingView?
 
     private var cycleScrollViewHeight:CGFloat = 250 //for 375 width(4.7 inch devices)
 
@@ -24,10 +25,18 @@ class NewsController: RXTableViewController, SDCycleScrollViewDelegate {
 
     var page:Int = 0
 
+    override init() {
+        super.init()
+        self.title = "title_dxo".localized()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.title = "title_dxo".localized()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "DXO"
-        self.navigationController?.tabBarItem = UITabBarItem(title: "DXO", image: nil, tag: 1000)
         setupSubviews()
         self.tableView.refreshControl?.beginRefreshing()
         headerRefreshAction()
@@ -58,18 +67,18 @@ class NewsController: RXTableViewController, SDCycleScrollViewDelegate {
         let searchButton:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: #selector(didTapSearchButton))
         searchButton.tintColor = UIColor.white
         self.navigationItem.rightBarButtonItem = searchButton
-        let imageView:UIImageView = UIImageView(image: UIImage(named: "dxo_logo"))
+//        let imageView:UIImageView = UIImageView(image: UIImage(named: "dxo_logo"))
 //        self.navigationItem.titleView = imageView
 
         let rc:UIRefreshControl = UIRefreshControl()
         rc.addTarget(self, action: #selector(self.headerRefreshAction), for: UIControlEvents.valueChanged)
         self.tableView.refreshControl = rc
-
     }
 
     //MARK: - Action
 
     @objc func headerRefreshAction(){
+        retryLoadingView?.removeFromSuperview()
         headerRefresh()
     }
 
@@ -88,7 +97,11 @@ class NewsController: RXTableViewController, SDCycleScrollViewDelegate {
     func headerRefresh(){
         //when we do header refresh, we overwrite all the data source.
         DXOService.mainPage(completion: {[weak self] (inTopTopic, inNews, inError) in
-            if inError != nil || inNews == nil {
+            if self == nil {
+                log.debug("self nil")
+                return
+            }
+            if inError != nil || inNews == nil{
                 if inError != nil {
                     log.debug("main page with error: \(inError!.description)")
                 }else if inNews == nil {
@@ -98,11 +111,20 @@ class NewsController: RXTableViewController, SDCycleScrollViewDelegate {
                 }
                 DispatchQueue.main.async {
                     self?.tableView.refreshControl?.endRefreshing()
-                    self?.view.makeToast("request failed, pull to refresh again", duration: 3, position: self!.view.center)
+                    if self?.dataSource.count == 0 {
+                        //show loading failed view
+                        self?.retryLoadingView?.removeFromSuperview()
+                        self?.retryLoadingView = RetryLoadingView()
+                        self?.retryLoadingView?.delegate = self
+                        self?.tableView.addSubview(self!.retryLoadingView!)
+                        self?.retryLoadingView?.snp.makeConstraints({ (make) in
+                            make.center.equalToSuperview()
+                            make.size.equalToSuperview()
+                        })
+                    }else{
+                        self?.view.makeToast("refresh_failed_try_again_later".localized())
+                    }
                 }
-                return
-            }else if self == nil {
-                log.info("self deinited")
                 return
             }
             DispatchQueue.main.async {
@@ -145,6 +167,10 @@ class NewsController: RXTableViewController, SDCycleScrollViewDelegate {
     func footerRefresh() {
         //we load the next page
         DXOService.news(page: page+1) {[weak self] (inReviews, inError) in
+            if self == nil {
+                log.debug("self nil")
+                return
+            }
             if inError != nil || inReviews == nil {
                 if inError != nil {
                     log.debug("news with error: \(inError!.description)")
@@ -155,7 +181,7 @@ class NewsController: RXTableViewController, SDCycleScrollViewDelegate {
                 }
                 DispatchQueue.main.async {
                     self?.tableView.mj_footer?.endRefreshing()
-                    self?.view.makeToast("request failed", duration: 3, position: self!.view.center)
+                    self?.view.makeToast("refresh_failed_try_again_later".localized())
                 }
                 return
             }else if self == nil {
@@ -240,7 +266,12 @@ class NewsController: RXTableViewController, SDCycleScrollViewDelegate {
             detail.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(detail, animated: true)
         }
+    }
 
+    //MARK: - RetryLoadingViewDelegate
+
+    func retryLoadingViewDidTapRetryButton(retryLoadingView: RetryLoadingView) {
+        self.tableView.refreshControl?.refreshManually()
     }
 
 }

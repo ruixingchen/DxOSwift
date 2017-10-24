@@ -13,6 +13,16 @@ class MoreController: RXTableViewController {
     var sectionTitles:[String] = []
     var rowTitles:NSMutableArray = NSMutableArray()
 
+    override init() {
+        super.init()
+        self.title = "title_more".localized()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.title = "title_more".localized()
+    }
+
     override func initTableView() -> UITableView {
         let tableView:UITableView = UITableView(frame: CGRect.zero, style: UITableViewStyle.grouped)
         return tableView
@@ -20,10 +30,6 @@ class MoreController: RXTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "More"
-        let tabBarItem:UITabBarItem = UITabBarItem(title: "More", image: nil, selectedImage: nil)
-        self.tabBarItem = tabBarItem
-        self.navigationController?.tabBarItem = tabBarItem
         setupDataSource()
         self.tableView.reloadData()
     }
@@ -58,7 +64,7 @@ class MoreController: RXTableViewController {
             }
             #if DEBUG || debug
                 if i == Define.section_debug {
-
+                    rows.add(Define.row_test)
                 }
             #endif
             rowTitles.add(rows)
@@ -70,10 +76,6 @@ class MoreController: RXTableViewController {
     override func setupTableView() {
         super.setupTableView()
         tableView.tableFooterView = MoreFooterView(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
-    }
-
-    func setupSubviews(){
-
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -90,19 +92,21 @@ class MoreController: RXTableViewController {
         var locolizedTitle:String!
         switch rowTitle {
         case Define.row_mobile_review:
-            locolizedTitle = "Mobile Review"
+            locolizedTitle = "title_mobile_review".localized()
         case Define.row_mobile_rank:
-            locolizedTitle = "Mobile Chart"
+            locolizedTitle = "title_mobile_chart".localized()
         case Define.row_articles:
-            locolizedTitle = "Articles"
+            locolizedTitle = "title_articles".localized()
         case Define.row_about:
-            locolizedTitle = "About"
+            locolizedTitle = "title_about".localized()
         case Define.row_about_dxo:
-            locolizedTitle = "About DXO"
+            locolizedTitle = "title_about_dxo".localized()
         case Define.row_open_source:
-            locolizedTitle = "Open Source"
+            locolizedTitle = "title_open_source".localized()
         case Define.row_setting:
-            locolizedTitle = "Settings"
+            locolizedTitle = "title_settings".localized()
+        case Define.row_test:
+            locolizedTitle = "Test"
         default:
             locolizedTitle = ""
         }
@@ -125,6 +129,10 @@ class MoreController: RXTableViewController {
             nextViewController = MobileReviewController()
         case Define.row_mobile_rank:
             nextViewController = MobileChartController()
+        case Define.row_articles:
+            nextViewController = ArticlesController()
+        case Define.row_test:
+            nextViewController = TestController()
         default:
             break
         }
@@ -158,6 +166,7 @@ extension MoreController {
 
         #if DEBUG || debug
         static let section_debug:String = "section_debug"
+        static let row_test:String = "row_test"
         #endif
     }
 }

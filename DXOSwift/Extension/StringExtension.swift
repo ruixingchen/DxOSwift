@@ -64,7 +64,7 @@ extension String {
     }
 
     /// calculate the height of string
-    func height(_ width: CGFloat, font: UIFont, paragraphStyle: NSParagraphStyle? = nil) -> CGFloat {
+    func height(_ width: CGFloat = CGFloat.greatestFiniteMagnitude, font: UIFont, paragraphStyle: NSParagraphStyle? = nil) -> CGFloat {
         let size: CGSize = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
         return ceil(self.size(size, font: font, paragraphStyle: paragraphStyle).height)
     }
@@ -76,7 +76,7 @@ extension String {
     }
 
     /// calculate the size of string
-    func size(_ size: CGSize, font: UIFont, paragraphStyle: NSParagraphStyle? = nil) -> CGSize {
+    func size(_ size: CGSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), font: UIFont, paragraphStyle: NSParagraphStyle? = nil) -> CGSize {
         var attrib: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: font]
         if paragraphStyle != nil {
             attrib.updateValue(paragraphStyle!, forKey: NSAttributedStringKey.paragraphStyle)
@@ -92,6 +92,11 @@ extension String {
             return true
         }
         return false
+    }
+
+    /// a fast way to get localized string
+    func localized(tableName:String? = nil, bundle:Bundle = Bundle.main, value:String = "", comment:String = "")->String{
+        return NSLocalizedString(self, tableName: tableName, bundle: bundle, value: value, comment: comment)
     }
 
 }

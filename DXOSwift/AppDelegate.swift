@@ -9,6 +9,7 @@
 import UIKit
 import GDPerformanceView_Swift
 import netfox
+import Toast_Swift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             GDPerformanceMonitor.sharedInstance.startMonitoring()
             NFX.sharedInstance().start()
         #endif
+
+        ToastManager.shared.position = ToastPosition.center
 
         return true
     }

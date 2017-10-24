@@ -27,7 +27,7 @@ class DXOService {
 
     struct Define {
         #if DEBUG || debug
-            static let commonTimeoutInterval:Double = 5
+            static let commonTimeoutInterval:Double = 8
         #else
             static let commonTimeoutInterval:Double = 30
         #endif
@@ -341,6 +341,14 @@ class DXOService {
                 reviews.append(review)
             }
             outObject = reviews
+        }
+    }
+
+    class func articles(completion:(([Review]?, RXError?)->Void)?){
+        let url:URL = URL(string: "https://www.dxomark.com/category/articles/")!
+        let request:URLRequest = commonURLRequest(url: url)
+        commonReviewList(request: request) { (inObject, inError) in
+            completion?(inObject, inError)
         }
     }
 

@@ -1,0 +1,38 @@
+/* Localizable.strings
+  DXOSwift
+
+  Created by ruixingchen on 24/10/2017.
+  Copyright © 2017 ruixingchen. All rights reserved. */
+
+"refresh_failed_try_again_later" = "Request Failed, Please Try Again Later";
+
+"title_dxo" = "DXO";
+
+"title_camera_review" = "Camera Review";
+
+"title_lens_review" = "Lens Review";
+
+"retry" = "Retry";
+
+"request_failed_n_please_try_again_later" = "Request Failed\nPlease Try Again Later";
+
+"title_camera" = "Camera";
+
+"title_lens" = "Lens";
+
+"title_more" = "More";
+
+"title_mobile_review" = "Mobile Review";
+
+"title_mobile_chart" = "Mobile Chart";
+
+"title_articles" = "Articles";
+
+"title_about" = "About";
+
+"title_about_dxo" = "About DXO";
+
+"title_open_source" = "Open Source";
+
+"title_settings" = "Settings";
+

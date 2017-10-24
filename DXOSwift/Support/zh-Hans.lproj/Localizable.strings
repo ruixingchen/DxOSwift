@@ -1,0 +1,38 @@
+/* Localizable.strings
+  DXOSwift
+
+  Created by ruixingchen on 24/10/2017.
+  Copyright © 2017 ruixingchen. All rights reserved. */
+
+"refresh_failed_try_again_later" = "请求失败, 请稍后重试";
+
+"title_dxo" = "DXO";
+
+"title_camera_review" = "相机评测";
+
+"title_lens_review" = "镜头评测";
+
+"retry" = "重试";
+
+"request_failed_n_please_try_again_later" = "请求失败\n请稍后重试";
+
+"title_camera" = "相机";
+
+"title_lens" = "镜头";
+
+"title_more" = "更多";
+
+"title_mobile_review" = "手机评测";
+
+"title_mobile_chart" = "手机排行";
+
+"title_articles" = "文章";
+
+"title_about" = "关于";
+
+"title_about_dxo" = "关于DXO";
+
+"title_open_source" = "开源";
+
+"title_settings" = "设置";
+

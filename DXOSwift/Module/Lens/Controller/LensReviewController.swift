@@ -10,12 +10,25 @@ import UIKit
 
 class LensReviewController: RXTableViewController {
 
+    override init() {
+        super.init()
+        self.title = "title_lens_review".localized()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.title = "title_lens_review".localized()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Lens Review"
-        let tabBarItem:UITabBarItem = UITabBarItem(title: "Lens", image: nil, selectedImage: nil)
-        self.tabBarItem = tabBarItem
-        self.navigationController?.tabBarItem = tabBarItem
+
+    }
+
+    //MARK: - RetryLoadingViewDelegate
+
+    func retryLoadingViewDidTapRetryButton(retryLoadingView: RetryLoadingView) {
+        self.tableView.refreshControl?.refreshManually()
     }
 
 }

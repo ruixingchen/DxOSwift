@@ -10,49 +10,72 @@ import UIKit
 import MJRefresh
 import Toast_Swift
 
-class CameraReviewController: RXTableViewController {
+class CameraReviewController: RXTableViewController, RetryLoadingViewDelegate {
+
+    private var retryLoadingView:RetryLoadingView?
 
     var dataSource:NSMutableArray = NSMutableArray()
     var page:Int = 1
 
+    override init() {
+        super.init()
+        self.title = "title_camera_review".localized()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.title = "title_camera_review".localized()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Camera Review"
-        let tabBarItem:UITabBarItem = UITabBarItem(title: "Camera", image: nil, selectedImage: nil)
-        self.tabBarItem = tabBarItem
-        self.navigationController?.tabBarItem = tabBarItem
         setupSubviews()
-        self.tableView.refreshControl?.beginRefreshing()
-        headerRefreshAction()
+        self.tableView.refreshControl?.refreshManually()
     }
 
     override func setupTableView() {
         super.setupTableView()
+
+        let rc:UIRefreshControl = UIRefreshControl()
+        rc.addTarget(self, action: #selector(self.headerRefreshAction), for: UIControlEvents.valueChanged)
+        self.tableView.refreshControl = rc
+
         tableView.tableFooterView = UIView()
         tableView.estimatedRowHeight = 0
         tableView.rowHeight = 100
     }
 
     func setupSubviews(){
-        let rc:UIRefreshControl = UIRefreshControl()
-        rc.addTarget(self, action: #selector(self.headerRefreshAction), for: UIControlEvents.valueChanged)
-        self.tableView.refreshControl = rc
+
     }
 
     @objc func headerRefreshAction(){
+        retryLoadingView?.removeFromSuperview()
         headerRefresh()
     }
 
     func headerRefresh(){
         DXOService.cameraReview(page: 1) {[weak self] (inObject, inError) in
+            if self == nil {
+                return
+            }
             if inError != nil || inObject == nil {
                 DispatchQueue.main.async {
                     self?.tableView.refreshControl?.endRefreshing()
-                    self?.view.makeToast("request failed, pull to refresh again", duration: 3, position: self!.view.center)
+                    if self?.dataSource.count == 0 {
+                        //show loading failed view
+                        self?.retryLoadingView?.removeFromSuperview()
+                        self?.retryLoadingView = RetryLoadingView()
+                        self?.retryLoadingView?.delegate = self
+                        self?.tableView.addSubview(self!.retryLoadingView!)
+                        self?.retryLoadingView?.snp.makeConstraints({ (make) in
+                            make.center.equalToSuperview()
+                            make.size.equalToSuperview()
+                        })
+                    }else{
+                        self?.view.makeToast("refresh_failed_try_again_later".localized())
+                    }
                 }
-                return
-            }else if self == nil {
-                log.info("self is nil")
                 return
             }
 
@@ -80,6 +103,9 @@ class CameraReviewController: RXTableViewController {
 
     func footerRefresh(){
         DXOService.cameraReview(page: page+1) {[weak self] (inReviews, inError) in
+            if self == nil {
+                return
+            }
             if inError != nil || inReviews == nil {
                 if inError != nil {
                     log.debug("news with error: \(inError!.description)")
@@ -89,12 +115,9 @@ class CameraReviewController: RXTableViewController {
                     log.debug("news unknown error")
                 }
                 DispatchQueue.main.async {
-                    self?.view.makeToast("request failed", duration: 3, position: self!.view.center)
                     self?.tableView.mj_footer?.endRefreshing()
+                    self?.view.makeToast("refresh_failed_try_again_later".localized())
                 }
-                return
-            }else if self == nil {
-                log.info("self deinited")
                 return
             }
             DispatchQueue.main.async {
@@ -145,6 +168,12 @@ class CameraReviewController: RXTableViewController {
         let detail:NewsDetailController = NewsDetailController(review: review)
         detail.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(detail, animated: true)
+    }
+
+    //MARK: - RetryLoadingViewDelegate
+
+    func retryLoadingViewDidTapRetryButton(retryLoadingView: RetryLoadingView) {
+        self.tableView.refreshControl?.refreshManually()
     }
 
 }
