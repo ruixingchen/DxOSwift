@@ -4,6 +4,20 @@
   Created by ruixingchen on 24/10/2017.
   Copyright © 2017 ruixingchen. All rights reserved. */
 
+"settings_row_clear_cache" = "Clear Cache";
+
+"title_please_select" = "Please Select";
+
+"section_mobile_review_language_footer_title" = "Chinese And English Version";
+
+"title_cancel" = "Cancel";
+
+"settings_row_mobile_review_language_follow_system" = "Follow System";
+
+"settings_clear_cache_warning_message" = "This will clear all cached image, you will have to redownload them.";
+
+"settings_confirm_clear_cache" = "Clear";
+
 "title_test" = "Test";
 
 "row_DXOSwift" = "ruixingchen/DXOSwift";
@@ -40,7 +54,7 @@
 
 "thanks_open_source_thanks_github" = "Thanks Open-Source, Thanks GitHub";
 
-"your_star_the_best_motivation" = "Your Star Will Be The Best Motivation";
+"your_star_the_best_motivation" = "Your star will be the best motivation";
 
 "title_dxo" = "DXO";
 
@@ -48,7 +62,7 @@
 
 "title_lens_review" = "Lens Review";
 
-"retry" = "Retry";
+"title_retry" = "Retry";
 
 "request_failed_n_please_try_again_later" = "Request Failed\nPlease Try Again Later";
 
@@ -71,4 +85,10 @@
 "title_open_source" = "Open Source";
 
 "title_settings" = "Settings";
+
+"title_english" = "English";
+
+"title_chinese" = "Chinese";
+
+"settings_row_mobile_review_language" = "Mobile Review Language";
 

@@ -16,6 +16,7 @@ class MoreController: RXTableViewController {
     override func initFunction() {
         super.initFunction()
         self.title = "title_more".localized()
+        setupDataSource()
     }
 
     override func initTableView() -> UITableView {
@@ -25,8 +26,6 @@ class MoreController: RXTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupDataSource()
-        self.tableView.reloadData()
     }
 
     func setupDataSource(){
@@ -56,12 +55,14 @@ class MoreController: RXTableViewController {
                 rows.add(Define.row_setting)
             }else if i == Define.section_open_source {
                 rows.add(Define.row_open_source)
+            }else{
+                #if DEBUG || debug
+                    if i == Define.section_debug {
+                        rows.add(Define.row_test)
+                    }
+                #endif
             }
-            #if DEBUG || debug
-                if i == Define.section_debug {
-                    rows.add(Define.row_test)
-                }
-            #endif
+
             rowTitles.add(rows)
         }
         self.sectionTitles = sectionTitles
@@ -108,6 +109,8 @@ class MoreController: RXTableViewController {
             nextViewController = ArticlesController()
         case Define.row_open_source:
             nextViewController = OpenSourceController()
+        case Define.row_setting:
+            nextViewController = SettingsController()
         case Define.row_test:
             nextViewController = TestController()
         default:

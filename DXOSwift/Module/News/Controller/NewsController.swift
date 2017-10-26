@@ -21,10 +21,13 @@ class NewsController: GenericReviewListController, SDCycleScrollViewDelegate {
 
     private var topTopicDataSource:NSMutableArray = [] //one dimension
 
-
     override func initFunction() {
         super.initFunction()
         self.title = "title_dxo".localized()
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {

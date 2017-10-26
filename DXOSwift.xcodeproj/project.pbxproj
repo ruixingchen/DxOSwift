@@ -36,6 +36,7 @@
 		806903A61F9607C1005BA062 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 806903A41F9607C1005BA062 /* LaunchScreen.storyboard */; };
 		808F54C21F9C4A1E00F0A2C4 /* DeviceDataBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808F54C11F9C4A1E00F0A2C4 /* DeviceDataBaseController.swift */; };
 		80BD2FF31F998F7D00396B45 /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BD2FF21F998F7D00396B45 /* DataBaseManager.swift */; };
+		80BDB34E1FA178EF00C4243D /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BDB34D1FA178EF00C4243D /* SettingsManager.swift */; };
 		80C3F5DA1F99308C00F5D3E3 /* NewsDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5D91F99308C00F5D3E3 /* NewsDetailController.swift */; };
 		80C3F5E21F993B0700F5D3E3 /* CameraReviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5E11F993B0700F5D3E3 /* CameraReviewController.swift */; };
 		80C3F5E41F993C5200F5D3E3 /* LensReviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C3F5E31F993C5200F5D3E3 /* LensReviewController.swift */; };
@@ -97,6 +98,7 @@
 		806903A71F9607C1005BA062 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		808F54C11F9C4A1E00F0A2C4 /* DeviceDataBaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDataBaseController.swift; sourceTree = "<group>"; };
 		80BD2FF21F998F7D00396B45 /* DataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
+		80BDB34D1FA178EF00C4243D /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		80C3F5D91F99308C00F5D3E3 /* NewsDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailController.swift; sourceTree = "<group>"; };
 		80C3F5E11F993B0700F5D3E3 /* CameraReviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraReviewController.swift; sourceTree = "<group>"; };
 		80C3F5E31F993C5200F5D3E3 /* LensReviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LensReviewController.swift; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 			children = (
 				80C3F5F71F99563200F5D3E3 /* CameraManager.swift */,
 				80BD2FF21F998F7D00396B45 /* DataBaseManager.swift */,
+				80BDB34D1FA178EF00C4243D /* SettingsManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -587,6 +590,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80BDB34E1FA178EF00C4243D /* SettingsManager.swift in Sources */,
 				80C3F5E81F9942BD00F5D3E3 /* Camera.swift in Sources */,
 				8031A72D1F99054C00010540 /* UIColorExtension.swift in Sources */,
 				801D6B291F97691400CEAE64 /* NewsController.swift in Sources */,

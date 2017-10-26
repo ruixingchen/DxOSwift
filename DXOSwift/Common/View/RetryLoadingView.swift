@@ -45,7 +45,7 @@ class RetryLoadingView: UIView {
         retryButton.layer.cornerRadius = 4
         retryButton.layer.borderWidth = 1
         retryButton.layer.borderColor = UIColor.gray.cgColor
-        let title:String = "retry".localized()
+        let title:String = "title_retry".localized()
         retryButton.setTitle(title, for: UIControlState.normal)
         retryButton.addTarget(self, action: #selector(didTapRetryButton), for: UIControlEvents.touchUpInside)
         self.addSubview(retryButton)

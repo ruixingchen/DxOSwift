@@ -16,14 +16,6 @@ class OpenSourceController: RXTableViewController {
     override func initFunction() {
         super.initFunction()
         self.title = "title_open_source".localized()
-    }
-
-    override func initTableView() -> UITableView {
-        return UITableView(frame: CGRect.zero, style: UITableViewStyle.grouped)
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
         sectionTitles.append(Define.section_this_project)
         sectionTitles.append(Define.section_other_project)
@@ -48,7 +40,14 @@ class OpenSourceController: RXTableViewController {
             }
             rowTitles.add(row)
         }
-        tableView.reloadData()
+    }
+
+    override func initTableView() -> UITableView {
+        return UITableView(frame: CGRect.zero, style: UITableViewStyle.grouped)
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -83,17 +82,62 @@ class OpenSourceController: RXTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let rowTitle:String = (rowTitles.safeGet(at: indexPath.section) as? NSArray)?.safeGet(at: indexPath.row) as? String else {
+            let cell:RXBlankTableViewCell = RXBlankTableViewCell(reuseIdentifier: nil)
+            #if DEBUG || debug
+                cell.infoLabel.text = "can't get rowTitle"
+            #endif
+            return cell
+        }
         var cell:UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: "cell")
         if cell == nil {
             cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
         }
-        guard let rowTitle:String = (rowTitles.safeGet(at: indexPath.section) as? NSArray)?.safeGet(at: indexPath.row) as? String else {
-            cell?.textLabel?.text = nil
-            return cell!
-        }
         cell?.textLabel?.text = rowTitle.localized()
         cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         return cell!
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let rowTitle:String = (rowTitles.safeGet(at: indexPath.section) as? NSArray)?.safeGet(at: indexPath.row) as? String else {
+            return
+        }
+        var url:String?
+        switch rowTitle {
+        case Define.row_DXOSwift:
+            url = "https://github.com/ruixingchen/DXOSwift"
+        case Define.row_XCGLogger:
+            url = "https://github.com/DaveWoodCom/XCGLogger"
+        case Define.row_SnapKit:
+            url = "https://github.com/SnapKit/SnapKit"
+        case Define.row_Kingfisher:
+            url = "https://github.com/onevcat/Kingfisher"
+        case Define.row_Toast_Swift:
+            url = "https://github.com/scalessec/Toast-Swift"
+        case Define.row_StatefulViewController:
+            url = "https://github.com/aschuch/StatefulViewController"
+        case Define.row_Kanna:
+            url = "https://github.com/tid-kijyun/Kanna"
+        case Define.row_SwiftyJSON:
+            url = "https://github.com/SwiftyJSON/SwiftyJSON"
+        case Define.row_GDPerformanceView_Swift:
+            url = "https://github.com/dani-gavrilov/GDPerformanceView-Swift"
+        case Define.row_UITableView_FDTemplateLayoutCell:
+            url = "https://github.com/forkingdog/UITableView-FDTemplateLayoutCell"
+        case Define.row_FMDB:
+            url = "https://github.com/ccgus/fmdb"
+        case Define.row_MJRefresh:
+            url = "https://github.com/CoderMJLee/MJRefresh"
+        case Define.row_SDCycleScrollView:
+            url = "https://github.com/gsdios/SDCycleScrollView"
+        default:
+            break
+        }
+        if url == nil {
+            return
+        }
+        UIApplication.shared.open(URL(string: url!)!, options: [:], completionHandler: nil)
     }
 }
 

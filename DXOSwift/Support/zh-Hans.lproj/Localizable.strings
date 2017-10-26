@@ -4,6 +4,20 @@
   Created by ruixingchen on 24/10/2017.
   Copyright © 2017 ruixingchen. All rights reserved. */
 
+"settings_row_clear_cache" = "清除缓存";
+
+"title_please_select" = "请选择";
+
+"section_mobile_review_language_footer_title" = "中文和英文可选";
+
+"title_cancel" = "取消";
+
+"settings_row_mobile_review_language_follow_system" = "跟随系统";
+
+"settings_clear_cache_warning_message" = "将会清除所有已经缓存的图片, 你需要重新下载这些图片";
+
+"settings_confirm_clear_cache" = "清除";
+
 "title_test" = "测试";
 
 "row_DXOSwift" = "ruixingchen/DXOSwift";
@@ -48,7 +62,7 @@
 
 "title_lens_review" = "镜头评测";
 
-"retry" = "重试";
+"title_retry" = "重试";
 
 "request_failed_n_please_try_again_later" = "请求失败\n请稍后重试";
 
@@ -71,4 +85,10 @@
 "title_open_source" = "开源";
 
 "title_settings" = "设置";
+
+"title_english" = "英文";
+
+"title_chinese" = "中文";
+
+"settings_row_mobile_review_language" = "手机评测语言";
 

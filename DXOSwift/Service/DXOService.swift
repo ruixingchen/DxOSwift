@@ -9,6 +9,7 @@
 import Foundation
 import Kanna
 import SwiftyJSON
+import FMDB
 #if DEBUG || debug
     import netfox
 #endif
@@ -27,11 +28,6 @@ class DXOService {
 
     struct Define {
         #if DEBUG || debug
-            static let commonTimeoutInterval:Double = 8
-        #else
-            static let commonTimeoutInterval:Double = 30
-        #endif
-
         static let logRequestDetail:Bool = false
 
         static let fakeNews:Bool = false
@@ -42,10 +38,19 @@ class DXOService {
 
         static let fakeTestedCamera:Bool = true
         static let fakeTestedCameraFile:String = "testedCamera.json"
+        #endif
     }
 
+    #if DEBUG || debug
+    static let commonTimeoutInterval:Double = 8
+    #else
+    static let commonTimeoutInterval:Double = 30
+    #endif
+
+    static let reviewListCacheTableName:String = "reviewListCache"
+
     class func commonURLRequest(url:URL)->URLRequest{
-        return URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: Define.commonTimeoutInterval)
+        return URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: commonTimeoutInterval)
     }
 
     /// the basic request
@@ -84,6 +89,7 @@ class DXOService {
         }
     }
 
+    /// extract the review list from HTML, if there is no Review in it, returns an empty array
     class func extractReviewList(htmlDocument:HTMLDocument)->[Review]{
         let newsNodes:XPathObject = htmlDocument.xpath("//div[contains(@class, 'col post-item')]")
         var reviewList:[Review] = []
@@ -157,6 +163,7 @@ class DXOService {
         return reviewList
     }
 
+    /// extract the main page top topic
     class func extractTopTopic(htmlDocument:HTMLDocument)->[Review]{
         let newsNodes:XPathObject = htmlDocument.xpath("//div[contains(@class,'banner-grid') and contains(@id,'banner-grid')]/div[contains(@class,'col')]")
         var reviewList:[Review] = []
@@ -222,7 +229,10 @@ class DXOService {
         }
     }
 
-    /// get the main page content and the top topic
+
+    /// get the main page top topic and review list
+    ///
+    /// - Parameter completion: the first is top topic, the second is review list
     class func mainPage(completion:(([Review]?, [Review]?, RXError?)->Void)?){
         let handleClosure:(Data?, ServiceError?)->Void = { (inData, inError) in
             var outError:RXError?
@@ -247,6 +257,25 @@ class DXOService {
             guard let htmlDocument:HTMLDocument = HTML(html: inData!, encoding: .utf8) else {
                 outError = RXError(error: ServiceError.badResponse, errorDescription: "bad html response")
                 return
+            }
+
+            DispatchQueue.global().async {
+                let queue:FMDatabaseQueue = FMDatabaseQueue(path: DataBaseManager.shared.dbPath)
+                queue.inTransaction({ (db, rollback) in
+                    do {
+                        try db.executeUpdate("DELETE FROM \(reviewListCacheTableName) WHERE for_source_list='MainPage'", values: nil)
+                        var htmlInsert:Any!
+                        if let str = String.init(data: inData!, encoding: .utf8) {
+                            htmlInsert = str
+                        }else {
+                            htmlInsert = NSNull()
+                        }
+                        try db.executeUpdate("INSERT INTO \(reviewListCacheTableName) (for_source_list,addedTime,htmlText) VALUES (?,?,?)", values: ["MainPage", Date().timeIntervalSince1970, htmlInsert])
+                    }catch {
+                        log.error("insert main page cache failed, error: \(error.localizedDescription)")
+                        rollback.pointee = true
+                    }
+                })
             }
 
             let topTopics:[Review] = extractTopTopic(htmlDocument: htmlDocument)
@@ -274,10 +303,44 @@ class DXOService {
         }
     }
 
+    /// the main page data will be stored in local db, read it from this function
+    ///
+    /// - Parameter completion: the first is top topic, the second is review list
+    class func mainPageCached(completion:(([Review]?, [Review]?, RXError?)->Void)?){
+        DispatchQueue.global().async {
+            var topTopic:[Review]?
+            var reviews:[Review]?
+            var error:RXError?
+
+            let rs:FMResultSet? = DataBaseManager.shared.mainDB.executeQuery("SELECT * FROM \(reviewListCacheTableName) WHERE for_source_list='TopTopic' ORDER BY addedTime DESC LIMIT 1", withArgumentsIn: [])
+            while rs?.next() == true {
+                let htmlText:String = rs!.string(forColumn: "htmlText") ?? ""
+                if htmlText.isEmpty {
+                    log.error("cached main page html text empty")
+                    continue
+                }
+                guard let htmlDocument:HTMLDocument = HTML(html: htmlText, encoding: .utf8) else {
+                    log.error("cached main page html to parse failed, htmlText:\(htmlText.abstract(length: 100, addDot: true))")
+                    continue
+                }
+                topTopic = extractTopTopic(htmlDocument: htmlDocument)
+                log.verbose("extract top topic with \(topTopic?.count ?? 0)")
+                reviews = extractReviewList(htmlDocument: htmlDocument)
+                log.verbose("extract reviews with \(reviews?.count ?? 0)")
+                break
+            }
+            if topTopic == nil || reviews == nil {
+                error = RXError(description: "can not extract from html")
+            }
+            completion?(topTopic, reviews, error)
+        }
+
+    }
+
     /// get the news, the first page is the same as main page
     class func news(page:Int, completion:(([Review]?, RXError?)->Void)?){
         let url:URL = URL(string: "https://www.dxomark.com/news/page/\(page)/")!
-        let request:URLRequest = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: Define.commonTimeoutInterval)
+        let request:URLRequest = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: commonTimeoutInterval)
         commonReviewList(request: request) { (inObject, inError) in
             completion?(inObject, inError)
         }
