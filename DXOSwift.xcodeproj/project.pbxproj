@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		800165551F98E2090010F2BE /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800165541F98E2090010F2BE /* NewsTableViewCell.swift */; };
 		800165591F98E2A30010F2BE /* ReviewBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800165581F98E2A30010F2BE /* ReviewBadgeView.swift */; };
+		8006B5B41FA3606800C6AC47 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8006B5B31FA3606800C6AC47 /* SearchController.swift */; };
 		801D6B1E1F97645600CEAE64 /* RXTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801D6B1B1F97644600CEAE64 /* RXTableViewController.swift */; };
 		801D6B1F1F97645600CEAE64 /* RXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801D6B1A1F97644500CEAE64 /* RXViewController.swift */; };
 		801D6B201F97645900CEAE64 /* RXBlankTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801D6B1C1F97645000CEAE64 /* RXBlankTableViewCell.swift */; };
@@ -20,6 +21,9 @@
 		8031A72B1F98FB1600010540 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8031A72A1F98FB1600010540 /* ArrayExtension.swift */; };
 		8031A72D1F99054C00010540 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8031A72C1F99054C00010540 /* UIColorExtension.swift */; };
 		80430AD61F9DC6E700224DAA /* ArticlesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80430AD51F9DC6E700224DAA /* ArticlesController.swift */; };
+		80490D451FA4430D00A14FB4 /* PresearchObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80490D441FA4430D00A14FB4 /* PresearchObject.swift */; };
+		80490D491FA4502500A14FB4 /* SearchPresearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80490D481FA4502500A14FB4 /* SearchPresearchTableViewCell.swift */; };
+		80490D4B1FA4641600A14FB4 /* SearchResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80490D4A1FA4641600A14FB4 /* SearchResultController.swift */; };
 		804AC1AB1F99B1C4006A052E /* CameraDataBaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804AC1AA1F99B1C4006A052E /* CameraDataBaseTableViewCell.swift */; };
 		8052731A1F9D8F5900F9642F /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805273191F9D8F5900F9642F /* SettingsController.swift */; };
 		8052731C1F9D914800F9642F /* MoreFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8052731B1F9D914800F9642F /* MoreFooterView.swift */; };
@@ -66,6 +70,7 @@
 		6A741648CA6650E4F914EA2E /* Pods_DXOSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DXOSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		800165541F98E2090010F2BE /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		800165581F98E2A30010F2BE /* ReviewBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewBadgeView.swift; sourceTree = "<group>"; };
+		8006B5B31FA3606800C6AC47 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		801D6B1A1F97644500CEAE64 /* RXViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RXViewController.swift; sourceTree = "<group>"; };
 		801D6B1B1F97644600CEAE64 /* RXTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RXTableViewController.swift; sourceTree = "<group>"; };
 		801D6B1C1F97645000CEAE64 /* RXBlankTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RXBlankTableViewCell.swift; sourceTree = "<group>"; };
@@ -80,6 +85,9 @@
 		8033C1661F9A6A5800892286 /* TestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewCell.swift; sourceTree = "<group>"; };
 		8033C1671F9A6A5800892286 /* TestTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestTableViewCell.xib; sourceTree = "<group>"; };
 		80430AD51F9DC6E700224DAA /* ArticlesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesController.swift; sourceTree = "<group>"; };
+		80490D441FA4430D00A14FB4 /* PresearchObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresearchObject.swift; sourceTree = "<group>"; };
+		80490D481FA4502500A14FB4 /* SearchPresearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresearchTableViewCell.swift; sourceTree = "<group>"; };
+		80490D4A1FA4641600A14FB4 /* SearchResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultController.swift; sourceTree = "<group>"; };
 		804AC1AA1F99B1C4006A052E /* CameraDataBaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDataBaseTableViewCell.swift; sourceTree = "<group>"; };
 		805273191F9D8F5900F9642F /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		8052731B1F9D914800F9642F /* MoreFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreFooterView.swift; sourceTree = "<group>"; };
@@ -160,6 +168,7 @@
 			children = (
 				800165541F98E2090010F2BE /* NewsTableViewCell.swift */,
 				800165581F98E2A30010F2BE /* ReviewBadgeView.swift */,
+				80490D481FA4502500A14FB4 /* SearchPresearchTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -178,6 +187,8 @@
 			children = (
 				801D6B281F97691400CEAE64 /* NewsController.swift */,
 				80C3F5D91F99308C00F5D3E3 /* NewsDetailController.swift */,
+				8006B5B31FA3606800C6AC47 /* SearchController.swift */,
+				80490D4A1FA4641600A14FB4 /* SearchResultController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -224,6 +235,7 @@
 				80C3F5E91F9942C600F5D3E3 /* Lens.swift */,
 				80C3F5EB1F9942CD00F5D3E3 /* Mobile.swift */,
 				80C3F5EF1F99441600F5D3E3 /* Device.swift */,
+				80490D441FA4430D00A14FB4 /* PresearchObject.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -609,10 +621,13 @@
 				8052731C1F9D914800F9642F /* MoreFooterView.swift in Sources */,
 				80430AD61F9DC6E700224DAA /* ArticlesController.swift in Sources */,
 				801D6B271F9768B000CEAE64 /* MainTabBarController.swift in Sources */,
+				8006B5B41FA3606800C6AC47 /* SearchController.swift in Sources */,
 				80F746611F9DA081009184E2 /* MobileChartTableViewCell.swift in Sources */,
 				80EB94FA1F9F61CA008EFECB /* GenericReviewListController.swift in Sources */,
+				80490D491FA4502500A14FB4 /* SearchPresearchTableViewCell.swift in Sources */,
 				80C3F5EA1F9942C600F5D3E3 /* Lens.swift in Sources */,
 				801D6B201F97645900CEAE64 /* RXBlankTableViewCell.swift in Sources */,
+				80490D4B1FA4641600A14FB4 /* SearchResultController.swift in Sources */,
 				805786651F960A92006D2B3C /* DXOService.swift in Sources */,
 				80C3F5E21F993B0700F5D3E3 /* CameraReviewController.swift in Sources */,
 				80C3F5F81F99563200F5D3E3 /* CameraManager.swift in Sources */,
@@ -631,6 +646,7 @@
 				8052731A1F9D8F5900F9642F /* SettingsController.swift in Sources */,
 				80D1F7581F9F3AA300997631 /* UIViewControllerExtension.swift in Sources */,
 				80D1F6F41F9EE15D00997631 /* RetryLoadingView.swift in Sources */,
+				80490D451FA4430D00A14FB4 /* PresearchObject.swift in Sources */,
 				8057866E1F961DEB006D2B3C /* Review.swift in Sources */,
 				801D6B1E1F97645600CEAE64 /* RXTableViewController.swift in Sources */,
 			);

@@ -24,6 +24,7 @@ class NewsController: GenericReviewListController, SDCycleScrollViewDelegate {
     override func initFunction() {
         super.initFunction()
         self.title = "title_dxo".localized()
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 
     override func viewDidLoad() {
@@ -46,9 +47,10 @@ class NewsController: GenericReviewListController, SDCycleScrollViewDelegate {
     //MARK: - Action
 
     @objc func didTapSearchButton(){
-        let vc = UIViewController()
-        vc.view.backgroundColor = UIColor.white
-        self.navigationController?.pushViewController(vc, animated: true)
+        let next = SearchController()
+        next.hidesBottomBarWhenPushed = true
+        next.view.backgroundColor = UIColor.white
+        self.navigationController?.pushViewController(next, animated: true)
     }
 
     //MARK: - Request

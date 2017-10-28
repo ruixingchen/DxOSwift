@@ -42,7 +42,7 @@ class DXOService {
     }
 
     #if DEBUG || debug
-    static let commonTimeoutInterval:Double = 8
+    static let commonTimeoutInterval:Double = 30
     #else
     static let commonTimeoutInterval:Double = 30
     #endif
@@ -460,6 +460,63 @@ class DXOService {
         let request:URLRequest = commonURLRequest(url: url)
         serviceRequest(request: request) { (inData, inError) in
             handleClosure(inData, inError)
+        }
+    }
+
+    class func presearch(key:String, userInfo:UserInfo? = nil, completion:(([PresearchObject]?, UserInfo?, RXError?)->Void)?){
+        let handleClosure:(Data?, UserInfo?, ServiceError?)->Void = { (inData, inUserInfo, inError) in
+            var outError:RXError?
+            var outObject:[PresearchObject]?
+            var outUserInfo:UserInfo? = inUserInfo
+
+            defer {
+                if outError != nil {
+                    log.info("request with error:\n\(outError!.description)")
+                }
+                completion?(outObject, outUserInfo, outError)
+            }
+
+            if inError != nil {
+                outError = RXError(error: inError!, errorDescription: "in error is not nil")
+                return
+            }else if inData == nil {
+                outError = RXError(error: ServiceError.noResponse, errorDescription: "in data is nil")
+                return
+            }
+
+            let json:JSON = JSON.init(data: inData!)["suggestions"]
+            var presearchObjects:[PresearchObject] = []
+            for i in json.arrayValue {
+                if let object:PresearchObject = PresearchObject(fromJson: i) {
+                    presearchObjects.append(object)
+                }
+            }
+            outObject = presearchObjects
+        }
+        if let percentKey:String = key.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) {
+            let url:URL = URL(string: "https://www.dxomark.com/wp-admin/admin-ajax.php?action=flatsome_ajax_search_products&query=\(percentKey)")!
+            let request:URLRequest = commonURLRequest(url: url)
+            serviceRequest(request: request) { (inData, inError) in
+                handleClosure(inData, userInfo, inError)
+            }
+        }else {
+            DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(1)) {
+                handleClosure(nil, userInfo, ServiceError.badUrl)
+            }
+        }
+    }
+
+    class func search(key:String, page:Int, userInfo:UserInfo? = nil, completion:(([Review]?, UserInfo?, RXError?)->Void)?){
+        if let percentKey:String = key.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) {
+            let url:URL = URL(string: "https://www.dxomark.com/page/\(page)/?s=\(percentKey)")!
+            let request:URLRequest = commonURLRequest(url: url)
+            commonReviewList(request: request) { (inObject, inError) in
+                completion?(inObject, userInfo, inError)
+            }
+        }else {
+            DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(1)) {
+                completion?(nil, userInfo, RXError(description: "key add percent failed"))
+            }
         }
     }
 
