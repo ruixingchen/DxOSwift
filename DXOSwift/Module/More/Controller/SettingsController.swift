@@ -50,7 +50,8 @@ class SettingsController: RXTableViewController {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(1)) {
                 log.verbose("image cache size: \(size)")
                 self?.cacheSize = size
-                self?.tableView.reloadData()
+                //MARK: - Change this if we change the section of tableView content
+                self?.tableView.reloadSections(IndexSet.init(integer: 0), with: .none)
             }
         }
     }

@@ -24,7 +24,7 @@ class SearchResultNothingFoundView: UIView {
     }
 
     func setupSubviews(){
-        titleLabel.textColor = UIColor.lightGray
+        titleLabel.textColor = UIColor.gray
         titleLabel.numberOfLines = 1
         titleLabel.textAlignment = .center
         titleLabel.text = LocalizedString.search_nothing_found
@@ -36,7 +36,7 @@ class SearchResultNothingFoundView: UIView {
         }
 
         messageLabel.textColor = UIColor.lightGray
-        messageLabel.font = UIFont.title
+        messageLabel.font = UIFont.message
         messageLabel.numberOfLines = 0
         messageLabel.textAlignment = .center
         messageLabel.text = LocalizedString.search_nothing_found_message

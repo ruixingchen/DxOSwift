@@ -135,7 +135,7 @@ class SearchResultController: RXTableViewController, UISearchControllerDelegate,
                 self?.searchDataSource = inObject!
                 self?.page = 1
                 self?.tableView.reloadData()
-                if self?.tableView.mj_footer == nil && !inObject!.isEmpty{
+                if self?.tableView.mj_footer == nil {
                     self?.tableView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self!, refreshingAction: #selector(self!.footerRefreshAction))
                 }
             }
@@ -219,5 +219,4 @@ class SearchResultController: RXTableViewController, UISearchControllerDelegate,
             }
         }
     }
-
 }
