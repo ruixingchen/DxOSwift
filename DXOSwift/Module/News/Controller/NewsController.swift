@@ -23,7 +23,7 @@ class NewsController: GenericReviewListController, SDCycleScrollViewDelegate {
 
     override func initFunction() {
         super.initFunction()
-        self.title = "title_dxo".localized()
+        self.title = LocalizedString.title_dxo
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 
@@ -47,7 +47,7 @@ class NewsController: GenericReviewListController, SDCycleScrollViewDelegate {
     //MARK: - Action
 
     @objc func didTapSearchButton(){
-        let next = SearchController()
+        let next = SearchContainerController()
         next.hidesBottomBarWhenPushed = true
         next.view.backgroundColor = UIColor.white
         self.navigationController?.pushViewController(next, animated: true)
@@ -104,7 +104,7 @@ class NewsController: GenericReviewListController, SDCycleScrollViewDelegate {
                         make.size.equalToSuperview()
                     })
                 }else{
-                    self.view.makeToast("refresh_failed_try_again_later".localized())
+                    self.view.makeToast(LocalizedString.refresh_failed_try_again_later)
                 }
             }
             return

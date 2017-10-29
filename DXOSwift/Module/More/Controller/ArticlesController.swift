@@ -12,7 +12,7 @@ class ArticlesController: GenericReviewListController {
 
     override func initFunction() {
         super.initFunction()
-        self.title = "title_articles".localized()
+        self.title = LocalizedString.title_articles
     }
 
     override func installFooterRefreshControl(userInfo: UserInfo?) {

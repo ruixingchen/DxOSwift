@@ -14,7 +14,7 @@ class CameraReviewController: GenericReviewListController {
 
     override func initFunction() {
         super.initFunction()
-        self.title = "title_camera_review".localized()
+        self.title = LocalizedString.title_camera_review
     }
 
     override func viewDidLoad() {

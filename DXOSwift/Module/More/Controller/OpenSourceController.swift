@@ -15,7 +15,7 @@ class OpenSourceController: RXTableViewController {
 
     override func initFunction() {
         super.initFunction()
-        self.title = "title_open_source".localized()
+        self.title = LocalizedString.title_open_source
 
         sectionTitles.append(Define.section_this_project)
         sectionTitles.append(Define.section_other_project)

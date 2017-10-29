@@ -18,7 +18,7 @@ class SettingsController: RXTableViewController {
 
     override func initFunction() {
         super.initFunction()
-        self.title = "title_settings".localized()
+        self.title = LocalizedString.title_settings
         #if DEBUG || debug
             //only use English for now time
             //sectionTitles.append(Define.section_mobile_review_language)
@@ -73,7 +73,7 @@ class SettingsController: RXTableViewController {
         }
         var localizedTitle:String?
         if sectionTitle == Define.section_mobile_review_language {
-            localizedTitle = "section_mobile_review_language_footer_title".localized()
+            localizedTitle = LocalizedString.section_mobile_review_language_footer_title
         }
         return localizedTitle
     }
@@ -96,11 +96,11 @@ class SettingsController: RXTableViewController {
         if rowTitle == Define.row_mobile_review_language {
             switch SettingsManager.mobilePreviewLanguage {
             case 1:
-                detailText = "settings_row_mobile_review_language_follow_system".localized()
+                detailText = LocalizedString.settings_row_mobile_review_language_follow_system
             case 2:
-                detailText = "title_english".localized()
+                detailText = LocalizedString.title_english
             case 3:
-                detailText = "title_chinese".localized()
+                detailText = LocalizedString.title_chinese
             default:
                 break
             }
@@ -147,19 +147,19 @@ class SettingsController: RXTableViewController {
 
     func tableView(_ tableView:UITableView, didSelectMobileReviewLanguageAt indexPath:IndexPath) {
         let alert:UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-        let systemAction:UIAlertAction = UIAlertAction(title: "settings_row_mobile_review_language_follow_system".localized(), style: UIAlertActionStyle.default, handler: { (action) in
+        let systemAction:UIAlertAction = UIAlertAction(title: LocalizedString.settings_row_mobile_review_language_follow_system, style: UIAlertActionStyle.default, handler: { (action) in
             SettingsManager.mobilePreviewLanguage = 1
             self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
         })
-        let englishAction:UIAlertAction = UIAlertAction(title: "title_english".localized(), style: UIAlertActionStyle.default, handler: { (action) in
+        let englishAction:UIAlertAction = UIAlertAction(title: LocalizedString.title_english, style: UIAlertActionStyle.default, handler: { (action) in
             SettingsManager.mobilePreviewLanguage = 2
             self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
         })
-        let chineseAction:UIAlertAction = UIAlertAction(title: "title_chinese".localized(), style: UIAlertActionStyle.default, handler: { (action) in
+        let chineseAction:UIAlertAction = UIAlertAction(title: LocalizedString.title_chinese, style: UIAlertActionStyle.default, handler: { (action) in
             SettingsManager.mobilePreviewLanguage = 3
             self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
         })
-        let cancelAction:UIAlertAction = UIAlertAction(title: "title_cancel".localized(), style: UIAlertActionStyle.cancel, handler: nil)
+        let cancelAction:UIAlertAction = UIAlertAction(title: LocalizedString.title_cancel, style: UIAlertActionStyle.cancel, handler: nil)
         alert.addAction(systemAction)
         alert.addAction(englishAction)
         alert.addAction(chineseAction)
@@ -176,8 +176,8 @@ class SettingsController: RXTableViewController {
         if self.cacheSize == nil {
             return
         }
-        let alert:UIAlertController = UIAlertController(title: nil, message: "settings_clear_cache_warning_message".localized(), preferredStyle: UIAlertControllerStyle.actionSheet)
-        let confirmAction:UIAlertAction = UIAlertAction(title: "settings_confirm_clear_cache".localized(), style: UIAlertActionStyle.destructive, handler: {[weak self] (action) in
+        let alert:UIAlertController = UIAlertController(title: nil, message: LocalizedString.settings_clear_cache_warning_message, preferredStyle: UIAlertControllerStyle.actionSheet)
+        let confirmAction:UIAlertAction = UIAlertAction(title: LocalizedString.settings_confirm_clear_cache, style: UIAlertActionStyle.destructive, handler: {[weak self] (action) in
             KingfisherManager.shared.cache.clearDiskCache(completion: {
                 DispatchQueue.main.async {
                     self?.cacheSize = 0
@@ -185,7 +185,7 @@ class SettingsController: RXTableViewController {
                 }
             })
         })
-        let cancelAction:UIAlertAction = UIAlertAction(title: "title_cancel".localized(), style: UIAlertActionStyle.cancel, handler: nil)
+        let cancelAction:UIAlertAction = UIAlertAction(title: LocalizedString.title_cancel, style: UIAlertActionStyle.cancel, handler: nil)
         alert.addAction(confirmAction)
         alert.addAction(cancelAction)
         let idiom:UIUserInterfaceIdiom = UIDevice.current.userInterfaceIdiom

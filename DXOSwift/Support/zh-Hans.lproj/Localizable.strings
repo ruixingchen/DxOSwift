@@ -94,3 +94,7 @@
 
 "title_search" = "搜索";
 
+"search_nothing_found" = "无内容";
+
+"search_nothing_found_message" = "没有搜索到任何内容, 请使用其他关键字再次搜索";
+

@@ -98,5 +98,4 @@ extension String {
     func localized(tableName:String? = nil, bundle:Bundle = Bundle.main, value:String = "", comment:String = "")->String{
         return NSLocalizedString(self, tableName: tableName, bundle: bundle, value: value, comment: comment)
     }
-
 }

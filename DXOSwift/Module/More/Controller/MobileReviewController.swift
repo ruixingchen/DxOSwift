@@ -14,7 +14,7 @@ class MobileReviewController: GenericReviewListController {
 
     override func initFunction() {
         super.initFunction()
-        self.title = "title_mobile_review".localized()
+        self.title = LocalizedString.title_mobile_review
     }
 
     override func headerRefresh() {

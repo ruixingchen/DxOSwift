@@ -15,7 +15,7 @@ class MoreController: RXTableViewController {
 
     override func initFunction() {
         super.initFunction()
-        self.title = "title_more".localized()
+        self.title = LocalizedString.title_more
         setupDataSource()
     }
 

@@ -94,3 +94,7 @@
 
 "title_search" = "Search";
 
+"search_nothing_found" = "Nothing Found";
+
+"search_nothing_found_message" = "Sorry, but nothing matched your search terms. Please try again with some different keywords.";
+

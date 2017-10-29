@@ -12,7 +12,7 @@ class MobileChartController: GenericReviewListController {
 
     override func initFunction() {
         super.initFunction()
-        self.title = "title_mobile_chart".localized()
+        self.title = LocalizedString.title_mobile_chart
     }
 
     override func setupTableView() {

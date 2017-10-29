@@ -14,7 +14,7 @@ class LensReviewController: GenericReviewListController {
 
     override func initFunction() {
         super.initFunction()
-        self.title = "title_lens_review".localized()
+        self.title = LocalizedString.title_lens_review
     }
 
     override func viewDidLoad() {
