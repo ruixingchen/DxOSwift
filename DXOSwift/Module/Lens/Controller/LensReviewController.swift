@@ -25,7 +25,7 @@ class LensReviewController: GenericReviewListController {
     }
 
     @objc func didTapDBButton(){
-        let next:UIViewController = UIViewController()
+        let next:DeviceDatabaseController = DeviceDatabaseController(deviceType: .lens)
         next.view.backgroundColor = UIColor.white
         next.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(next, animated: true)

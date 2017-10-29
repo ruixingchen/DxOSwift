@@ -36,8 +36,12 @@ class DXOService {
         static let fakeMainPage:Bool = false
         static let fakeMainPageFile:String = "mainPageSample.html"
 
-        static let fakeTestedCamera:Bool = true
+        static let fakeTestedCamera:Bool = false
         static let fakeTestedCameraFile:String = "testedCamera.json"
+
+        static let fakeTestedLens:Bool = false
+        static let fakeTestedLensFile:String = "testedLens.json"
+
         #endif
     }
 
@@ -53,6 +57,8 @@ class DXOService {
         return URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: commonTimeoutInterval)
     }
 
+    //MARK: - BasicRequest
+
     /// the basic request
     class func basicRequest(request:URLRequest, completion:((Data?, Error?)->Void)?){
         let sessionConfig:URLSessionConfiguration = URLSessionConfiguration.default
@@ -63,9 +69,11 @@ class DXOService {
         #endif
         let session:URLSession = URLSession(configuration: sessionConfig)
         session.dataTask(with: request) { (inData, inResponse, inError) in
-            if Define.logRequestDetail {
-                //log the detail
-            }
+            #if DEBUG || debug
+                if Define.logRequestDetail {
+                    //log the detail
+                }
+            #endif
             completion?(inData, inError)
         }.resume()
     }
@@ -88,6 +96,43 @@ class DXOService {
             }
         }
     }
+
+    /// request for a review list, suitable for multi pages
+    class func commonReviewList(request:URLRequest, completion:(([Review]?, RXError?)->Void)?){
+        let handleClosure:(Data?, ServiceError?)->Void = { (inData, inError) in
+            var outError:RXError?
+            var outObject:[Review]?
+
+            defer {
+                if outError != nil {
+                    log.info("news request with error:\n\(outError!.description)")
+                }
+                completion?(outObject, outError)
+            }
+
+            if inError != nil {
+                outError = RXError(error: inError!, errorDescription: "in error is not nil")
+                return
+            }else if inData == nil {
+                outError = RXError(error: ServiceError.noResponse, errorDescription: "in data is nil")
+                return
+            }
+            //start to parse the HTML document
+            guard let htmlDocument:HTMLDocument = HTML(html: inData!, encoding: .utf8) else {
+                outError = RXError(error: ServiceError.badResponse, errorDescription: "bad html response")
+                return
+            }
+            //we only parse news here
+            let reviews:[Review] = extractReviewList(htmlDocument: htmlDocument)
+            log.verbose("extract reviews with \(reviews.count)")
+            outObject = reviews
+        }
+        serviceRequest(request: request) { (inData, inError) in
+            handleClosure(inData, inError)
+        }
+    }
+
+    //MARK: - Extract
 
     /// extract the review list from HTML, if there is no Review in it, returns an empty array
     class func extractReviewList(htmlDocument:HTMLDocument)->[Review]{
@@ -155,9 +200,11 @@ class DXOService {
                 }
                 review.tag.append(text)
             }
-            if Define.logRequestDetail {
-                log.verbose(review.description)
-            }
+            #if DEBUG || debug
+                if Define.logRequestDetail {
+                    log.verbose(review.description)
+                }
+            #endif
             reviewList.append(review)
         }
         return reviewList
@@ -194,41 +241,7 @@ class DXOService {
         return reviewList
     }
 
-    /// request for a review list, suitable for multi pages
-    class func commonReviewList(request:URLRequest, completion:(([Review]?, RXError?)->Void)?){
-        let handleClosure:(Data?, ServiceError?)->Void = { (inData, inError) in
-            var outError:RXError?
-            var outObject:[Review]?
-
-            defer {
-                if outError != nil {
-                    log.info("news request with error:\n\(outError!.description)")
-                }
-                completion?(outObject, outError)
-            }
-
-            if inError != nil {
-                outError = RXError(error: inError!, errorDescription: "in error is not nil")
-                return
-            }else if inData == nil {
-                outError = RXError(error: ServiceError.noResponse, errorDescription: "in data is nil")
-                return
-            }
-            //start to parse the HTML document
-            guard let htmlDocument:HTMLDocument = HTML(html: inData!, encoding: .utf8) else {
-                outError = RXError(error: ServiceError.badResponse, errorDescription: "bad html response")
-                return
-            }
-            //we only parse news here
-            let reviews:[Review] = extractReviewList(htmlDocument: htmlDocument)
-            log.verbose("extract reviews with \(reviews.count)")
-            outObject = reviews
-        }
-        serviceRequest(request: request) { (inData, inError) in
-            handleClosure(inData, inError)
-        }
-    }
-
+    //MARK: - Request
 
     /// get the main page top topic and review list
     ///
@@ -260,7 +273,7 @@ class DXOService {
             }
 
             DispatchQueue.global().async {
-                let queue:FMDatabaseQueue = FMDatabaseQueue(path: DataBaseManager.shared.dbPath)
+                let queue:FMDatabaseQueue = FMDatabaseQueue(path: DatabaseManager.shared.dbPath)
                 queue.inTransaction({ (db, rollback) in
                     do {
                         try db.executeUpdate("DELETE FROM \(reviewListCacheTableName) WHERE for_source_list='MainPage'", values: nil)
@@ -288,7 +301,7 @@ class DXOService {
 
         #if DEBUG
             if Define.fakeMainPage {
-                DispatchQueue.global().async {
+                DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(2)) {
                     let data = Data(forResource: Define.fakeMainPageFile)!
                     handleClosure(data, nil)
                 }
@@ -312,7 +325,7 @@ class DXOService {
             var reviews:[Review]?
             var error:RXError?
 
-            let rs:FMResultSet? = DataBaseManager.shared.mainDB.executeQuery("SELECT * FROM \(reviewListCacheTableName) WHERE for_source_list='TopTopic' ORDER BY addedTime DESC LIMIT 1", withArgumentsIn: [])
+            let rs:FMResultSet? = DatabaseManager.shared.mainDB.executeQuery("SELECT * FROM \(reviewListCacheTableName) WHERE for_source_list='TopTopic' ORDER BY addedTime DESC LIMIT 1", withArgumentsIn: [])
             while rs?.next() == true {
                 let htmlText:String = rs!.string(forColumn: "htmlText") ?? ""
                 if htmlText.isEmpty {
@@ -423,16 +436,15 @@ class DXOService {
         }
     }
 
-    class func testedCamera(completion:((RXError?)->Void)?){
+    class func testedCamera(completion:((CameraDatabaseDataSource?, RXError?)->Void)?){
         let handleClosure:(Data?, ServiceError?)->Void = { (inData, inError) in
             var outError:RXError?
-            var outObject:[Camera]?
-
+            var outObject:CameraDatabaseDataSource?
             defer {
                 if outError != nil {
-                    log.info("cameraDataBase request with error:\n\(outError!.description)")
+                    log.info("cameraDatabase request with error:\n\(outError!.description)")
                 }
-                completion?(outError)
+                completion?(outObject, outError)
             }
 
             if inError != nil {
@@ -443,12 +455,18 @@ class DXOService {
                 return
             }
             let json:JSON = JSON.init(data: inData!)
-            CameraManager.shared.reloadTestedCamera(jsonObject: json)
+            let dataSource:CameraDatabaseDataSource = CameraDatabaseDataSource()
+            dataSource.reloadTestedCamera(jsonObject: json)
+            guard dataSource.testedCameraReady else {
+                outError = RXError(description: "can not extract any Camera from JSON")
+                return
+            }
+            outObject = dataSource
         }
 
         #if DEBUG
             if Define.fakeTestedCamera {
-                DispatchQueue.global().async {
+                DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(2)) {
                     let data = Data(forResource: Define.fakeTestedCameraFile)!
                     handleClosure(data, nil)
                 }
@@ -457,10 +475,24 @@ class DXOService {
         #endif
 
         let url:URL = URL(string: "https://www.dxomark.com/daksensor/ajax/jsontested")!
-        let request:URLRequest = commonURLRequest(url: url)
+        var request:URLRequest = commonURLRequest(url: url)
+//        request.cachePolicy = URLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData
         serviceRequest(request: request) { (inData, inError) in
             handleClosure(inData, inError)
         }
+    }
+
+    class func testedLens(completion:((LensDatabaseDataSource?, RXError?)->Void)?){
+
+        #if DEBUG
+            if Define.fakeTestedLens {
+                DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(2)) {
+                    let data = Data(forResource: Define.fakeTestedLensFile)!
+//                    handleClosure(data, nil)
+                }
+                return
+            }
+        #endif
     }
 
     class func presearch(key:String, userInfo:UserInfo? = nil, completion:(([PresearchObject]?, UserInfo?, RXError?)->Void)?){

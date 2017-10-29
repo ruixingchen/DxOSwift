@@ -14,6 +14,12 @@ class SearchResultNothingFoundView: UIView {
     private let titleLabel:UILabel = UILabel()
     private let messageLabel:UILabel = UILabel()
 
+    deinit {
+        #if DEBUG || debug
+            log.verbose("deinit")
+        #endif
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSubviews()

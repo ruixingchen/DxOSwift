@@ -8,12 +8,19 @@
 
 import UIKit
 import SnapKit
+import WebKit
 
-class NewsDetailController: RXViewController, UIWebViewDelegate {
+class NewsDetailController: RXViewController {
 
-    let webView:UIWebView = UIWebView()
+    var webView:WKWebView = WKWebView()
 
     var review:Review?
+
+    deinit {
+        #if DEBUG || debug
+            log.verbose("deinit")
+        #endif
+    }
 
     init(review:Review){
         super.init(nibName: nil, bundle: nil)
@@ -27,7 +34,6 @@ class NewsDetailController: RXViewController, UIWebViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = review?.title.abstract(length: 15)
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         setupSubviews()
 
         guard let url:URL = URL(string: review?.targetUrl ?? "") else {
@@ -35,32 +41,37 @@ class NewsDetailController: RXViewController, UIWebViewDelegate {
             return
         }
         let request:URLRequest = URLRequest(url: url)
-        webView.loadRequest(request)
+        webView.load(request)
     }
 
     func setupSubviews(){
-        webView.delegate = self
         self.view.addSubview(webView)
         webView.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
             make.size.equalToSuperview()
         }
+
+        if let nav:UINavigationController = self.navigationController {
+            if nav.viewControllers.first == self {
+                //this is the root view controller, means this view is presented by another view controller
+                self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_arrow_back"), style: .plain, target: self, action: #selector(dismissSelf))
+            }
+        }
     }
 
-    func webViewDidStartLoad(_ webView: UIWebView) {
-        log.debug("webViewDidStartLoad")
+    @objc func dismissSelf(){
+        if let nav:UINavigationController = self.navigationController {
+            if nav.viewControllers.first == self {
+                if let wkNav:WKWebViewNavigationController = nav as? WKWebViewNavigationController {
+                    wkNav.enableDismiss = true
+                }
+                nav.dismiss(animated: true, completion: nil)
+            }
+        }else{
+            if self.presentingViewController != nil {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
 
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        log.debug("webViewDidFinishLoad")
-    }
-
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
-        log.debug("didFailLoadWithError")
-    }
-
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        log.debug("shouldStartLoadWith: \(request)")
-        return true
-    }
 }

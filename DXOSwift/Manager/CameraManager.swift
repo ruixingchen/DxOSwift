@@ -9,9 +9,9 @@
 import Foundation
 import SwiftyJSON
 
-/// manage the camera data base, may use sql to store the data, but for now time we only store it in ram
+/// manage the camera data base, may use DB to store the data, but for now time we only store it in ram
 class CameraManager {
-
+    /*
     var yearMax:Int = 0
     var yearMin:Int = 0
     var priceMax:Double = 0
@@ -25,16 +25,16 @@ class CameraManager {
     var colorMax:Int = 0
     var colorMin:Int = 0
 
-    static let shared:CameraManager = CameraManager()
+//    static let shared:CameraManager = CameraManager()
 
     var testedCamera:[Camera] = []
     var reviewCamera:[Camera] = []
 
     var testedCameraReady:Bool {
-        return testedCamera.count != 0
+        return !testedCamera.isEmpty
     }
 
-    private init(){}
+    init(){}
 
     func reloadTestedCamera(jsonObject:JSON){
         yearMax = jsonObject["year"]["max"].int ?? yearMax
@@ -65,8 +65,9 @@ class CameraManager {
         })
     }
 
-}
+    func dropTestedCamera(){
+        self.testedCamera = []
+    }
+ */
 
-extension CameraManager {
-    
 }

@@ -16,8 +16,8 @@ class Device {
     }
 
     class func test(){
-        let cameraJson = JSON(data: Data(forResource: "cameraDataBase.json")!)
-        let lensJson = JSON(data: Data(forResource: "lensDataBase.json")!)
+        let cameraJson = JSON(data: Data(forResource: "cameraDatabase.json")!)
+        let lensJson = JSON(data: Data(forResource: "lensDatabase.json")!)
 
         var array:[String] = []
 

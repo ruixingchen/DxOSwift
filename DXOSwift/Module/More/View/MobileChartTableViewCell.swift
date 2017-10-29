@@ -30,7 +30,7 @@ class MobileChartTableViewCell: RXTableViewCell {
         self.separatorInset = UIEdgeInsetsMake(0, 99999, 0, 0)
         self.selectionStyle = .none
 
-        backgroundColorView.backgroundColor = UIColor(red: 125.0/255.0, green: 209.0/255.0, blue: 240.0/255.0, alpha: 0.25)
+        backgroundColorView.backgroundColor = UIColor(red: 125.0/255.0, green: 209.0/255.0, blue: 240.0/255.0, alpha: 0.15)
         self.contentView.addSubview(backgroundColorView)
 
         scoreLabel.numberOfLines = 1

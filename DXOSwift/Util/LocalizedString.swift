@@ -102,5 +102,47 @@ struct LocalizedString {
  
   static var search_nothing_found_message: String { return "search_nothing_found_message".localized() }
  
+  static var database_overall: String { return "database_overall".localized() }
+ 
+  static var database_portrait: String { return "database_portrait".localized() }
+ 
+  static var database_landscape: String { return "database_landscape".localized() }
+ 
+  static var database_sports: String { return "database_sports".localized() }
+ 
+  static var title_loading: String { return "title_loading".localized() }
+ 
+  static var database_loading_message: String { return "database_loading_message".localized() }
+ 
+  static var database_camera_database_title: String { return "database_camera_database_title".localized() }
+ 
+  static var database_lens_database_title: String { return "database_lens_database_title".localized() }
+ 
+  static var databae_senser_full_frame: String { return "databae_senser_full_frame".localized() }
+ 
+  static var database_senser_medium_format: String { return "database_senser_medium_format".localized() }
+ 
+  static var database_senser_unknown: String { return "database_senser_unknown".localized() }
+ 
+  static var databae_senser_1_3: String { return "databae_senser_1_3".localized() }
+ 
+  static var databae_senser_1_2_3: String { return "databae_senser_1_2_3".localized() }
+ 
+  static var databae_senser_1_1_7: String { return "databae_senser_1_1_7".localized() }
+ 
+  static var databae_senser_2_3: String { return "databae_senser_2_3".localized() }
+ 
+  static var databae_senser_1: String { return "databae_senser_1".localized() }
+ 
+  static var databae_senser_micro_4_3: String { return "databae_senser_micro_4_3".localized() }
+ 
+  static var databae_senser_apsc: String { return "databae_senser_apsc".localized() }
+ 
+  static var databae_senser_apsh: String { return "databae_senser_apsh".localized() }
+ 
+  static var database_sort_title: String { return "database_sort_title".localized() }
+ 
+  static var database_favorite_title: String { return "database_favorite_title".localized() }
+ 
 
 }

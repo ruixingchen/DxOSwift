@@ -12,7 +12,6 @@ import SnapKit
 
 protocol SearchResultControllerDelegate: class {
     func searchResultController(didSelect review:Review)
-    func searchResultController(didSelect presearch:PresearchObject)
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
 }
 
@@ -28,6 +27,12 @@ class SearchResultController: RXTableViewController, UISearchControllerDelegate,
 
     var loadingIndicator:UIActivityIndicatorView?
     var nothingFoundView:SearchResultNothingFoundView?
+
+    deinit {
+        #if DEBUG || debug
+            log.verbose("deinit")
+        #endif
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

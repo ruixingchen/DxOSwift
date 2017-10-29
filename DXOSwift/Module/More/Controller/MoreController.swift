@@ -112,7 +112,11 @@ class MoreController: RXTableViewController {
         case Define.row_setting:
             nextViewController = SettingsController()
         case Define.row_test:
+        #if DEBUG || debug
             nextViewController = TestController()
+        #else
+            break
+        #endif
         default:
             break
         }
@@ -144,9 +148,7 @@ extension MoreController {
         static let section_setting:String = "section_settings"
         static let row_setting:String = "title_settings"
 
-        #if DEBUG || debug
         static let section_debug:String = "section_debug"
         static let row_test:String = "title_test"
-        #endif
     }
 }

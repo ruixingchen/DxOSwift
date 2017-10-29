@@ -13,6 +13,12 @@ class SearchContainerController: RXViewController, SearchResultControllerDelegat
     var searchController:UISearchController!
     let searchResultController: SearchResultController = SearchResultController()
 
+    deinit {
+        #if DEBUG || debug
+            log.verbose("deinit")
+        #endif
+    }
+
     override func initFunction() {
         super.initFunction()
         self.title = LocalizedString.title_search
@@ -41,11 +47,20 @@ class SearchContainerController: RXViewController, SearchResultControllerDelegat
     }
 
     func searchResultController(didSelect review:Review) {
-
-    }
-
-    func searchResultController(didSelect presearch:PresearchObject) {
-
+        let detailVC:NewsDetailController = NewsDetailController(review: review)
+        let nav:WKWebViewNavigationController = WKWebViewNavigationController(rootViewController: detailVC)
+        nav.navigationBar.isTranslucent = false
+        nav.navigationBar.barTintColor = UIColor.dxoBlue
+        nav.navigationBar.tintColor = UIColor.white
+        nav.navigationBar.barStyle = .black
+        nav.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        nav.navigationBar.shadowImage = UIImage()
+        nav.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        if self.presentedViewController != nil {
+            self.presentedViewController?.present(nav, animated: true, completion: nil)
+        }else{
+            self.present(nav, animated: true, completion: nil)
+        }
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

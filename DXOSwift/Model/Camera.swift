@@ -23,41 +23,60 @@ class Camera: Device {
     var linkReview : String!
     var maximumIso : Int!
     var name : String!
-    var pixelDepth : Float!
+    var pixelDepth : Double!
     var price : Int!
-    var rankColor : Float!
+    var rankColor : Double!
     var rankColorRanking : Int!
     var rankDxo : Int!
     var rankDxoRanking : Int!
-    var rankDyn : Float!
+    var rankDyn : Double!
     var rankDynRanking : Int!
     var rankLln : Int!
     var rankLlnRanking : Int!
     var rawFormat : String!
     var resolutionvideo : Int!
-    var sensor : String!
-    var sensorraw : Float!
+    var sensor : String! {
+        didSet {
+            c_senserFormat = SenserFormat(rawValue: sensor ?? "") ?? SenserFormat.unknow
+        }
+    }
+    var sensorraw : Float! //mp
     var status : String!
     var type : String!
     var video : String!
     var waterproof : String!
     var year : String!
 
-    var launchTime:TimeInterval = 0
+    //c_ means this is a calculated like property, will be setted when the linked property did set
 
-    init(fromJson json: JSON){
-        if json.isEmpty{
-            return
+    /// UTC time from launchDateGraph
+    var c_launchTime:TimeInterval = 0
+    var c_senserFormat:SenserFormat!
+
+    init?(fromJson json: JSON){
+        super.init()
+        if !self.updateProperty(json: json) {
+            return nil
         }
+    }
+
+    /// update property with JSON, to make didSet called in init function, if init failed, return false, or return true
+    func updateProperty(json:JSON)->Bool{
         autofocus = json["autofocus"].stringValue
         brand = json["brand"].stringValue
         chapo = json["chapo"].stringValue
         flash = json["flash"].stringValue
         id = json["id"].intValue
+        if id == 0 {
+            return false
+        }
         image = json["image"].stringValue
         if !(image?.isEmpty ?? true) {
             if image!.hasPrefix("//") {
                 image = image?.replacingOccurrences(of: "//", with: "")
+            }
+            if !image.hasPrefix("http"){
+                image = "https://"+image
             }
         }
         launchDate = json["launchDate"].stringValue
@@ -72,13 +91,13 @@ class Camera: Device {
         }
         maximumIso = json["maximum_iso"].intValue
         name = json["name"].stringValue
-        pixelDepth = json["pixelDepth"].floatValue
+        pixelDepth = json["pixelDepth"].doubleValue
         price = json["price"].intValue
-        rankColor = json["rankColor"].floatValue
+        rankColor = json["rankColor"].doubleValue
         rankColorRanking = json["rankColor_ranking"].intValue
         rankDxo = json["rankDxo"].intValue
         rankDxoRanking = json["rankDxo_ranking"].intValue
-        rankDyn = json["rankDyn"].floatValue
+        rankDyn = json["rankDyn"].doubleValue
         rankDynRanking = json["rankDyn_ranking"].intValue
         rankLln = json["rankLln"].intValue
         rankLlnRanking = json["rankLln_ranking"].intValue
@@ -91,14 +110,13 @@ class Camera: Device {
         video = json["video"].stringValue
         waterproof = json["waterproof"].stringValue
         year = json["year"].stringValue
+
+        return true
     }
 }
 
 extension Camera {
     enum SenserFormat: String {
-        /*
-         ["sensor_apsc", "sensor_apsh", "sensor_fullframe", "sensor_compact_1over1.7", "sensor_compact_2over3", "sensor_medium", "sensor_micro43", "sensor_compact_1over2.3", "", "sensor_compact_1", "sensor_compact_1over3"]
-         */
         case compact_1over3 = "sensor_compact_1over3"
         case compact_1over2_3 = "sensor_compact_1over2.3"
         case compact_1over1_7 = "sensor_compact_1over1.7"
@@ -110,13 +128,64 @@ extension Camera {
         case apsh = "sensor_apsh"
         case fullFrame = "sensor_fullframe"
         case mediumFormat = "sensor_medium"
-        case unknow
+        case unknow = "unknown"
+
+        var shortDescription:String {
+            switch self {
+            case .compact_1over3:
+                return "1/3'"
+            case .compact_1over2_3:
+                return "1/2.3'"
+            case .compact_1over1_7:
+                return "1/1.7'"
+            case .compact_2over3:
+                return "2/3''"
+            case .compact_1:
+                return "1'"
+            case .micro43:
+                return "M43"
+            case .apsc:
+                return "APSC"
+            case .apsh:
+                return "APSH"
+            case .fullFrame:
+                return "FF"
+            case .mediumFormat:
+                return "MF"
+            case .unknow:
+                return "unknow"
+            }
+        }
+
+        var localizedDescription:String {
+            switch self {
+            case .compact_1over3:
+                return LocalizedString.databae_senser_1_3
+            case .compact_1over2_3:
+                return LocalizedString.databae_senser_1_2_3
+            case .compact_1over1_7:
+                return LocalizedString.databae_senser_1_1_7
+            case .compact_2over3:
+                return LocalizedString.databae_senser_2_3
+            case .compact_1:
+                return LocalizedString.databae_senser_1
+            case .micro43:
+                return LocalizedString.databae_senser_micro_4_3
+            case .apsc:
+                return LocalizedString.databae_senser_apsc
+            case .apsh:
+                return LocalizedString.databae_senser_apsh
+            case .fullFrame:
+                return LocalizedString.databae_senser_full_frame
+            case .mediumFormat:
+                return LocalizedString.database_senser_medium_format
+            case .unknow:
+                return LocalizedString.database_senser_unknown
+            }
+        }
     }
 
     enum Brand: String {
-        /*
-         ["Canon", "Fujifilm", "Hasselblad", "Konica Minolta", "Leaf", "Leica", "Mamiya", "Nikon", "Olympus", "Panasonic", "Pentax", "Phase One", "Samsung", "Sony", "Ricoh", "Nokia", "DJI", "GoPro", "YUNEEC"]
-         */
         case canon = "Canon"
         case fujifilm = "Fujifilm"
         case hasselblad = "Hasselblad"

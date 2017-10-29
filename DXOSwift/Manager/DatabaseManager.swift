@@ -1,5 +1,5 @@
 //
-//  DataBaseManager.swift
+//  DatabaseManager.swift
 //  DXOSwift
 //
 //  Created by ruixingchen on 20/10/2017.
@@ -9,10 +9,10 @@
 import Foundation
 import FMDB
 
-class DataBaseManager {
+class DatabaseManager {
 
     /// just shared is OK
-    static let shared:DataBaseManager = DataBaseManager()
+    static let shared:DatabaseManager = DatabaseManager()
 
     var mainDB: FMDatabase!
     var dbPath: String!

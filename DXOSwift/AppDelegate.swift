@@ -7,8 +7,10 @@
 //
 
 import UIKit
-import GDPerformanceView_Swift
-import netfox
+#if DEBUG || debug
+    import GDPerformanceView_Swift
+    import netfox
+#endif
 import Toast_Swift
 
 @UIApplicationMain

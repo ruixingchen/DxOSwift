@@ -98,3 +98,45 @@
 
 "search_nothing_found_message" = "没有搜索到任何内容, 请使用其他关键字再次搜索";
 
+"database_overall" = "总分";
+
+"database_portrait" = "人像";
+
+"database_landscape" = "风光";
+
+"database_sports" = "运动";
+
+"title_loading" = "正在加载";
+
+"database_loading_message" = "正在下载数据库, 可能需要三分钟";
+
+"database_camera_database_title" = "相机数据库";
+
+"database_lens_database_title" = "镜头数据库";
+
+"databae_senser_full_frame" = "全画幅";
+
+"database_senser_medium_format" = "中画幅";
+
+"database_senser_unknown" = "未知CMOS";
+
+"databae_senser_1_3" = "1/3 英寸";
+
+"databae_senser_1_2_3" = "1/2.3 英寸";
+
+"databae_senser_1_1_7" = "1/1.7 英寸";
+
+"databae_senser_2_3" = "2/3 英寸";
+
+"databae_senser_1" = "1 英寸";
+
+"databae_senser_micro_4_3" = "M43 画幅";
+
+"databae_senser_apsc" = "APSC画幅";
+
+"databae_senser_apsh" = "APSH 画幅";
+
+"database_sort_title" = "排序";
+
+"database_favorite_title" = "收藏";
+
