@@ -98,4 +98,35 @@ extension String {
     func localized(tableName:String? = nil, bundle:Bundle = Bundle.main, value:String = "", comment:String = "")->String{
         return NSLocalizedString(self, tableName: tableName, bundle: bundle, value: value, comment: comment)
     }
+
+
+    /// the abstract for num of bytes
+    ///
+    /// - Parameter size: size in byte
+    /// - Returns: the max is TB, returns the num if larger than that
+    static func dataSizeAbstract(size:UInt64, decimal:Int = 1) ->String {
+        var newSize:Double = 0
+        var unit:String = ""
+        switch size {
+        case 0..<1024:
+            newSize = Double(size)
+            unit = "Byte"
+        case 1024..<1048576:
+            newSize = Double(size)/1024
+            unit = "KB"
+        case 1048576..<1048576*1024:
+            newSize = Double(size)/1048576
+            unit = "MB"
+        case 1048576*1024..<1048576*1048576:
+            newSize = Double(size)/1048576/1024
+            unit = "GB"
+        case 1048576*1048576..<1048576*1048576*1024:
+            newSize = Double(size)/1048576/1048576
+            unit = "TB"
+        default:
+            return "\(size)"
+        }
+        return String.init(format: "%.\(decimal)f", newSize).appending(unit)
+    }
+
 }

@@ -21,6 +21,16 @@ class SettingsManager {
     /// simplified and traditional are both Chinese
     fileprivate static var _shouldUseChinese:Bool!
 
+    static var debug_ignore_cache:Bool {
+        get {
+            return (UserDefaults.standard.object(forKey: "debug_ignore_cache") as? Bool) ?? false
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "debug_ignore_cache")
+            UserDefaults.standard.synchronize()
+        }
+    }
+
     /// 1: follow system, 2:english, 3:chinese
     static var mobilePreviewLanguage:Int {
         get {
@@ -59,6 +69,5 @@ class SettingsManager {
             _databaseHDImage = newValue
         }
     }
-
 
 }

@@ -18,6 +18,7 @@
 		801D6B291F97691400CEAE64 /* NewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801D6B281F97691400CEAE64 /* NewsController.swift */; };
 		801D6B2E1F976DC400CEAE64 /* newsSample.html in Resources */ = {isa = PBXBuildFile; fileRef = 801D6B2C1F976BF900CEAE64 /* newsSample.html */; };
 		801D6B2F1F976DC600CEAE64 /* mainPageSample.html in Resources */ = {isa = PBXBuildFile; fileRef = 801D6B2D1F976C3500CEAE64 /* mainPageSample.html */; };
+		80223F2C1FA74A8600DE4DB2 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80223F2B1FA74A8600DE4DB2 /* IntExtension.swift */; };
 		8031A72B1F98FB1600010540 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8031A72A1F98FB1600010540 /* ArrayExtension.swift */; };
 		8031A72D1F99054C00010540 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8031A72C1F99054C00010540 /* UIColorExtension.swift */; };
 		803C4E6E1FA56D7900459151 /* SearchResultNothingFoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803C4E6D1FA56D7900459151 /* SearchResultNothingFoundView.swift */; };
@@ -95,6 +96,7 @@
 		801D6B281F97691400CEAE64 /* NewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsController.swift; sourceTree = "<group>"; };
 		801D6B2C1F976BF900CEAE64 /* newsSample.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = newsSample.html; sourceTree = "<group>"; };
 		801D6B2D1F976C3500CEAE64 /* mainPageSample.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = mainPageSample.html; sourceTree = "<group>"; };
+		80223F2B1FA74A8600DE4DB2 /* IntExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
 		8031A72A1F98FB1600010540 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		8031A72C1F99054C00010540 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		803C4E6D1FA56D7900459151 /* SearchResultNothingFoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultNothingFoundView.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 				80D1F7591F9F4DED00997631 /* UIRefreshControlExtension.swift */,
 				803C4E6F1FA56E2000459151 /* UIFontExtension.swift */,
 				803C4E831FA61A3700459151 /* SwiftyJSONExtension.swift */,
+				80223F2B1FA74A8600DE4DB2 /* IntExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -689,6 +692,7 @@
 				80D1F6F61F9EE89300997631 /* TestController.swift in Sources */,
 				80E689481F9BFB3200577D41 /* MoreController.swift in Sources */,
 				805786721F963797006D2B3C /* StringExtension.swift in Sources */,
+				80223F2C1FA74A8600DE4DB2 /* IntExtension.swift in Sources */,
 				8052731C1F9D914800F9642F /* MoreFooterView.swift in Sources */,
 				80430AD61F9DC6E700224DAA /* ArticlesController.swift in Sources */,
 				801D6B271F9768B000CEAE64 /* MainTabBarController.swift in Sources */,

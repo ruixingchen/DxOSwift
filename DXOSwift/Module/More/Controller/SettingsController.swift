@@ -20,17 +20,20 @@ class SettingsController: RXTableViewController {
         super.initFunction()
         self.title = LocalizedString.title_settings
 
-//        sectionTitles.append(Define.section_common)
+        sectionTitles.append(Define.section_common)
         sectionTitles.append(Define.section_cache)
+        sectionTitles.append(Define.section_debug)
 
         for i in sectionTitles {
             var rowTitle:[String] = []
             switch i {
             case Define.section_common:
-                rowTitle.append(Define.row_hd_image_in_database)
-                rowTitle.append(Define.row_mobile_review_language)
+                rowTitle.append(Define.row_common_hd_image_in_database)
+                rowTitle.append(Define.row_common_mobile_review_language)
             case Define.section_cache:
-                rowTitle.append(Define.row_clear_cahce)
+                rowTitle.append(Define.row_cache_clear_cahce)
+            case Define.section_debug:
+                rowTitle.append(Define.row_debug_ignore_cache)
             default:
                 break
             }
@@ -49,7 +52,6 @@ class SettingsController: RXTableViewController {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(1)) {
                 log.verbose("image cache size: \(size)")
                 self?.cacheSize = size
-                //MARK: - Change this if we change the section of tableView content
                 self?.tableView.reloadData()
             }
         }
@@ -94,11 +96,18 @@ class SettingsController: RXTableViewController {
 
         var titleText:String?
         var detailText:String?
+        var accessoryType:UITableViewCellAccessoryType = UITableViewCellAccessoryType.disclosureIndicator
         var accessoryView:UIView?
-        var accessoryType:UITableViewCellAccessoryType? = UITableViewCellAccessoryType.disclosureIndicator
 
         if sectionTitle == Define.section_common {
-            if rowTitle == Define.row_mobile_review_language {
+            if rowTitle == Define.row_common_hd_image_in_database {
+                titleText = LocalizedString.settings_row_database_hd_image
+                let switcher:IndexPathSwitch = IndexPathSwitch()
+                switcher.addTarget(self, action: #selector(switchValueChanged(sender:)), for: UIControlEvents.valueChanged)
+                switcher.indexPath = indexPath
+                switcher.isOn = SettingsManager.databaseHDImage
+                accessoryView = switcher
+            }else if rowTitle == Define.row_common_mobile_review_language {
                 titleText = LocalizedString.settings_row_mobile_review_language
                 switch SettingsManager.mobilePreviewLanguage {
                 case 1:
@@ -110,118 +119,133 @@ class SettingsController: RXTableViewController {
                 default:
                     break
                 }
-            }else if rowTitle == Define.row_hd_image_in_database {
-                titleText = LocalizedString.settings_row_database_hd_image
-                let switcher:IndexPathSwitch = IndexPathSwitch()
-                switcher.indexPath = indexPath
-                switcher.isOn = SettingsManager.databaseHDImage
-                switcher.addTarget(self, action: #selector(switchValueChanged(sender:)), for: UIControlEvents.valueChanged)
-                accessoryView = switcher
-                accessoryType = UITableViewCellAccessoryType.none
+                accessoryType = .disclosureIndicator
             }
         }else if sectionTitle == Define.section_cache {
-            if rowTitle == Define.row_clear_cahce {
+            if rowTitle == Define.row_cache_clear_cahce {
                 titleText = LocalizedString.settings_row_clear_cache
                 if self.cacheSize == nil {
-                    accessoryView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-                    (accessoryView as? UIActivityIndicatorView)?.startAnimating()
-                    accessoryType = nil
-                }else{
-                    detailText = "\(cacheSize!/1024)KB"
+                    //show indicator
+                    let indicator:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+                    indicator.startAnimating()
+                    accessoryView = indicator
+                }else {
+                    //show detail text
+                    detailText = String.dataSizeAbstract(size: UInt64(cacheSize!), decimal: 2)
                 }
             }
+        }else if sectionTitle == Define.section_debug {
+            #if DEBUG || debug
+                if rowTitle == Define.row_debug_ignore_cache {
+                    titleText = "Ignore Cache"
+                    let switcher:IndexPathSwitch = IndexPathSwitch()
+                    switcher.addTarget(self, action: #selector(switchValueChanged(sender:)), for: UIControlEvents.valueChanged)
+                    switcher.indexPath = indexPath
+                    switcher.isOn = SettingsManager.debug_ignore_cache
+                    accessoryView = switcher
+                }
+            #endif
         }
 
-        var cell:UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: "cell")
+        var cell:UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: "normal_cell")
         if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "cell")
+            cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "normal_cell")
         }
-
         cell?.textLabel?.text = titleText
         cell?.detailTextLabel?.text = detailText
-        if accessoryView != nil {
-            cell?.accessoryType = .none
-            cell?.accessoryView = accessoryView
-        }else {
+        if accessoryView == nil {
             cell?.accessoryView = nil
-            cell?.accessoryType = accessoryType ?? UITableViewCellAccessoryType.none
+            cell?.accessoryType = accessoryType
+        }else {
+            cell?.accessoryView = accessoryView
         }
 
         return cell!
     }
 
-    /// the normal text cell
-//    func tableView(_ tableView: UITableView, textCellForRowAt indexPath: IndexPath, sectionTitle:String, rowTitle:String) -> UITableViewCell {
-//
-//    }
-
-    /// the switch cell
-//    func tableView(_ tableView: UITableView, switchCellForRowAt indexPath: IndexPath, sectionTitle:String, rowTitle:String) -> UITableViewCell {
-//
-//    }
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        guard let sectionTitle:String = sectionTitles.safeGet(at: indexPath.section) else {
+            log.error("can not get section title, indexPath:\(indexPath), titles:\(sectionTitles.count)")
+            return
+        }
         guard let rowTitle:String = rowTitles.safeGet(at: indexPath.section)?.safeGet(at: indexPath.row) else {
             log.error("can not get row title, indexPath:\(indexPath), titles:\(rowTitles)")
             return
         }
-        if rowTitle == Define.row_mobile_review_language {
-            self.tableView(tableView, didSelectMobileReviewLanguageAt: indexPath)
-        }else if rowTitle == Define.row_clear_cahce {
-            self.tableView(tableView, didSelectClearCacheAt: indexPath)
-        }
-    }
 
-    func tableView(_ tableView:UITableView, didSelectMobileReviewLanguageAt indexPath:IndexPath) {
-        let alert:UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-        let systemAction:UIAlertAction = UIAlertAction(title: LocalizedString.settings_row_mobile_review_language_follow_system, style: UIAlertActionStyle.default, handler: { (action) in
-            SettingsManager.mobilePreviewLanguage = 1
-            self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
-        })
-        let englishAction:UIAlertAction = UIAlertAction(title: LocalizedString.title_english, style: UIAlertActionStyle.default, handler: { (action) in
-            SettingsManager.mobilePreviewLanguage = 2
-            self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
-        })
-        let chineseAction:UIAlertAction = UIAlertAction(title: LocalizedString.title_chinese, style: UIAlertActionStyle.default, handler: { (action) in
-            SettingsManager.mobilePreviewLanguage = 3
-            self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
-        })
-        let cancelAction:UIAlertAction = UIAlertAction(title: LocalizedString.title_cancel, style: UIAlertActionStyle.cancel, handler: nil)
-        alert.addAction(systemAction)
-        alert.addAction(englishAction)
-        alert.addAction(chineseAction)
-        alert.addAction(cancelAction)
-        let idiom:UIUserInterfaceIdiom = UIDevice.current.userInterfaceIdiom
-        if idiom == UIUserInterfaceIdiom.phone {
-            self.present(alert, animated: true, completion: nil)
-        }else if idiom == UIUserInterfaceIdiom.pad {
+        if sectionTitle == Define.section_common {
+            if rowTitle == Define.row_common_mobile_review_language {
+                self.tableView(tableView, didSelectAlertRowAt: indexPath, sectionTitle: sectionTitle, rowTitle: rowTitle)
+            }
+        }else if sectionTitle == Define.section_cache {
+            if rowTitle == Define.row_cache_clear_cahce {
+                self.tableView(tableView, didSelectAlertRowAt: indexPath, sectionTitle: sectionTitle, rowTitle: rowTitle)
+            }
+        }else if sectionTitle == Define.section_debug {
 
         }
     }
 
-    func tableView(_ tableView:UITableView, didSelectClearCacheAt indexPath:IndexPath) {
-        if self.cacheSize == nil {
+    func tableView(_ tableView: UITableView, didSelectAlertRowAt indexPath: IndexPath, sectionTitle:String, rowTitle:String) {
+        var actions:[UIAlertAction] = []
+        var title:String?
+        var message:String?
+        var style:UIAlertControllerStyle = UIAlertControllerStyle.alert
+
+        if sectionTitle == Define.section_common {
+            if rowTitle == Define.row_common_mobile_review_language {
+                let systemAction:UIAlertAction = UIAlertAction(title: LocalizedString.settings_row_mobile_review_language_follow_system, style: UIAlertActionStyle.default, handler: { (action) in
+                    SettingsManager.mobilePreviewLanguage = 1
+                    self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+                })
+                let englishAction:UIAlertAction = UIAlertAction(title: LocalizedString.title_english, style: UIAlertActionStyle.default, handler: { (action) in
+                    SettingsManager.mobilePreviewLanguage = 2
+                    self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+                })
+                let chineseAction:UIAlertAction = UIAlertAction(title: LocalizedString.title_chinese, style: UIAlertActionStyle.default, handler: { (action) in
+                    SettingsManager.mobilePreviewLanguage = 3
+                    self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
+                })
+                actions.append(systemAction)
+                actions.append(englishAction)
+                actions.append(chineseAction)
+                style = UIAlertControllerStyle.actionSheet
+            }
+        }else if sectionTitle == Define.section_cache {
+            if rowTitle == Define.row_cache_clear_cahce {
+                let confirmAction:UIAlertAction = UIAlertAction(title: LocalizedString.settings_confirm_clear_cache, style: UIAlertActionStyle.destructive, handler: {[weak self] (action) in
+                    KingfisherManager.shared.cache.clearDiskCache(completion: {
+                        DispatchQueue.main.async {
+                            self?.cacheSize = 0
+                            self?.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
+                        }
+                    })
+                })
+                actions.append(confirmAction)
+                message = LocalizedString.settings_clear_cache_warning_message
+                style = UIAlertControllerStyle.actionSheet
+            }
+        }else if sectionTitle == Define.section_debug {
+
+        }
+
+        if actions.isEmpty {
             return
         }
-        let alert:UIAlertController = UIAlertController(title: nil, message: LocalizedString.settings_clear_cache_warning_message, preferredStyle: UIAlertControllerStyle.actionSheet)
-        let confirmAction:UIAlertAction = UIAlertAction(title: LocalizedString.settings_confirm_clear_cache, style: UIAlertActionStyle.destructive, handler: {[weak self] (action) in
-            KingfisherManager.shared.cache.clearDiskCache(completion: {
-                DispatchQueue.main.async {
-                    self?.cacheSize = 0
-                    self?.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
-                }
-            })
-        })
-        let cancelAction:UIAlertAction = UIAlertAction(title: LocalizedString.title_cancel, style: UIAlertActionStyle.cancel, handler: nil)
-        alert.addAction(confirmAction)
-        alert.addAction(cancelAction)
+
+        let alert = UIAlertController(title: title, message: message, preferredStyle: style)
+        for i in actions {
+            alert.addAction(i)
+        }
+        alert.addAction(UIAlertAction(title: LocalizedString.title_cancel, style: UIAlertActionStyle.cancel, handler: nil))
         let idiom:UIUserInterfaceIdiom = UIDevice.current.userInterfaceIdiom
         if idiom == UIUserInterfaceIdiom.phone {
             self.present(alert, animated: true, completion: nil)
         }else if idiom == UIUserInterfaceIdiom.pad {
 
         }
+
     }
 
     @objc func switchValueChanged(sender:IndexPathSwitch){
@@ -236,11 +260,14 @@ class SettingsController: RXTableViewController {
         }
 
         if sectionTitle == Define.section_common {
-            if rowTitle == Define.row_hd_image_in_database {
+            if rowTitle == Define.row_common_hd_image_in_database {
                 SettingsManager.databaseHDImage = sender.isOn
             }
+        }else if sectionTitle == Define.section_debug {
+            if rowTitle == Define.row_debug_ignore_cache {
+                SettingsManager.debug_ignore_cache = sender.isOn
+            }
         }
-
     }
 
 }
@@ -248,11 +275,14 @@ class SettingsController: RXTableViewController {
 extension SettingsController {
     struct Define {
         static let section_common:String = "section_common"
-        static let row_hd_image_in_database:String = "row_database_hd_image"
-        static let row_mobile_review_language:String = "row_mobile_review_language"
+        static let row_common_hd_image_in_database:String = "row_common_database_hd_image"
+        static let row_common_mobile_review_language:String = "row_common_mobile_review_language"
 
         static let section_cache:String = "section_cache"
-        static let row_clear_cahce:String = "row_clear_cache"
+        static let row_cache_clear_cahce:String = "row_clear_cache"
+
+        static let section_debug:String = "section_debug"
+        static let row_debug_ignore_cache:String = "row_debug_ignore_cache"
     }
 
 }

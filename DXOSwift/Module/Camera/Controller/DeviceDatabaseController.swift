@@ -154,7 +154,7 @@ class DeviceDatabaseController: RXTableViewController, RetryLoadingViewDelegate 
     func requestDatabaseFinish(dataSourceAnyObject:Any?, error:RXError?){
         if dataSourceAnyObject == nil || error != nil {
             DispatchQueue.main.async {
-                if self.requestFailedView != nil {
+                if self.requestFailedView == nil {
                     self.requestFailedView = RetryLoadingView()
                     self.requestFailedView?.delegate = self
                     self.view.addSubview(self.requestFailedView!)
@@ -234,7 +234,11 @@ class DeviceDatabaseController: RXTableViewController, RetryLoadingViewDelegate 
                 scoreText = String.init(format: "%d", camera.rankLln)
                 backgroundWidthMult = Float(camera.rankLln)/Float(cameraDataSource!.LlnMax)
             }
-            imageUrl = camera.image
+            if SettingsManager.databaseHDImage {
+                imageUrl = camera.c_bigImage
+            }else{
+                imageUrl = camera.image
+            }
             titleText = camera.name
             detailText = String(format: "%.1f", camera.sensorraw)
             detailText?.append(" MP, ")
@@ -267,8 +271,11 @@ class DeviceDatabaseController: RXTableViewController, RetryLoadingViewDelegate 
                 scoreText = String.init(format: "%.1f", lens.ac)
                 backgroundWidthMult = 1-lens.ac/lensDataSource!.acMax
             }
-
-            imageUrl = lens.image
+            if SettingsManager.databaseHDImage {
+                imageUrl = lens.c_bigImage
+            }else{
+                imageUrl = lens.image
+            }
             titleText = lens.name
             detailText = LocalizedString.database_lens_mounted_on
             detailText?.append(": ")

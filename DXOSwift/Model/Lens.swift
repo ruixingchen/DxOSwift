@@ -61,7 +61,7 @@ class Lens: Device {
     var c_launchTime:TimeInterval = 0
 
     var c_bigImage:String {
-        return self.image.replacingOccurrences(of: "vignette3.png", with: "vignette1.jpg")
+        return self.image.replacingOccurrences(of: "_small.png", with: ".png")
     }
 
     var shortDescription:String {
