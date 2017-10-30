@@ -60,6 +60,10 @@ class Lens: Device {
     /// UTC time from launchDateGraph
     var c_launchTime:TimeInterval = 0
 
+    var c_bigImage:String {
+        return self.image.replacingOccurrences(of: "vignette3.png", with: "vignette1.jpg")
+    }
+
     var shortDescription:String {
         var d:String = "name:"
         d.append(name)

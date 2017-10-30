@@ -475,7 +475,12 @@ class DXOService {
             }
         #endif
 
-        let url:URL = URL(string: "https://www.dxomark.com/daksensor/ajax/jsontested")!
+        guard let url:URL = URL(string: "https://www.dxomark.com/daksensor/ajax/jsontested") else {
+            DispatchQueue.global().async {
+                handleClosure(nil, ServiceError.badUrl)
+            }
+            return
+        }
         let request:URLRequest = commonURLRequest(url: url)
         serviceRequest(request: request) { (inData, inError) in
             handleClosure(inData, inError)
@@ -522,7 +527,12 @@ class DXOService {
             }
         #endif
 
-        let url:URL = URL(string: "https://www.dxomark.com/daklens/ajax/jsontested")!
+        guard let url:URL = URL(string: "https://www.dxomark.com/daklens/ajax/jsontested") else {
+            DispatchQueue.global().async {
+                handleClosure(nil, ServiceError.badUrl)
+            }
+            return
+        }
         let request:URLRequest = commonURLRequest(url: url)
         serviceRequest(request: request) { (inData, inError) in
             handleClosure(inData, inError)
@@ -583,6 +593,61 @@ class DXOService {
             DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(1)) {
                 completion?(nil, userInfo, RXError(description: "key add percent failed"))
             }
+        }
+    }
+
+    class func cameraSpecifications(link:String, completion:(([Camera.Specification]?, RXError?)->Void)?){
+        let handleClosure:(Data?, ServiceError?)->Void = { (inData, inError) in
+            var outError:RXError?
+            var outObject:[Camera.Specification]?
+
+            defer {
+                if outError != nil {
+                    log.info("request with error:\n\(outError!.description)")
+                }
+                completion?(outObject, outError)
+            }
+
+            if inError != nil {
+                outError = RXError(error: inError!, errorDescription: "in error is not nil")
+                return
+            }else if inData == nil {
+                outError = RXError(error: ServiceError.noResponse, errorDescription: "in data is nil")
+                return
+            }
+            //start to parse the HTML document
+            guard let htmlDocument:HTMLDocument = HTML(html: inData!, encoding: .utf8) else {
+                outError = RXError(error: ServiceError.badResponse, errorDescription: "bad html response")
+                return
+            }
+
+            var array:[Camera.Specification] = []
+            for node in htmlDocument.xpath("//div[@class='liste_descriptif']//tr") {
+                let td:XPathObject = node.xpath("./td/text()")
+                if td.count != 2 {
+                    log.error("num of a row is not 2, but: \(td.count)")
+                    continue
+                }
+                let key:String = td[0].text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
+                var value:String = td[1].text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
+                if value.contains("tbl_result") {
+                    //the comment
+                    value = ""
+                }
+                array.append(Camera.Specification(key: key, value: value))
+            }
+            outObject = array
+        }
+
+        guard let url:URL = URL(string: link.appending("---Specifications")) else {
+            DispatchQueue.global().async {
+                handleClosure(nil, ServiceError.badUrl)
+            }
+            return
+        }
+        let request:URLRequest = commonURLRequest(url: url)
+        serviceRequest(request: request) { (inData, inError) in
+            handleClosure(inData, inError)
         }
     }
 

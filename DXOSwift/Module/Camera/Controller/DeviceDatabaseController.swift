@@ -63,19 +63,19 @@ class DeviceDatabaseController: RXTableViewController, RetryLoadingViewDelegate 
     @objc func didTapSortButton(){
         let alert:UIAlertController = UIAlertController(title: LocalizedString.database_sort_title, message: nil, preferredStyle: .actionSheet)
         if self.deviceType == .camera {
-            let overall:UIAlertAction = UIAlertAction(title: LocalizedString.database_overall, style: .default) { (_) in
+            let overall:UIAlertAction = UIAlertAction(title: LocalizedString.database_camera_overall, style: .default) { (_) in
                 self.cameraDataSource?.sort(sortType: .overall)
                 self.tableView.reloadData()
             }
-            let portrait:UIAlertAction = UIAlertAction(title: LocalizedString.database_portrait, style: .default) { (_) in
+            let portrait:UIAlertAction = UIAlertAction(title: LocalizedString.database_camera_portrait, style: .default) { (_) in
                 self.cameraDataSource?.sort(sortType: .portrait)
                 self.tableView.reloadData()
             }
-            let landscape:UIAlertAction = UIAlertAction(title: LocalizedString.database_landscape, style: .default) { (_) in
+            let landscape:UIAlertAction = UIAlertAction(title: LocalizedString.database_camera_landscape, style: .default) { (_) in
                 self.cameraDataSource?.sort(sortType: .landscape)
                 self.tableView.reloadData()
             }
-            let sports:UIAlertAction = UIAlertAction(title: LocalizedString.database_sports, style: .default) { (_) in
+            let sports:UIAlertAction = UIAlertAction(title: LocalizedString.database_camera_sports, style: .default) { (_) in
                 self.cameraDataSource?.sort(sortType: .sports)
                 self.tableView.reloadData()
             }
@@ -84,27 +84,27 @@ class DeviceDatabaseController: RXTableViewController, RetryLoadingViewDelegate 
             alert.addAction(landscape)
             alert.addAction(sports)
         }else if self.deviceType == .lens {
-            let score:UIAlertAction = UIAlertAction(title: LocalizedString.database_dxo_mark_score, style: .default, handler: { (_) in
+            let score:UIAlertAction = UIAlertAction(title: LocalizedString.database_lens_dxo_mark_score, style: .default, handler: { (_) in
                 self.lensDataSource?.sort(sortType: .score)
                 self.tableView.reloadData()
             })
-            let sharpness:UIAlertAction = UIAlertAction(title: LocalizedString.database_sharpness, style: .default, handler: { (_) in
+            let sharpness:UIAlertAction = UIAlertAction(title: LocalizedString.database_camera_sharpness, style: .default, handler: { (_) in
                 self.lensDataSource?.sort(sortType: .sharpness)
                 self.tableView.reloadData()
             })
-            let distortion:UIAlertAction = UIAlertAction(title: LocalizedString.database_distortion, style: .default, handler: { (_) in
+            let distortion:UIAlertAction = UIAlertAction(title: LocalizedString.database_lens_distortion, style: .default, handler: { (_) in
                 self.lensDataSource?.sort(sortType: .distortion)
                 self.tableView.reloadData()
             })
-            let vignetting:UIAlertAction = UIAlertAction(title: LocalizedString.database_vignetting, style: .default, handler: { (_) in
+            let vignetting:UIAlertAction = UIAlertAction(title: LocalizedString.database_lens_vignetting, style: .default, handler: { (_) in
                 self.lensDataSource?.sort(sortType: .vignetting)
                 self.tableView.reloadData()
             })
-            let transmission:UIAlertAction = UIAlertAction(title: LocalizedString.database_transmission, style: .default, handler: { (_) in
+            let transmission:UIAlertAction = UIAlertAction(title: LocalizedString.database_lens_transmission, style: .default, handler: { (_) in
                 self.lensDataSource?.sort(sortType: .transmission)
                 self.tableView.reloadData()
             })
-            let aberration:UIAlertAction = UIAlertAction(title: LocalizedString.database_aberration, style: .default, handler: { (_) in
+            let aberration:UIAlertAction = UIAlertAction(title: LocalizedString.database_lens_aberration, style: .default, handler: { (_) in
                 self.lensDataSource?.sort(sortType: .aberration)
                 self.tableView.reloadData()
             })
@@ -267,12 +267,13 @@ class DeviceDatabaseController: RXTableViewController, RetryLoadingViewDelegate 
                 scoreText = String.init(format: "%.1f", lens.ac)
                 backgroundWidthMult = 1-lens.ac/lensDataSource!.acMax
             }
+
             imageUrl = lens.image
             titleText = lens.name
-            detailText = LocalizedString.database_mounted_on
+            detailText = LocalizedString.database_lens_mounted_on
             detailText?.append(": ")
             if (lens.mountedOn?.isEmpty ?? true) {
-                detailText?.append(LocalizedString.content_unknown)
+                detailText?.append(LocalizedString.common_unknown)
             }else{
                 detailText?.append(lens.mountedOn)
             }
@@ -302,15 +303,17 @@ class DeviceDatabaseController: RXTableViewController, RetryLoadingViewDelegate 
 
         if self.deviceType == .camera {
             guard let camera:Camera = self.cameraDataSource?.dataSource.safeGet(at: indexPath.row) else {
+                log.error("can not get camera")
                 return
             }
-
+            let detail:CameraDetailController = CameraDetailController(camera: camera)
+            detail.view.backgroundColor = UIColor.white
+            next = detail
         }else if self.deviceType == .lens {
             guard let lens:Lens = self.lensDataSource?.dataSource.safeGet(at: indexPath.row) else {
                 return
             }
             log.verbose(lens.shortDescription)
-
         }
         if next != nil {
             self.navigationController?.pushViewController(next!, animated: true)

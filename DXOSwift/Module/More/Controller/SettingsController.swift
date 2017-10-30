@@ -19,16 +19,15 @@ class SettingsController: RXTableViewController {
     override func initFunction() {
         super.initFunction()
         self.title = LocalizedString.title_settings
-        #if DEBUG || debug
-            //only use English for now time
-            //sectionTitles.append(Define.section_mobile_review_language)
-        #endif
+
+//        sectionTitles.append(Define.section_common)
         sectionTitles.append(Define.section_cache)
 
         for i in sectionTitles {
             var rowTitle:[String] = []
             switch i {
-            case Define.section_mobile_review_language:
+            case Define.section_common:
+                rowTitle.append(Define.row_hd_image_in_database)
                 rowTitle.append(Define.row_mobile_review_language)
             case Define.section_cache:
                 rowTitle.append(Define.row_clear_cahce)
@@ -51,7 +50,7 @@ class SettingsController: RXTableViewController {
                 log.verbose("image cache size: \(size)")
                 self?.cacheSize = size
                 //MARK: - Change this if we change the section of tableView content
-                self?.tableView.reloadSections(IndexSet.init(integer: 0), with: .none)
+                self?.tableView.reloadData()
             }
         }
     }
@@ -73,13 +72,18 @@ class SettingsController: RXTableViewController {
             return nil
         }
         var localizedTitle:String?
-        if sectionTitle == Define.section_mobile_review_language {
-            localizedTitle = LocalizedString.section_mobile_review_language_footer_title
-        }
+
         return localizedTitle
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let sectionTitle:String = sectionTitles.safeGet(at: indexPath.section) else {
+            let cell = RXBlankTableViewCell(reuseIdentifier: nil)
+            #if DEBUG || debug
+                cell.infoLabel.text = "can not get section title"
+            #endif
+            return cell
+        }
         guard let rowTitle:String = rowTitles.safeGet(at: indexPath.section)?.safeGet(at: indexPath.row) else {
             let cell = RXBlankTableViewCell(reuseIdentifier: nil)
             #if DEBUG || debug
@@ -88,30 +92,43 @@ class SettingsController: RXTableViewController {
             return cell
         }
 
-        var localizedTitle:String?
+        var titleText:String?
         var detailText:String?
         var accessoryView:UIView?
         var accessoryType:UITableViewCellAccessoryType? = UITableViewCellAccessoryType.disclosureIndicator
 
-        localizedTitle = "settings_".appending(rowTitle).localized()
-        if rowTitle == Define.row_mobile_review_language {
-            switch SettingsManager.mobilePreviewLanguage {
-            case 1:
-                detailText = LocalizedString.settings_row_mobile_review_language_follow_system
-            case 2:
-                detailText = LocalizedString.title_english
-            case 3:
-                detailText = LocalizedString.title_chinese
-            default:
-                break
+        if sectionTitle == Define.section_common {
+            if rowTitle == Define.row_mobile_review_language {
+                titleText = LocalizedString.settings_row_mobile_review_language
+                switch SettingsManager.mobilePreviewLanguage {
+                case 1:
+                    detailText = LocalizedString.settings_row_mobile_review_language_follow_system
+                case 2:
+                    detailText = LocalizedString.title_english
+                case 3:
+                    detailText = LocalizedString.title_chinese
+                default:
+                    break
+                }
+            }else if rowTitle == Define.row_hd_image_in_database {
+                titleText = LocalizedString.settings_row_database_hd_image
+                let switcher:IndexPathSwitch = IndexPathSwitch()
+                switcher.indexPath = indexPath
+                switcher.isOn = SettingsManager.databaseHDImage
+                switcher.addTarget(self, action: #selector(switchValueChanged(sender:)), for: UIControlEvents.valueChanged)
+                accessoryView = switcher
+                accessoryType = UITableViewCellAccessoryType.none
             }
-        }else if rowTitle == Define.row_clear_cahce {
-            if self.cacheSize == nil {
-                accessoryView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-                (accessoryView as? UIActivityIndicatorView)?.startAnimating()
-                accessoryType = nil
-            }else{
-                detailText = "\(cacheSize!/1000)KB"
+        }else if sectionTitle == Define.section_cache {
+            if rowTitle == Define.row_clear_cahce {
+                titleText = LocalizedString.settings_row_clear_cache
+                if self.cacheSize == nil {
+                    accessoryView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+                    (accessoryView as? UIActivityIndicatorView)?.startAnimating()
+                    accessoryType = nil
+                }else{
+                    detailText = "\(cacheSize!/1024)KB"
+                }
             }
         }
 
@@ -120,7 +137,7 @@ class SettingsController: RXTableViewController {
             cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "cell")
         }
 
-        cell?.textLabel?.text = localizedTitle
+        cell?.textLabel?.text = titleText
         cell?.detailTextLabel?.text = detailText
         if accessoryView != nil {
             cell?.accessoryType = .none
@@ -132,6 +149,16 @@ class SettingsController: RXTableViewController {
 
         return cell!
     }
+
+    /// the normal text cell
+//    func tableView(_ tableView: UITableView, textCellForRowAt indexPath: IndexPath, sectionTitle:String, rowTitle:String) -> UITableViewCell {
+//
+//    }
+
+    /// the switch cell
+//    func tableView(_ tableView: UITableView, switchCellForRowAt indexPath: IndexPath, sectionTitle:String, rowTitle:String) -> UITableViewCell {
+//
+//    }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -197,11 +224,31 @@ class SettingsController: RXTableViewController {
         }
     }
 
+    @objc func switchValueChanged(sender:IndexPathSwitch){
+        guard let indexPath:IndexPath = sender.indexPath else {
+            return
+        }
+        guard let sectionTitle:String = sectionTitles.safeGet(at: indexPath.section) else {
+            return
+        }
+        guard let rowTitle:String = rowTitles.safeGet(at: indexPath.section)?.safeGet(at: indexPath.row) else {
+            return
+        }
+
+        if sectionTitle == Define.section_common {
+            if rowTitle == Define.row_hd_image_in_database {
+                SettingsManager.databaseHDImage = sender.isOn
+            }
+        }
+
+    }
+
 }
 
 extension SettingsController {
     struct Define {
-        static let section_mobile_review_language:String = "section_mobile_review_language"
+        static let section_common:String = "section_common"
+        static let row_hd_image_in_database:String = "row_database_hd_image"
         static let row_mobile_review_language:String = "row_mobile_review_language"
 
         static let section_cache:String = "section_cache"

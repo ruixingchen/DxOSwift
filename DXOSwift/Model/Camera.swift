@@ -53,6 +53,12 @@ class Camera: Device {
     var c_launchTime:TimeInterval = 0
     var c_senserFormat:SenserFormat!
 
+    var c_bigImage:String {
+        return self.image.replacingOccurrences(of: "vignette3.png", with: "vignette1.jpg")
+    }
+
+    var specification:[Specification]?
+
     init?(fromJson json: JSON){
         super.init()
         if !self.updateProperty(json: json) {
@@ -160,27 +166,27 @@ extension Camera {
         var localizedDescription:String {
             switch self {
             case .compact_1over3:
-                return LocalizedString.databae_senser_1_3
+                return LocalizedString.database_camera_senser_1_3
             case .compact_1over2_3:
-                return LocalizedString.databae_senser_1_2_3
+                return LocalizedString.database_camera_senser_1_2_3
             case .compact_1over1_7:
-                return LocalizedString.databae_senser_1_1_7
+                return LocalizedString.database_camera_senser_1_1_7
             case .compact_2over3:
-                return LocalizedString.databae_senser_2_3
+                return LocalizedString.database_camera_senser_2_3
             case .compact_1:
-                return LocalizedString.databae_senser_1
+                return LocalizedString.database_camera_senser_1
             case .micro43:
-                return LocalizedString.databae_senser_micro_4_3
+                return LocalizedString.database_camera_senser_micro_4_3
             case .apsc:
-                return LocalizedString.databae_senser_apsc
+                return LocalizedString.database_camera_senser_apsc
             case .apsh:
-                return LocalizedString.databae_senser_apsh
+                return LocalizedString.database_camera_senser_apsh
             case .fullFrame:
-                return LocalizedString.databae_senser_full_frame
+                return LocalizedString.database_camera_senser_full_frame
             case .mediumFormat:
-                return LocalizedString.database_senser_medium_format
+                return LocalizedString.database_camera_senser_medium_format
             case .unknow:
-                return LocalizedString.database_senser_unknown
+                return LocalizedString.database_camera_senser_unknown
             }
         }
     }

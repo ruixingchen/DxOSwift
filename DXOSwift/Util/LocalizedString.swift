@@ -8,6 +8,20 @@ struct LocalizedString {
   Created by ruixingchen on 24/10/2017.   Created by ruixingchen on 24/10/2017.
   Copyright © 2017 ruixingchen. All rights reserved. */   Copyright © 2017 ruixingchen. All rights reserved. */
  
+  static var camera_dxo_senser_scores: String { return "camera_dxo_senser_scores".localized() }
+ 
+  static var camera_specifications: String { return "camera_specifications".localized() }
+ 
+  static var camera_detail_overall_score: String { return "camera_detail_overall_score".localized() }
+ 
+  static var camera_detail_portrait_des: String { return "camera_detail_portrait_des".localized() }
+ 
+  static var camera_detail_landscape_des: String { return "camera_detail_landscape_des".localized() }
+ 
+  static var camera_detail_sports_des: String { return "camera_detail_sports_des".localized() }
+ 
+  static var settings_row_database_hd_image: String { return "settings_row_database_hd_image".localized() }
+ 
   static var settings_row_clear_cache: String { return "settings_row_clear_cache".localized() }
  
   static var title_please_select: String { return "title_please_select".localized() }
@@ -102,13 +116,13 @@ struct LocalizedString {
  
   static var search_nothing_found_message: String { return "search_nothing_found_message".localized() }
  
-  static var database_overall: String { return "database_overall".localized() }
+  static var database_camera_overall: String { return "database_camera_overall".localized() }
  
-  static var database_portrait: String { return "database_portrait".localized() }
+  static var database_camera_portrait: String { return "database_camera_portrait".localized() }
  
-  static var database_landscape: String { return "database_landscape".localized() }
+  static var database_camera_landscape: String { return "database_camera_landscape".localized() }
  
-  static var database_sports: String { return "database_sports".localized() }
+  static var database_camera_sports: String { return "database_camera_sports".localized() }
  
   static var title_loading: String { return "title_loading".localized() }
  
@@ -118,47 +132,47 @@ struct LocalizedString {
  
   static var database_lens_database_title: String { return "database_lens_database_title".localized() }
  
-  static var databae_senser_full_frame: String { return "databae_senser_full_frame".localized() }
+  static var database_camera_senser_full_frame: String { return "database_camera_senser_full_frame".localized() }
  
-  static var database_senser_medium_format: String { return "database_senser_medium_format".localized() }
+  static var database_camera_senser_medium_format: String { return "database_camera_senser_medium_format".localized() }
  
-  static var database_senser_unknown: String { return "database_senser_unknown".localized() }
+  static var database_camera_senser_unknown: String { return "database_camera_senser_unknown".localized() }
  
-  static var databae_senser_1_3: String { return "databae_senser_1_3".localized() }
+  static var database_camera_senser_1_3: String { return "database_camera_senser_1_3".localized() }
  
-  static var databae_senser_1_2_3: String { return "databae_senser_1_2_3".localized() }
+  static var database_camera_senser_1_2_3: String { return "database_camera_senser_1_2_3".localized() }
  
-  static var databae_senser_1_1_7: String { return "databae_senser_1_1_7".localized() }
+  static var database_camera_senser_1_1_7: String { return "database_camera_senser_1_1_7".localized() }
  
-  static var databae_senser_2_3: String { return "databae_senser_2_3".localized() }
+  static var database_camera_senser_2_3: String { return "database_camera_senser_2_3".localized() }
  
-  static var databae_senser_1: String { return "databae_senser_1".localized() }
+  static var database_camera_senser_1: String { return "database_camera_senser_1".localized() }
  
-  static var databae_senser_micro_4_3: String { return "databae_senser_micro_4_3".localized() }
+  static var database_camera_senser_micro_4_3: String { return "database_camera_senser_micro_4_3".localized() }
  
-  static var databae_senser_apsc: String { return "databae_senser_apsc".localized() }
+  static var database_camera_senser_apsc: String { return "database_camera_senser_apsc".localized() }
  
-  static var databae_senser_apsh: String { return "databae_senser_apsh".localized() }
+  static var database_camera_senser_apsh: String { return "database_camera_senser_apsh".localized() }
  
   static var database_sort_title: String { return "database_sort_title".localized() }
  
   static var database_favorite_title: String { return "database_favorite_title".localized() }
  
-  static var content_unknown: String { return "content_unknown".localized() }
+  static var common_unknown: String { return "common_unknown".localized() }
  
-  static var database_mounted_on: String { return "database_mounted_on".localized() }
+  static var database_lens_mounted_on: String { return "database_lens_mounted_on".localized() }
  
-  static var database_dxo_mark_score: String { return "database_dxo_mark_score".localized() }
+  static var database_lens_dxo_mark_score: String { return "database_lens_dxo_mark_score".localized() }
  
-  static var database_sharpness: String { return "database_sharpness".localized() }
+  static var database_camera_sharpness: String { return "database_camera_sharpness".localized() }
  
-  static var database_distortion: String { return "database_distortion".localized() }
+  static var database_lens_distortion: String { return "database_lens_distortion".localized() }
  
-  static var database_vignetting: String { return "database_vignetting".localized() }
+  static var database_lens_vignetting: String { return "database_lens_vignetting".localized() }
  
-  static var database_transmission: String { return "database_transmission".localized() }
+  static var database_lens_transmission: String { return "database_lens_transmission".localized() }
  
-  static var database_aberration: String { return "database_aberration".localized() }
+  static var database_lens_aberration: String { return "database_lens_aberration".localized() }
  
 
 }

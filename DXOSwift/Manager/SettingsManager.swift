@@ -11,10 +11,12 @@ import UIKit
 class SettingsManager {
 
     fileprivate struct Define {
-        static let key_mobilePreviewLanguage:String = "mobilePreviewLanguage"
+        static let key_mobilePreviewLanguage:String = "settings_mobilePreviewLanguage"
+        static let key_databaseHDImage:String = "setting_databaseHDImage"
     }
 
     fileprivate static var _mobilePreviewLanguage:Int!
+    fileprivate static var _databaseHDImage:Bool!
 
     /// simplified and traditional are both Chinese
     fileprivate static var _shouldUseChinese:Bool!
@@ -40,19 +42,23 @@ class SettingsManager {
         }
     }
 
-    static var shouldUseChinese:Bool {
+    static var databaseHDImage:Bool {
         get {
-            if _shouldUseChinese == nil {
-                let language = (NSLocale.preferredLanguages.first ?? "").lowercased()
-                log.debug("device language: \(language)")
-                if language.hasPrefix("zh") {
-                    _shouldUseChinese = true
-                }else{
-                    _shouldUseChinese = false
+            if _databaseHDImage == nil {
+                _databaseHDImage = UserDefaults.standard.object(forKey: Define.key_databaseHDImage) as? Bool
+                if _databaseHDImage == nil {
+                    //default
+                    _databaseHDImage = true
                 }
             }
-            return _shouldUseChinese
+            return _databaseHDImage
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Define.key_databaseHDImage)
+            UserDefaults.standard.synchronize()
+            _databaseHDImage = newValue
         }
     }
+
 
 }
