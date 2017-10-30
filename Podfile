@@ -7,6 +7,7 @@ target 'DXOSwift' do
     pod 'XCGLogger', '~> 6.0'
     pod 'SnapKit', '~> 4.0'
     pod 'Kingfisher', '~> 4.0'
+    pod 'Charts', '~> 3.0.4'
 
     #Swift3
     pod 'Toast-Swift', '~> 2.0'
