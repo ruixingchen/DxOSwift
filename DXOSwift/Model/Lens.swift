@@ -55,10 +55,37 @@ class Lens: Device {
     var year : String!
     var zoomfactor : Int!
 
-    init(fromJson json: JSON!){
-        if json.isEmpty{
-            return
+    //c_ means this is a calculated like property, will be setted when the linked property did set
+
+    /// UTC time from launchDateGraph
+    var c_launchTime:TimeInterval = 0
+
+    var shortDescription:String {
+        var d:String = "name:"
+        d.append(name)
+        d.append("\nscore:")
+        d.append(global.description)
+        d.append("\nsharpness:")
+        d.append(effmpix.description)
+        d.append("\ndistorsion:")
+        d.append(distorsion.description)
+        d.append("\nvignetting:")
+        d.append(vignetting.description)
+        d.append("\ntransmission, tstop:")
+        d.append(tstop.description)
+        d.append("\naberration:")
+        d.append(ac.description)
+        return d
+    }
+
+    init?(fromJson json: JSON){
+        super.init()
+        if !updateProperty(json: json) {
+            return nil
         }
+    }
+
+    private func updateProperty(json: JSON)->Bool{
         ac = json["ac"].floatValue
         acRanking = json["ac_ranking"].intValue
         autofocus = json["autofocus"].stringValue
@@ -72,16 +99,33 @@ class Lens: Device {
         global = json["global"].floatValue
         globalRanking = json["global_ranking"].intValue
         id = json["id"].stringValue
+        if id.isEmpty {
+            return false
+        }
         idCamera = json["idCamera"].stringValue
         idLen = json["idLen"].intValue
         image = json["image"].stringValue
+        if !(image?.isEmpty ?? true) {
+            if image!.hasPrefix("//") {
+                image = image?.replacingOccurrences(of: "//", with: "")
+            }
+            if !image.hasPrefix("http"){
+                image = "https://"+image
+            }
+        }
         launchDate = json["launchDate"].stringValue
         launchDateGraph = json["launchDateGraph"].stringValue
         lensType = json["lens_type"].stringValue
         lensZoom = json["lens_zoom"].stringValue
         lensrange = json["lensrange"].stringValue
         link = json["link"].stringValue
+        if !(link?.isEmpty ?? true) {
+            link = DXOService.cpmpleteURLWithPath(path: link)
+        }
         linkReview = json["linkReview"].stringValue
+        if !(linkReview?.isEmpty ?? true) {
+            linkReview = DXOService.cpmpleteURLWithPath(path: linkReview)
+        }
         macro = json["macro"].stringValue
         maxApertureAtMinFocal = json["maxApertureAtMinFocal"].floatValue
         mountType = json["mountType"].stringValue
@@ -102,14 +146,13 @@ class Lens: Device {
         weight = json["weight"].intValue
         year = json["year"].stringValue
         zoomfactor = json["zoomfactor"].intValue
+
+        return true
     }
 }
 
 extension Lens {
     enum Brand: String {
-        /*
-         ["Sony", "Sigma", "Olympus", "Tamron", "Canon", "Nikon", "Tokina", "Carl Zeiss", "Panasonic", "Pentax", "Samyang", "Ricoh", "Samsung", "Voigtlander", "Konica Minolta"]
-         */
         case sony = "Sony"
         case sigma = "Sigma"
         case olympus = "Olympus"
@@ -127,9 +170,6 @@ extension Lens {
     }
 
     enum MountType:String {
-        /*
-         ["Sony FE", "Canon EF", "Nikon F FX", "Micro 4/3", "Sony E", "Canon EF-S", "Nikon F DX", "Sony Alpha", "Pentax KAF", "Sony Alpha DT", "Compact", "Canon EF-M", "Nikon 1 CX", "Samsung NX", "Four Thirds"]
-         */
         case sony_FE = "Sony FE"
         case canon_EF = "Canon EF"
         case nikon_F_FX = "Nikon F FX"
@@ -154,9 +194,6 @@ extension Lens {
     }
 
     enum LensType:String {
-        /*
-         ["lens_superwide", "lens_telephoto", "lens_medium", "lens_wide", "lens_supertelephoto"]
-         */
         case superWide = "lens_superwide"
         case telephoto = "lens_telephoto"
         case medium = "lens_medium"

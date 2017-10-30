@@ -17,27 +17,29 @@ class CameraDatabaseDataSource {
 
     var yearMax:Int = 0
     var yearMin:Int = 0
-    var priceMax:Double = 0
-    var priceMin:Double = 0
+    var priceMax:Float = 0
+    var priceMin:Float = 0
     var dxoScoreMax:Int = 0
     var dxoScoreMin:Int = 0
-    var dynamicRangeMax:Double = 0
-    var dynamicRangeMin:Double = 0
+    var dynamicRangeMax:Float = 0
+    var dynamicRangeMin:Float = 0
     var LlnMax:Int = 0
     var LlnMin:Int = 0
-    var colorMax:Double = 0
-    var colorMin:Double = 0
-
-    //    static let shared:CameraManager = CameraManager()
+    var colorMax:Float = 0
+    var colorMin:Float = 0
 
     var testedCamera:[Camera] = []
-    var reviewCamera:[Camera] = []
+    var previewCamera:[Camera] = []
 
     var dataSource:[Camera] = []
     var sortType:SortType = SortType.overall
 
     var testedCameraReady:Bool {
         return !testedCamera.isEmpty
+    }
+
+    var previewCameraReady: Bool {
+        return !previewCamera.isEmpty
     }
 
     init(){
@@ -47,16 +49,16 @@ class CameraDatabaseDataSource {
     func reloadTestedCamera(jsonObject:JSON){
         yearMax = jsonObject["year"]["max"].autoInt ?? yearMax
         yearMin = jsonObject["year"]["min"].autoInt ?? yearMin
-        priceMax = jsonObject["price"]["max"].autoDouble ?? priceMax
-        priceMin = jsonObject["price"]["min"].autoDouble ?? priceMin
+        priceMax = jsonObject["price"]["max"].autoFloat ?? priceMax
+        priceMin = jsonObject["price"]["min"].autoFloat ?? priceMin
         dxoScoreMax = jsonObject["rankDxo"]["max"].autoInt ?? dxoScoreMax
         dxoScoreMin = jsonObject["rankDxo"]["min"].autoInt ?? dxoScoreMin
-        dynamicRangeMax = jsonObject["rankDyn"]["max"].autoDouble ?? dynamicRangeMax
-        dynamicRangeMin = jsonObject["rankDyn"]["min"].autoDouble ?? dynamicRangeMin
+        dynamicRangeMax = jsonObject["rankDyn"]["max"].autoFloat ?? dynamicRangeMax
+        dynamicRangeMin = jsonObject["rankDyn"]["min"].autoFloat ?? dynamicRangeMin
         LlnMax = jsonObject["rankLln"]["max"].autoInt ?? LlnMax
         LlnMin = jsonObject["rankLln"]["min"].autoInt ?? LlnMin
-        colorMax = jsonObject["rankColor"]["max"].autoDouble ?? colorMax
-        colorMin = jsonObject["rankColor"]["min"].autoDouble ?? colorMin
+        colorMax = jsonObject["rankColor"]["max"].autoFloat ?? colorMax
+        colorMin = jsonObject["rankColor"]["min"].autoFloat ?? colorMin
 
         let formatter:DateFormatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
@@ -69,16 +71,7 @@ class CameraDatabaseDataSource {
             camera.c_launchTime = formatter.date(from: camera.launchDateGraph)?.timeIntervalSince1970 ?? 0
             cameraArray.append(camera)
         }
-        #if DEBUG || debug
-            let startTime:TimeInterval = Date().timeIntervalSince1970
-        #endif
-        self.testedCamera = cameraArray.sorted(by: { (p1, p2) -> Bool in
-            //sort with big id
-            return p1.id > p2.id
-        })
-        #if DEBUG || debug
-            log.verbose("sort all tested camera costs time: \(Date().timeIntervalSince1970 - startTime)")
-        #endif
+        self.testedCamera = cameraArray
         sort(sortType: sortType)
     }
 

@@ -462,6 +462,7 @@ class DXOService {
                 return
             }
             outObject = dataSource
+            UserDefaultsManager.lastCameraDatabaseLoaded = Date().timeIntervalSince1970
         }
 
         #if DEBUG
@@ -475,8 +476,7 @@ class DXOService {
         #endif
 
         let url:URL = URL(string: "https://www.dxomark.com/daksensor/ajax/jsontested")!
-        var request:URLRequest = commonURLRequest(url: url)
-//        request.cachePolicy = URLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData
+        let request:URLRequest = commonURLRequest(url: url)
         serviceRequest(request: request) { (inData, inError) in
             handleClosure(inData, inError)
         }
@@ -484,15 +484,49 @@ class DXOService {
 
     class func testedLens(completion:((LensDatabaseDataSource?, RXError?)->Void)?){
 
+        let handleClosure:(Data?, ServiceError?)->Void = { (inData, inError) in
+            var outError:RXError?
+            var outObject:LensDatabaseDataSource?
+            defer {
+                if outError != nil {
+                    log.info("cameraDatabase request with error:\n\(outError!.description)")
+                }
+                completion?(outObject, outError)
+            }
+
+            if inError != nil {
+                outError = RXError(error: inError!, errorDescription: "in error is not nil")
+                return
+            }else if inData == nil {
+                outError = RXError(error: ServiceError.noResponse, errorDescription: "in data is nil")
+                return
+            }
+            let json:JSON = JSON.init(data: inData!)
+            let dataSource:LensDatabaseDataSource = LensDatabaseDataSource()
+            dataSource.reloadTested(json: json)
+            guard dataSource.isTestedLensReady else {
+                outError = RXError(description: "can not extract any Camera from JSON")
+                return
+            }
+            UserDefaultsManager.lastLensDatabaseLoaded = Date().timeIntervalSince1970
+            outObject = dataSource
+        }
+
         #if DEBUG
             if Define.fakeTestedLens {
                 DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(2)) {
                     let data = Data(forResource: Define.fakeTestedLensFile)!
-//                    handleClosure(data, nil)
+                    handleClosure(data, nil)
                 }
                 return
             }
         #endif
+
+        let url:URL = URL(string: "https://www.dxomark.com/daklens/ajax/jsontested")!
+        let request:URLRequest = commonURLRequest(url: url)
+        serviceRequest(request: request) { (inData, inError) in
+            handleClosure(inData, inError)
+        }
     }
 
     class func presearch(key:String, userInfo:UserInfo? = nil, completion:(([PresearchObject]?, UserInfo?, RXError?)->Void)?){

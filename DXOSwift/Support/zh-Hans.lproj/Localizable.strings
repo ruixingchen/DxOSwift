@@ -140,3 +140,19 @@
 
 "database_favorite_title" = "收藏";
 
+"content_unknown" = "未知";
+
+"database_mounted_on" = "机身";
+
+"database_dxo_mark_score" = "总分";
+
+"database_sharpness" = "锐度";
+
+"database_distortion" = "畸变";
+
+"database_vignetting" = "暗角";
+
+"database_transmission" = "曝光级数(T值)";
+
+"database_aberration" = "色差(紫边)";
+

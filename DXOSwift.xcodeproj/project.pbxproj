@@ -46,6 +46,8 @@
 		8069039C1F9607C1005BA062 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8069039B1F9607C1005BA062 /* AppDelegate.swift */; };
 		806903A31F9607C1005BA062 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806903A21F9607C1005BA062 /* Assets.xcassets */; };
 		806903A61F9607C1005BA062 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 806903A41F9607C1005BA062 /* LaunchScreen.storyboard */; };
+		80873B241FA6D68A00366CD0 /* DeviceDatabaseSortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B231FA6D68A00366CD0 /* DeviceDatabaseSortView.swift */; };
+		80873B261FA6D7FA00366CD0 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B251FA6D7FA00366CD0 /* UserDefaultsManager.swift */; };
 		808F54C21F9C4A1E00F0A2C4 /* DeviceDatabaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808F54C11F9C4A1E00F0A2C4 /* DeviceDatabaseController.swift */; };
 		80BD2FF31F998F7D00396B45 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BD2FF21F998F7D00396B45 /* DatabaseManager.swift */; };
 		80BDB34E1FA178EF00C4243D /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BDB34D1FA178EF00C4243D /* SettingsManager.swift */; };
@@ -117,6 +119,8 @@
 		806903A21F9607C1005BA062 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		806903A51F9607C1005BA062 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		806903A71F9607C1005BA062 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		80873B231FA6D68A00366CD0 /* DeviceDatabaseSortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDatabaseSortView.swift; sourceTree = "<group>"; };
+		80873B251FA6D7FA00366CD0 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		808F54C11F9C4A1E00F0A2C4 /* DeviceDatabaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDatabaseController.swift; sourceTree = "<group>"; };
 		80BD2FF21F998F7D00396B45 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		80BDB34D1FA178EF00C4243D /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
@@ -410,6 +414,7 @@
 			isa = PBXGroup;
 			children = (
 				804AC1AA1F99B1C4006A052E /* DeviceDatabaseTableViewCell.swift */,
+				80873B231FA6D68A00366CD0 /* DeviceDatabaseSortView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -420,6 +425,7 @@
 				80C3F5F71F99563200F5D3E3 /* CameraManager.swift */,
 				80BD2FF21F998F7D00396B45 /* DatabaseManager.swift */,
 				80BDB34D1FA178EF00C4243D /* SettingsManager.swift */,
+				80873B251FA6D7FA00366CD0 /* UserDefaultsManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -647,6 +653,7 @@
 				80C3F5E81F9942BD00F5D3E3 /* Camera.swift in Sources */,
 				8031A72D1F99054C00010540 /* UIColorExtension.swift in Sources */,
 				801D6B291F97691400CEAE64 /* NewsController.swift in Sources */,
+				80873B261FA6D7FA00366CD0 /* UserDefaultsManager.swift in Sources */,
 				80BD2FF31F998F7D00396B45 /* DatabaseManager.swift in Sources */,
 				8069039C1F9607C1005BA062 /* AppDelegate.swift in Sources */,
 				80C3F5DA1F99308C00F5D3E3 /* NewsDetailController.swift in Sources */,
@@ -697,6 +704,7 @@
 				803C4E821FA6128400459151 /* LensDatabaseDataSource.swift in Sources */,
 				8057866E1F961DEB006D2B3C /* Review.swift in Sources */,
 				801D6B1E1F97645600CEAE64 /* RXTableViewController.swift in Sources */,
+				80873B241FA6D68A00366CD0 /* DeviceDatabaseSortView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

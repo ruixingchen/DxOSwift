@@ -144,5 +144,21 @@ struct LocalizedString {
  
   static var database_favorite_title: String { return "database_favorite_title".localized() }
  
+  static var content_unknown: String { return "content_unknown".localized() }
+ 
+  static var database_mounted_on: String { return "database_mounted_on".localized() }
+ 
+  static var database_dxo_mark_score: String { return "database_dxo_mark_score".localized() }
+ 
+  static var database_sharpness: String { return "database_sharpness".localized() }
+ 
+  static var database_distortion: String { return "database_distortion".localized() }
+ 
+  static var database_vignetting: String { return "database_vignetting".localized() }
+ 
+  static var database_transmission: String { return "database_transmission".localized() }
+ 
+  static var database_aberration: String { return "database_aberration".localized() }
+ 
 
 }

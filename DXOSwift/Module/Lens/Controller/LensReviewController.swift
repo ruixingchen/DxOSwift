@@ -22,6 +22,7 @@ class LensReviewController: GenericReviewListController {
 
         let dbItem:UIBarButtonItem = UIBarButtonItem(title: "DB", style: UIBarButtonItemStyle.plain, target: self, action: #selector(didTapDBButton))
         self.navigationItem.rightBarButtonItem = dbItem
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: nil, action: nil)
     }
 
     @objc func didTapDBButton(){

@@ -49,7 +49,6 @@ class DeviceDatabaseController: RXTableViewController, RetryLoadingViewDelegate 
 
         loadingView.messageLabel.text = LocalizedString.database_loading_message
 
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: LocalizedString.database_sort_title, style: .plain, target: self, action: #selector(didTapSortButton))
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: nil, action: nil)
 
         requestDatabase()
@@ -63,28 +62,61 @@ class DeviceDatabaseController: RXTableViewController, RetryLoadingViewDelegate 
 
     @objc func didTapSortButton(){
         let alert:UIAlertController = UIAlertController(title: LocalizedString.database_sort_title, message: nil, preferredStyle: .actionSheet)
-        let overall:UIAlertAction = UIAlertAction(title: LocalizedString.database_overall, style: .default) { (_) in
-            self.cameraDataSource?.sort(sortType: .overall)
-            self.tableView.reloadData()
+        if self.deviceType == .camera {
+            let overall:UIAlertAction = UIAlertAction(title: LocalizedString.database_overall, style: .default) { (_) in
+                self.cameraDataSource?.sort(sortType: .overall)
+                self.tableView.reloadData()
+            }
+            let portrait:UIAlertAction = UIAlertAction(title: LocalizedString.database_portrait, style: .default) { (_) in
+                self.cameraDataSource?.sort(sortType: .portrait)
+                self.tableView.reloadData()
+            }
+            let landscape:UIAlertAction = UIAlertAction(title: LocalizedString.database_landscape, style: .default) { (_) in
+                self.cameraDataSource?.sort(sortType: .landscape)
+                self.tableView.reloadData()
+            }
+            let sports:UIAlertAction = UIAlertAction(title: LocalizedString.database_sports, style: .default) { (_) in
+                self.cameraDataSource?.sort(sortType: .sports)
+                self.tableView.reloadData()
+            }
+            alert.addAction(overall)
+            alert.addAction(portrait)
+            alert.addAction(landscape)
+            alert.addAction(sports)
+        }else if self.deviceType == .lens {
+            let score:UIAlertAction = UIAlertAction(title: LocalizedString.database_dxo_mark_score, style: .default, handler: { (_) in
+                self.lensDataSource?.sort(sortType: .score)
+                self.tableView.reloadData()
+            })
+            let sharpness:UIAlertAction = UIAlertAction(title: LocalizedString.database_sharpness, style: .default, handler: { (_) in
+                self.lensDataSource?.sort(sortType: .sharpness)
+                self.tableView.reloadData()
+            })
+            let distortion:UIAlertAction = UIAlertAction(title: LocalizedString.database_distortion, style: .default, handler: { (_) in
+                self.lensDataSource?.sort(sortType: .distortion)
+                self.tableView.reloadData()
+            })
+            let vignetting:UIAlertAction = UIAlertAction(title: LocalizedString.database_vignetting, style: .default, handler: { (_) in
+                self.lensDataSource?.sort(sortType: .vignetting)
+                self.tableView.reloadData()
+            })
+            let transmission:UIAlertAction = UIAlertAction(title: LocalizedString.database_transmission, style: .default, handler: { (_) in
+                self.lensDataSource?.sort(sortType: .transmission)
+                self.tableView.reloadData()
+            })
+            let aberration:UIAlertAction = UIAlertAction(title: LocalizedString.database_aberration, style: .default, handler: { (_) in
+                self.lensDataSource?.sort(sortType: .aberration)
+                self.tableView.reloadData()
+            })
+            alert.addAction(score)
+            alert.addAction(sharpness)
+            alert.addAction(distortion)
+            alert.addAction(vignetting)
+            alert.addAction(transmission)
+            alert.addAction(aberration)
         }
-        let portrait:UIAlertAction = UIAlertAction(title: LocalizedString.database_portrait, style: .default) { (_) in
-            self.cameraDataSource?.sort(sortType: .portrait)
-            self.tableView.reloadData()
-        }
-        let landscape:UIAlertAction = UIAlertAction(title: LocalizedString.database_landscape, style: .default) { (_) in
-            self.cameraDataSource?.sort(sortType: .landscape)
-            self.tableView.reloadData()
-        }
-        let sports:UIAlertAction = UIAlertAction(title: LocalizedString.database_sports, style: .default) { (_) in
-            self.cameraDataSource?.sort(sortType: .sports)
-            self.tableView.reloadData()
-        }
-        let cancel:UIAlertAction = UIAlertAction(title: LocalizedString.title_cancel, style: .cancel, handler: nil)
 
-        alert.addAction(overall)
-        alert.addAction(portrait)
-        alert.addAction(landscape)
-        alert.addAction(sports)
+        let cancel:UIAlertAction = UIAlertAction(title: LocalizedString.title_cancel, style: .cancel, handler: nil)
         alert.addAction(cancel)
 
         if UIDevice.current.userInterfaceIdiom == .phone {
@@ -140,6 +172,7 @@ class DeviceDatabaseController: RXTableViewController, RetryLoadingViewDelegate 
         DispatchQueue.main.async {
             self.requestFailedView?.isHidden = true
             self.loadingView.isHidden = true
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: LocalizedString.database_sort_title, style: .plain, target: self, action: #selector(self.didTapSortButton))
             if self.deviceType == .camera {
                 self.cameraDataSource = dataSourceAnyObject as? CameraDatabaseDataSource
                 self.tableView.reloadData()
@@ -162,7 +195,7 @@ class DeviceDatabaseController: RXTableViewController, RetryLoadingViewDelegate 
         if self.deviceType == .camera {
             return self.cameraDataSource?.dataSource.count ?? 0
         }else if self.deviceType == .lens {
-            return 0
+            return self.lensDataSource?.dataSource.count ?? 0
         }
         return 0
     }
@@ -173,6 +206,12 @@ class DeviceDatabaseController: RXTableViewController, RetryLoadingViewDelegate 
             cell = DeviceDatabaseTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
         }
 
+        var scoreText:String?
+        var backgroundWidthMult:Float = 0
+        var imageUrl:String?
+        var titleText:String?
+        var detailText:String?
+
         if self.deviceType == .camera {
             guard let camera:Camera = self.cameraDataSource?.dataSource.safeGet(at: indexPath.row) else {
                 let blankCell:RXBlankTableViewCell = RXBlankTableViewCell(reuseIdentifier: nil)
@@ -181,12 +220,10 @@ class DeviceDatabaseController: RXTableViewController, RetryLoadingViewDelegate 
                 #endif
                 return blankCell
             }
-            var scoreText:String!
-            var backgroundWidthMult:Double = 0
             switch cameraDataSource!.sortType {
             case .overall:
                 scoreText = String.init(format: "%d", camera.rankDxo)
-                backgroundWidthMult = Double(camera.rankDxo)/Double(cameraDataSource!.dxoScoreMax)
+                backgroundWidthMult = Float(camera.rankDxo)/Float(cameraDataSource!.dxoScoreMax)
             case .portrait:
                 scoreText = String.init(format: "%.1f", camera.rankColor)
                 backgroundWidthMult = camera.rankColor/cameraDataSource!.colorMax
@@ -195,29 +232,66 @@ class DeviceDatabaseController: RXTableViewController, RetryLoadingViewDelegate 
                 backgroundWidthMult = camera.rankDyn/cameraDataSource!.dynamicRangeMax
             case .sports:
                 scoreText = String.init(format: "%d", camera.rankLln)
-                backgroundWidthMult = Double(camera.rankLln)/Double(cameraDataSource!.LlnMax)
+                backgroundWidthMult = Float(camera.rankLln)/Float(cameraDataSource!.LlnMax)
             }
-            cell?.scoreLabel.text = scoreText
-            cell?.backgroundProgressView.snp.remakeConstraints({ (make) in
-                make.left.equalToSuperview()
-                make.height.equalToSuperview().offset(-8)
-                make.centerY.equalToSuperview()
-                make.width.equalToSuperview().multipliedBy(backgroundWidthMult)
-            })
-
-            if let url:URL = URL(string: camera.image) {
-                cell?.coverImageView.kf.setImage(with: url)
-            }else{
-                cell?.coverImageView.image = nil
-            }
-            cell?.titleLabel.text = camera.name
-            var detailText:String = String(format: "%.1f", camera.sensorraw)
-            detailText.append(" MP, ")
-            detailText.append(camera.c_senserFormat.localizedDescription)
-            cell?.detailLabel.text = detailText
+            imageUrl = camera.image
+            titleText = camera.name
+            detailText = String(format: "%.1f", camera.sensorraw)
+            detailText?.append(" MP, ")
+            detailText?.append(camera.c_senserFormat.localizedDescription)
         }else{
-
+            guard let lens:Lens = self.lensDataSource?.dataSource.safeGet(at: indexPath.row) else {
+                let blankCell:RXBlankTableViewCell = RXBlankTableViewCell(reuseIdentifier: nil)
+                #if DEBUG || debug
+                    blankCell.infoLabel.text = "can not get lens"
+                #endif
+                return blankCell
+            }
+            switch lensDataSource!.sortType {
+            case .score:
+                scoreText = String.init(format: "%.0f", lens.global)
+                backgroundWidthMult = lens.global/lensDataSource!.globalMax
+            case .sharpness:
+                scoreText = String.init(format: "%.0f", lens.effmpix)
+                backgroundWidthMult = lens.effmpix/lensDataSource!.effmpixMax
+            case .distortion:
+                scoreText = String.init(format: "%.3f", lens.distorsion)
+                backgroundWidthMult = 1-lens.distorsion/lensDataSource!.distorsionMax
+            case .vignetting:
+                scoreText = String.init(format: "%.1f", lens.vignetting)
+                backgroundWidthMult = 1-lens.vignetting/lensDataSource!.vignettingMin
+            case .transmission:
+                scoreText = String.init(format: "%.1f", lens.tstop)
+                backgroundWidthMult = 1-lens.tstop/lensDataSource!.tstopMax
+            case .aberration:
+                scoreText = String.init(format: "%.1f", lens.ac)
+                backgroundWidthMult = 1-lens.ac/lensDataSource!.acMax
+            }
+            imageUrl = lens.image
+            titleText = lens.name
+            detailText = LocalizedString.database_mounted_on
+            detailText?.append(": ")
+            if (lens.mountedOn?.isEmpty ?? true) {
+                detailText?.append(LocalizedString.content_unknown)
+            }else{
+                detailText?.append(lens.mountedOn)
+            }
         }
+
+        cell?.scoreLabel.text = scoreText
+        cell?.backgroundProgressView.snp.remakeConstraints({ (make) in
+            make.left.equalToSuperview()
+            make.height.equalToSuperview().offset(-8)
+            make.centerY.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(backgroundWidthMult)
+        })
+        if let url:URL = URL(string: imageUrl ?? "") {
+            cell?.coverImageView.kf.setImage(with: url)
+        }else{
+            cell?.coverImageView.image = nil
+        }
+        cell?.titleLabel.text = titleText
+        cell?.detailLabel.text = detailText
         return cell!
     }
 
@@ -227,8 +301,15 @@ class DeviceDatabaseController: RXTableViewController, RetryLoadingViewDelegate 
         var next:UIViewController?
 
         if self.deviceType == .camera {
-            next = CameraDetailController()
+            guard let camera:Camera = self.cameraDataSource?.dataSource.safeGet(at: indexPath.row) else {
+                return
+            }
+
         }else if self.deviceType == .lens {
+            guard let lens:Lens = self.lensDataSource?.dataSource.safeGet(at: indexPath.row) else {
+                return
+            }
+            log.verbose(lens.shortDescription)
 
         }
         if next != nil {

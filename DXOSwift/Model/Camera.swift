@@ -23,13 +23,13 @@ class Camera: Device {
     var linkReview : String!
     var maximumIso : Int!
     var name : String!
-    var pixelDepth : Double!
+    var pixelDepth : Float!
     var price : Int!
-    var rankColor : Double!
+    var rankColor : Float!
     var rankColorRanking : Int!
     var rankDxo : Int!
     var rankDxoRanking : Int!
-    var rankDyn : Double!
+    var rankDyn : Float!
     var rankDynRanking : Int!
     var rankLln : Int!
     var rankLlnRanking : Int!
@@ -91,13 +91,13 @@ class Camera: Device {
         }
         maximumIso = json["maximum_iso"].intValue
         name = json["name"].stringValue
-        pixelDepth = json["pixelDepth"].doubleValue
+        pixelDepth = json["pixelDepth"].floatValue
         price = json["price"].intValue
-        rankColor = json["rankColor"].doubleValue
+        rankColor = json["rankColor"].floatValue
         rankColorRanking = json["rankColor_ranking"].intValue
         rankDxo = json["rankDxo"].intValue
         rankDxoRanking = json["rankDxo_ranking"].intValue
-        rankDyn = json["rankDyn"].doubleValue
+        rankDyn = json["rankDyn"].floatValue
         rankDynRanking = json["rankDyn_ranking"].intValue
         rankLln = json["rankLln"].intValue
         rankLlnRanking = json["rankLln_ranking"].intValue

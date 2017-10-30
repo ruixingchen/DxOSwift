@@ -140,3 +140,19 @@
 
 "database_favorite_title" = "Favorite";
 
+"content_unknown" = "Unknown";
+
+"database_mounted_on" = "On";
+
+"database_dxo_mark_score" = "DxO Mark Score";
+
+"database_sharpness" = "Sharpness";
+
+"database_distortion" = "Distortion";
+
+"database_vignetting" = "Vignetting";
+
+"database_transmission" = "Transmission(T-stop)";
+
+"database_aberration" = "Chr. aberration";
+

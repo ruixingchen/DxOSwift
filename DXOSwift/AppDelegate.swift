@@ -31,6 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
 
         ToastManager.shared.position = ToastPosition.center
+        //enable to cache more content
+        URLCache.shared = URLCache(memoryCapacity: 8*1024*1024, diskCapacity: 128*1024*1024, diskPath: nil)
 
         return true
     }
