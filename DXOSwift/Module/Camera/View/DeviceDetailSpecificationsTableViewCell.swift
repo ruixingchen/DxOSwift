@@ -1,5 +1,5 @@
 //
-//  CameraDetailSpecificationsTableViewCell.swift
+//  DeviceDetailSpecificationsTableViewCell.swift
 //  DXOSwift
 //
 //  Created by ruixingchen on 30/10/2017.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CameraDetailSpecificationsTableViewCell: RXTableViewCell {
+class DeviceDetailSpecificationsTableViewCell: RXTableViewCell {
 
     let leftLabel:UILabel = UILabel()
     let rightLabel:UILabel = UILabel()

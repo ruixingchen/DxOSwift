@@ -1,5 +1,5 @@
 //
-//  CameraDetailScoreTableViewCell.swift
+//  DeviceDetailScoreTableViewCell.swift
 //  DXOSwift
 //
 //  Created by ruixingchen on 30/10/2017.
@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class CameraDetailScoreTableViewCell: RXTableViewCell {
+class DeviceDetailScoreTableViewCell: RXTableViewCell {
 
     let leftLabel:UILabel = UILabel()
     private let progressBackggroundView:UnclearView = UnclearView()

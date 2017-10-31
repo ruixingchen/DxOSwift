@@ -1,5 +1,5 @@
 //
-//  CameraDetailPictureTableViewCell.swift
+//  DeviceDetailPictureHeaderView.swift
 //  DXOSwift
 //
 //  Created by ruixingchen on 30/10/2017.
@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class CameraDetailPictureHeaderView: UIView {
+class DeviceDetailPictureHeaderView: UIView {
 
     let imageView:UIImageView = UIImageView()
 

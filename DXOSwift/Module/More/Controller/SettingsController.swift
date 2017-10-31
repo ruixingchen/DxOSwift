@@ -14,7 +14,8 @@ class SettingsController: RXTableViewController {
     var sectionTitles:[String] = []
     var rowTitles:[[String]] = []
 
-    var cacheSize:UInt?
+    var cachedImageSize:UInt?
+    var clearCacheCellIndexPath:IndexPath?
 
     override func initFunction() {
         super.initFunction()
@@ -22,7 +23,9 @@ class SettingsController: RXTableViewController {
 
         sectionTitles.append(Define.section_common)
         sectionTitles.append(Define.section_cache)
-        sectionTitles.append(Define.section_debug)
+        #if DEBUG || debug
+            sectionTitles.append(Define.section_debug)
+        #endif
 
         for i in sectionTitles {
             var rowTitle:[String] = []
@@ -33,12 +36,19 @@ class SettingsController: RXTableViewController {
             case Define.section_cache:
                 rowTitle.append(Define.row_cache_clear_cahce)
             case Define.section_debug:
-                rowTitle.append(Define.row_debug_ignore_cache)
+                #if DEBUG || debug
+                    rowTitle.append(Define.row_debug_ignore_cache)
+                    rowTitle.append(Define.row_debug_log_request)
+                #endif
             default:
                 break
             }
             rowTitles.append(rowTitle)
         }
+    }
+
+    override func initTableView() -> UITableView {
+        return UITableView(frame: CGRect.zero, style: UITableViewStyle.grouped)
     }
 
     override func viewDidLoad() {
@@ -48,17 +58,17 @@ class SettingsController: RXTableViewController {
     override func firstViewDidAppear(_ animated: Bool) {
         super.firstViewDidAppear(animated)
         KingfisherManager.shared.cache.calculateDiskCacheSize {[weak self] (size) in
-            //async after one second, I want the user to find the transition
+            //async after one second, I want the user to notice the transition
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.seconds(1)) {
                 log.verbose("image cache size: \(size)")
-                self?.cacheSize = size
-                self?.tableView.reloadData()
+                self?.cachedImageSize = size
+                if self?.clearCacheCellIndexPath == nil {
+                    self?.tableView.reloadData()
+                }else{
+                    self?.tableView.reloadRows(at: [self!.clearCacheCellIndexPath!], with: UITableViewRowAnimation.automatic)
+                }
             }
         }
-    }
-
-    override func initTableView() -> UITableView {
-        return UITableView(frame: CGRect.zero, style: UITableViewStyle.grouped)
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -98,6 +108,7 @@ class SettingsController: RXTableViewController {
         var detailText:String?
         var accessoryType:UITableViewCellAccessoryType = UITableViewCellAccessoryType.disclosureIndicator
         var accessoryView:UIView?
+        var selectionStyle:UITableViewCellSelectionStyle = UITableViewCellSelectionStyle.default
 
         if sectionTitle == Define.section_common {
             if rowTitle == Define.row_common_hd_image_in_database {
@@ -107,6 +118,7 @@ class SettingsController: RXTableViewController {
                 switcher.indexPath = indexPath
                 switcher.isOn = SettingsManager.databaseHDImage
                 accessoryView = switcher
+                selectionStyle = UITableViewCellSelectionStyle.none
             }else if rowTitle == Define.row_common_mobile_review_language {
                 titleText = LocalizedString.settings_row_mobile_review_language
                 switch SettingsManager.mobilePreviewLanguage {
@@ -123,15 +135,20 @@ class SettingsController: RXTableViewController {
             }
         }else if sectionTitle == Define.section_cache {
             if rowTitle == Define.row_cache_clear_cahce {
+                clearCacheCellIndexPath = indexPath
                 titleText = LocalizedString.settings_row_clear_cache
-                if self.cacheSize == nil {
+                if self.cachedImageSize == nil {
                     //show indicator
                     let indicator:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
                     indicator.startAnimating()
                     accessoryView = indicator
                 }else {
                     //show detail text
-                    detailText = String.dataSizeAbstract(size: UInt64(cacheSize!), decimal: 2)
+                    if cachedImageSize! < 1024 {
+                        detailText = LocalizedString.settings_no_cached_image
+                    }else {
+                        detailText = String.dataSizeAbstract(size: UInt64(cachedImageSize!), decimal: 2)
+                    }
                 }
             }
         }else if sectionTitle == Define.section_debug {
@@ -143,6 +160,15 @@ class SettingsController: RXTableViewController {
                     switcher.indexPath = indexPath
                     switcher.isOn = SettingsManager.debug_ignore_cache
                     accessoryView = switcher
+                    selectionStyle = UITableViewCellSelectionStyle.none
+                }else if rowTitle == Define.row_debug_log_request {
+                    titleText = "Log All Requests"
+                    let switcher:IndexPathSwitch = IndexPathSwitch()
+                    switcher.addTarget(self, action: #selector(switchValueChanged(sender:)), for: UIControlEvents.valueChanged)
+                    switcher.indexPath = indexPath
+                    switcher.isOn = SettingsManager.debug_log_request
+                    accessoryView = switcher
+                    selectionStyle = UITableViewCellSelectionStyle.none
                 }
             #endif
         }
@@ -151,6 +177,7 @@ class SettingsController: RXTableViewController {
         if cell == nil {
             cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "normal_cell")
         }
+
         cell?.textLabel?.text = titleText
         cell?.detailTextLabel?.text = detailText
         if accessoryView == nil {
@@ -159,6 +186,7 @@ class SettingsController: RXTableViewController {
         }else {
             cell?.accessoryView = accessoryView
         }
+        cell?.selectionStyle = selectionStyle
 
         return cell!
     }
@@ -205,7 +233,7 @@ class SettingsController: RXTableViewController {
                 })
                 let chineseAction:UIAlertAction = UIAlertAction(title: LocalizedString.title_chinese, style: UIAlertActionStyle.default, handler: { (action) in
                     SettingsManager.mobilePreviewLanguage = 3
-                    self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
+                    self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
                 })
                 actions.append(systemAction)
                 actions.append(englishAction)
@@ -214,11 +242,14 @@ class SettingsController: RXTableViewController {
             }
         }else if sectionTitle == Define.section_cache {
             if rowTitle == Define.row_cache_clear_cahce {
+                guard let size = cachedImageSize, size > 1024 else{
+                    return
+                }
                 let confirmAction:UIAlertAction = UIAlertAction(title: LocalizedString.settings_confirm_clear_cache, style: UIAlertActionStyle.destructive, handler: {[weak self] (action) in
                     KingfisherManager.shared.cache.clearDiskCache(completion: {
                         DispatchQueue.main.async {
-                            self?.cacheSize = 0
-                            self?.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
+                            self?.cachedImageSize = 0
+                            self?.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
                         }
                     })
                 })
@@ -227,7 +258,9 @@ class SettingsController: RXTableViewController {
                 style = UIAlertControllerStyle.actionSheet
             }
         }else if sectionTitle == Define.section_debug {
+            #if DEBUG || debug
 
+            #endif
         }
 
         if actions.isEmpty {
@@ -264,9 +297,13 @@ class SettingsController: RXTableViewController {
                 SettingsManager.databaseHDImage = sender.isOn
             }
         }else if sectionTitle == Define.section_debug {
-            if rowTitle == Define.row_debug_ignore_cache {
-                SettingsManager.debug_ignore_cache = sender.isOn
-            }
+            #if DEBUG || debug
+                if rowTitle == Define.row_debug_ignore_cache {
+                    SettingsManager.debug_ignore_cache = sender.isOn
+                }else if rowTitle == Define.row_debug_log_request {
+                    SettingsManager.debug_log_request = sender.isOn
+                }
+            #endif
         }
     }
 
@@ -283,6 +320,7 @@ extension SettingsController {
 
         static let section_debug:String = "section_debug"
         static let row_debug_ignore_cache:String = "row_debug_ignore_cache"
+        static let row_debug_log_request:String = "row_debug_log_request"
     }
 
 }

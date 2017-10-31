@@ -174,5 +174,7 @@ struct LocalizedString {
  
   static var database_lens_aberration: String { return "database_lens_aberration".localized() }
  
+  static var settings_no_cached_image: String { return "settings_no_cached_image".localized() }
+ 
 
 }

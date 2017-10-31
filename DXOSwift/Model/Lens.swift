@@ -23,7 +23,7 @@ class Lens: Device {
     var effmpixRanking : Int!
     var global : Float!
     var globalRanking : Int!
-    var id : String!
+    var id : String! //idLen+idCamera
     var idCamera : String!
     var idLen : Int!
     var image : String!
@@ -108,6 +108,9 @@ class Lens: Device {
         }
         idCamera = json["idCamera"].stringValue
         idLen = json["idLen"].intValue
+        if idLen == 0 {
+            return false
+        }
         image = json["image"].stringValue
         if !(image?.isEmpty ?? true) {
             if image!.hasPrefix("//") {

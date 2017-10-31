@@ -313,7 +313,7 @@ class DeviceDatabaseController: RXTableViewController, RetryLoadingViewDelegate 
                 log.error("can not get camera")
                 return
             }
-            let detail:CameraDetailController = CameraDetailController(camera: camera)
+            let detail:DeviceDetailController = DeviceDetailController(camera: camera)
             detail.view.backgroundColor = UIColor.white
             next = detail
         }else if self.deviceType == .lens {

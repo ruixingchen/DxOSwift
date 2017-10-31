@@ -21,15 +21,6 @@ class SettingsManager {
     /// simplified and traditional are both Chinese
     fileprivate static var _shouldUseChinese:Bool!
 
-    static var debug_ignore_cache:Bool {
-        get {
-            return (UserDefaults.standard.object(forKey: "debug_ignore_cache") as? Bool) ?? false
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: "debug_ignore_cache")
-            UserDefaults.standard.synchronize()
-        }
-    }
 
     /// 1: follow system, 2:english, 3:chinese
     static var mobilePreviewLanguage:Int {
@@ -67,6 +58,31 @@ class SettingsManager {
             UserDefaults.standard.set(newValue, forKey: Define.key_databaseHDImage)
             UserDefaults.standard.synchronize()
             _databaseHDImage = newValue
+        }
+    }
+
+}
+
+// MARK: - DEBUG
+extension SettingsManager {
+
+    static var debug_ignore_cache:Bool {
+        get {
+            return (UserDefaults.standard.object(forKey: "debug_ignore_cache") as? Bool) ?? false
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "debug_ignore_cache")
+            UserDefaults.standard.synchronize()
+        }
+    }
+
+    static var debug_log_request:Bool {
+        get {
+            return (UserDefaults.standard.object(forKey: "debug_log_request") as? Bool) ?? false
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "debug_log_request")
+            UserDefaults.standard.synchronize()
         }
     }
 

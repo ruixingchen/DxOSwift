@@ -1,5 +1,5 @@
 //
-//  CameraDetailController.swift
+//  DeviceDetailController.swift
 //  DXOSwift
 //
 //  Created by ruixingchen on 30/10/2017.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CameraDetailController: RXTableViewController, RetryLoadingViewDelegate {
+class DeviceDetailController: RXTableViewController, RetryLoadingViewDelegate {
 
     private let camera:Camera
 
@@ -17,7 +17,7 @@ class CameraDetailController: RXTableViewController, RetryLoadingViewDelegate {
 
     private let loadingView:LoadingView = LoadingView()
     private var requestFailedView:RetryLoadingView?
-    private let headerView:CameraDetailPictureHeaderView = CameraDetailPictureHeaderView()
+    private let headerView:DeviceDetailPictureHeaderView = DeviceDetailPictureHeaderView()
 
     init(camera:Camera){
         self.camera = camera
@@ -153,9 +153,9 @@ class CameraDetailController: RXTableViewController, RetryLoadingViewDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell:UITableViewCell?
         if indexPath.section == scores_section {
-            var tCell:CameraDetailScoreTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "CameraDetailScoreTableViewCell") as? CameraDetailScoreTableViewCell
+            var tCell:DeviceDetailScoreTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "DeviceDetailScoreTableViewCell") as? DeviceDetailScoreTableViewCell
             if tCell == nil {
-                tCell = CameraDetailScoreTableViewCell(style: .default, reuseIdentifier: "CameraDetailScoreTableViewCell")
+                tCell = DeviceDetailScoreTableViewCell(style: .default, reuseIdentifier: "DeviceDetailScoreTableViewCell")
             }
 
             var leftText:String?
@@ -196,9 +196,9 @@ class CameraDetailController: RXTableViewController, RetryLoadingViewDelegate {
                 #endif
                 return cell
             }
-            var tCell:CameraDetailSpecificationsTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "CameraDetailSpecificationsTableViewCell") as? CameraDetailSpecificationsTableViewCell
+            var tCell:DeviceDetailSpecificationsTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "DeviceDetailSpecificationsTableViewCell") as? DeviceDetailSpecificationsTableViewCell
             if tCell == nil {
-                tCell = CameraDetailSpecificationsTableViewCell(style: .default, reuseIdentifier: "CameraDetailSpecificationsTableViewCell")
+                tCell = DeviceDetailSpecificationsTableViewCell(style: .default, reuseIdentifier: "DeviceDetailSpecificationsTableViewCell")
             }
             tCell?.leftLabel.text = sep.key
             tCell?.rightLabel.text = sep.value

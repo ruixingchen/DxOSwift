@@ -60,7 +60,13 @@ class DXOService {
     //MARK: - BasicRequest
 
     /// the basic request
-    class func basicRequest(request:URLRequest, completion:((Data?, Error?)->Void)?){
+    class func basicRequest(request:URLRequest, completion:((Data?, URLResponse?, Error?)->Void)?){
+        var realRequest:URLRequest = request
+        #if DEBUG || debug
+            if SettingsManager.debug_ignore_cache {
+                realRequest.cachePolicy = URLRequest.CachePolicy.reloadIgnoringLocalCacheData
+            }
+        #endif
         let sessionConfig:URLSessionConfiguration = URLSessionConfiguration.default
         sessionConfig.timeoutIntervalForRequest = request.timeoutInterval
         sessionConfig.timeoutIntervalForResource = request.timeoutInterval
@@ -68,23 +74,33 @@ class DXOService {
             sessionConfig.protocolClasses?.insert(NFXProtocol.self, at: 0)
         #endif
         let session:URLSession = URLSession(configuration: sessionConfig)
-        session.dataTask(with: request) { (inData, inResponse, inError) in
+        session.dataTask(with: realRequest) { (inData, inResponse, inError) in
             #if DEBUG || debug
-                if Define.logRequestDetail {
-                    //log the detail
+                if SettingsManager.debug_log_request {
+                    if inData == nil {
+                        log.verbose("request data is nil")
+                    }else{
+                        if let str:String = String.init(data: inData!, encoding: .utf8) {
+                            log.verbose("Request Log:\n".appending(str.abstract(length: 100, addDot: true)))
+                        }else{
+                            log.error("request data to string failed")
+                        }
+                    }
                 }
             #endif
-            completion?(inData, inError)
+            completion?(inData, inResponse, inError)
         }.resume()
     }
 
     /// request with ServiceError
-    class func serviceRequest(request:URLRequest, completion:((Data?, ServiceError?)->Void)?){
-        basicRequest(request: request) { (inData, inError) in
+    class func serviceRequest(request:URLRequest, completion:((Data?, URLResponse?, ServiceError?)->Void)?){
+        basicRequest(request: request) { (inData, inResponse, inError) in
+            var outData:Data?
+            var outResponse:URLResponse?
             var outError:ServiceError?
 
             defer {
-                completion?(inData, outError)
+                completion?(outData, outResponse, outError)
             }
 
             if inError != nil {
@@ -94,6 +110,8 @@ class DXOService {
                 outError = ServiceError.noResponse
                 return
             }
+            outData = inData
+            outResponse = inResponse
         }
     }
 
@@ -127,7 +145,7 @@ class DXOService {
             log.verbose("extract reviews with \(reviews.count)")
             outObject = reviews
         }
-        serviceRequest(request: request) { (inData, inError) in
+        serviceRequest(request: request) { (inData, _, inError) in
             handleClosure(inData, inError)
         }
     }
@@ -311,7 +329,7 @@ class DXOService {
 
         let url:URL = URL(string: "https://www.dxomark.com")!
         let request:URLRequest = commonURLRequest(url: url)
-        serviceRequest(request: request) { (inData, inError) in
+        serviceRequest(request: request) { (inData, _, inError) in
             handleClosure(inData, inError)
         }
     }
@@ -387,7 +405,7 @@ class DXOService {
         let url:URL = URL(string:"https://www.dxomark.com/category/mobile-reviews")!
         let request:URLRequest = commonURLRequest(url: url)
 
-        serviceRequest(request: request) { (inData, inError) in
+        serviceRequest(request: request) { (inData, _, inError) in
             var outError:RXError?
             var outObject:[Review]?
 
@@ -482,7 +500,7 @@ class DXOService {
             return
         }
         let request:URLRequest = commonURLRequest(url: url)
-        serviceRequest(request: request) { (inData, inError) in
+        serviceRequest(request: request) { (inData, _, inError) in
             handleClosure(inData, inError)
         }
     }
@@ -534,7 +552,7 @@ class DXOService {
             return
         }
         let request:URLRequest = commonURLRequest(url: url)
-        serviceRequest(request: request) { (inData, inError) in
+        serviceRequest(request: request) { (inData, _, inError) in
             handleClosure(inData, inError)
         }
     }
@@ -572,7 +590,7 @@ class DXOService {
         if let percentKey:String = key.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) {
             let url:URL = URL(string: "https://www.dxomark.com/wp-admin/admin-ajax.php?action=flatsome_ajax_search_products&query=\(percentKey)")!
             let request:URLRequest = commonURLRequest(url: url)
-            serviceRequest(request: request) { (inData, inError) in
+            serviceRequest(request: request) { (inData, _, inError) in
                 handleClosure(inData, userInfo, inError)
             }
         }else {
@@ -646,7 +664,7 @@ class DXOService {
             return
         }
         let request:URLRequest = commonURLRequest(url: url)
-        serviceRequest(request: request) { (inData, inError) in
+        serviceRequest(request: request) { (inData, _, inError) in
             handleClosure(inData, inError)
         }
     }

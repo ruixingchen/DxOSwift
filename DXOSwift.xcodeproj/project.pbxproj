@@ -30,7 +30,7 @@
 		803C4E821FA6128400459151 /* LensDatabaseDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803C4E811FA6128400459151 /* LensDatabaseDataSource.swift */; };
 		803C4E841FA61A3700459151 /* SwiftyJSONExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803C4E831FA61A3700459151 /* SwiftyJSONExtension.swift */; };
 		803C4E861FA6202600459151 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803C4E851FA6202600459151 /* LoadingView.swift */; };
-		803C4E8C1FA6453000459151 /* CameraDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803C4E8B1FA6453000459151 /* CameraDetailController.swift */; };
+		803C4E8C1FA6453000459151 /* DeviceDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803C4E8B1FA6453000459151 /* DeviceDetailController.swift */; };
 		80430AD61F9DC6E700224DAA /* ArticlesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80430AD51F9DC6E700224DAA /* ArticlesController.swift */; };
 		80490D4B1FA4641600A14FB4 /* SearchResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80490D4A1FA4641600A14FB4 /* SearchResultController.swift */; };
 		804AC1AB1F99B1C4006A052E /* DeviceDatabaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804AC1AA1F99B1C4006A052E /* DeviceDatabaseTableViewCell.swift */; };
@@ -50,9 +50,9 @@
 		80873B241FA6D68A00366CD0 /* DeviceDatabaseSortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B231FA6D68A00366CD0 /* DeviceDatabaseSortView.swift */; };
 		80873B261FA6D7FA00366CD0 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B251FA6D7FA00366CD0 /* UserDefaultsManager.swift */; };
 		80873B2A1FA6F93A00366CD0 /* CameraSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B291FA6F93A00366CD0 /* CameraSpecification.swift */; };
-		80873B2C1FA6FF9800366CD0 /* CameraDetailPictureHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B2B1FA6FF9800366CD0 /* CameraDetailPictureHeaderView.swift */; };
-		80873B2E1FA7006F00366CD0 /* CameraDetailScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B2D1FA7006F00366CD0 /* CameraDetailScoreTableViewCell.swift */; };
-		80873B301FA70ACF00366CD0 /* CameraDetailSpecificationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B2F1FA70ACF00366CD0 /* CameraDetailSpecificationsTableViewCell.swift */; };
+		80873B2C1FA6FF9800366CD0 /* DeviceDetailPictureHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B2B1FA6FF9800366CD0 /* DeviceDetailPictureHeaderView.swift */; };
+		80873B2E1FA7006F00366CD0 /* DeviceDetailScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B2D1FA7006F00366CD0 /* DeviceDetailScoreTableViewCell.swift */; };
+		80873B301FA70ACF00366CD0 /* DeviceDetailSpecificationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B2F1FA70ACF00366CD0 /* DeviceDetailSpecificationsTableViewCell.swift */; };
 		80873B321FA729FE00366CD0 /* UnclearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B311FA729FE00366CD0 /* UnclearView.swift */; };
 		80873B341FA72D7A00366CD0 /* IndexPathSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B331FA72D7900366CD0 /* IndexPathSwitch.swift */; };
 		808F54C21F9C4A1E00F0A2C4 /* DeviceDatabaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808F54C11F9C4A1E00F0A2C4 /* DeviceDatabaseController.swift */; };
@@ -108,7 +108,7 @@
 		803C4E811FA6128400459151 /* LensDatabaseDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LensDatabaseDataSource.swift; sourceTree = "<group>"; };
 		803C4E831FA61A3700459151 /* SwiftyJSONExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyJSONExtension.swift; sourceTree = "<group>"; };
 		803C4E851FA6202600459151 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		803C4E8B1FA6453000459151 /* CameraDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDetailController.swift; sourceTree = "<group>"; };
+		803C4E8B1FA6453000459151 /* DeviceDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailController.swift; sourceTree = "<group>"; };
 		80430AD51F9DC6E700224DAA /* ArticlesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesController.swift; sourceTree = "<group>"; };
 		80490D4A1FA4641600A14FB4 /* SearchResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultController.swift; sourceTree = "<group>"; };
 		804AC1AA1F99B1C4006A052E /* DeviceDatabaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDatabaseTableViewCell.swift; sourceTree = "<group>"; };
@@ -130,9 +130,9 @@
 		80873B231FA6D68A00366CD0 /* DeviceDatabaseSortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDatabaseSortView.swift; sourceTree = "<group>"; };
 		80873B251FA6D7FA00366CD0 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		80873B291FA6F93A00366CD0 /* CameraSpecification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSpecification.swift; sourceTree = "<group>"; };
-		80873B2B1FA6FF9800366CD0 /* CameraDetailPictureHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDetailPictureHeaderView.swift; sourceTree = "<group>"; };
-		80873B2D1FA7006F00366CD0 /* CameraDetailScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDetailScoreTableViewCell.swift; sourceTree = "<group>"; };
-		80873B2F1FA70ACF00366CD0 /* CameraDetailSpecificationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDetailSpecificationsTableViewCell.swift; sourceTree = "<group>"; };
+		80873B2B1FA6FF9800366CD0 /* DeviceDetailPictureHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailPictureHeaderView.swift; sourceTree = "<group>"; };
+		80873B2D1FA7006F00366CD0 /* DeviceDetailScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailScoreTableViewCell.swift; sourceTree = "<group>"; };
+		80873B2F1FA70ACF00366CD0 /* DeviceDetailSpecificationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailSpecificationsTableViewCell.swift; sourceTree = "<group>"; };
 		80873B311FA729FE00366CD0 /* UnclearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnclearView.swift; sourceTree = "<group>"; };
 		80873B331FA72D7900366CD0 /* IndexPathSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexPathSwitch.swift; sourceTree = "<group>"; };
 		808F54C11F9C4A1E00F0A2C4 /* DeviceDatabaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDatabaseController.swift; sourceTree = "<group>"; };
@@ -423,7 +423,7 @@
 			children = (
 				80C3F5E11F993B0700F5D3E3 /* CameraReviewController.swift */,
 				808F54C11F9C4A1E00F0A2C4 /* DeviceDatabaseController.swift */,
-				803C4E8B1FA6453000459151 /* CameraDetailController.swift */,
+				803C4E8B1FA6453000459151 /* DeviceDetailController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -433,9 +433,9 @@
 			children = (
 				804AC1AA1F99B1C4006A052E /* DeviceDatabaseTableViewCell.swift */,
 				80873B231FA6D68A00366CD0 /* DeviceDatabaseSortView.swift */,
-				80873B2B1FA6FF9800366CD0 /* CameraDetailPictureHeaderView.swift */,
-				80873B2D1FA7006F00366CD0 /* CameraDetailScoreTableViewCell.swift */,
-				80873B2F1FA70ACF00366CD0 /* CameraDetailSpecificationsTableViewCell.swift */,
+				80873B2B1FA6FF9800366CD0 /* DeviceDetailPictureHeaderView.swift */,
+				80873B2D1FA7006F00366CD0 /* DeviceDetailScoreTableViewCell.swift */,
+				80873B2F1FA70ACF00366CD0 /* DeviceDetailSpecificationsTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -674,7 +674,7 @@
 				803C4E7E1FA606A700459151 /* CameraDatabaseDataSource.swift in Sources */,
 				80BDB34E1FA178EF00C4243D /* SettingsManager.swift in Sources */,
 				80C3F5E81F9942BD00F5D3E3 /* Camera.swift in Sources */,
-				80873B301FA70ACF00366CD0 /* CameraDetailSpecificationsTableViewCell.swift in Sources */,
+				80873B301FA70ACF00366CD0 /* DeviceDetailSpecificationsTableViewCell.swift in Sources */,
 				8031A72D1F99054C00010540 /* UIColorExtension.swift in Sources */,
 				801D6B291F97691400CEAE64 /* NewsController.swift in Sources */,
 				80873B261FA6D7FA00366CD0 /* UserDefaultsManager.swift in Sources */,
@@ -685,7 +685,7 @@
 				808F54C21F9C4A1E00F0A2C4 /* DeviceDatabaseController.swift in Sources */,
 				80EB94F81F9F5EAF008EFECB /* OpenSourceController.swift in Sources */,
 				805273201F9D9A6500F9642F /* MobileChartController.swift in Sources */,
-				80873B2C1FA6FF9800366CD0 /* CameraDetailPictureHeaderView.swift in Sources */,
+				80873B2C1FA6FF9800366CD0 /* DeviceDetailPictureHeaderView.swift in Sources */,
 				800165591F98E2A30010F2BE /* ReviewBadgeView.swift in Sources */,
 				80DAAC711F996FAB003648BF /* DataExtension.swift in Sources */,
 				80C3F5E41F993C5200F5D3E3 /* LensReviewController.swift in Sources */,
@@ -700,11 +700,11 @@
 				80F746611F9DA081009184E2 /* MobileChartTableViewCell.swift in Sources */,
 				80EB94FA1F9F61CA008EFECB /* GenericReviewListController.swift in Sources */,
 				80C3F5EA1F9942C600F5D3E3 /* Lens.swift in Sources */,
-				80873B2E1FA7006F00366CD0 /* CameraDetailScoreTableViewCell.swift in Sources */,
+				80873B2E1FA7006F00366CD0 /* DeviceDetailScoreTableViewCell.swift in Sources */,
 				801D6B201F97645900CEAE64 /* RXBlankTableViewCell.swift in Sources */,
 				80873B341FA72D7A00366CD0 /* IndexPathSwitch.swift in Sources */,
 				803C4E791FA5CB9600459151 /* PresearchObject.swift in Sources */,
-				803C4E8C1FA6453000459151 /* CameraDetailController.swift in Sources */,
+				803C4E8C1FA6453000459151 /* DeviceDetailController.swift in Sources */,
 				80490D4B1FA4641600A14FB4 /* SearchResultController.swift in Sources */,
 				805786651F960A92006D2B3C /* DXOService.swift in Sources */,
 				80C3F5E21F993B0700F5D3E3 /* CameraReviewController.swift in Sources */,
