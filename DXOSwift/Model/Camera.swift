@@ -57,8 +57,6 @@ class Camera: Device {
         return self.image.replacingOccurrences(of: "vignette3.png", with: "vignette1.jpg")
     }
 
-    var specification:[Specification]?
-
     init?(fromJson json: JSON){
         super.init()
         if !self.updateProperty(json: json) {

@@ -12,24 +12,20 @@ import SnapKit
 
 class DeviceDatabaseController: RXTableViewController, RetryLoadingViewDelegate {
 
-    enum DeviceType {
-        case camera, lens
-    }
-
     let loadingView:LoadingView = LoadingView()
     var requestFailedView: RetryLoadingView?
 
-    let deviceType:DeviceType
+    let deviceType:Device.DeviceType
     var cameraDataSource:CameraDatabaseDataSource?
     var lensDataSource:LensDatabaseDataSource?
 
-    init(deviceType: DeviceType) {
+    init(deviceType: Device.DeviceType) {
         self.deviceType = deviceType
         super.init()
     }
 
     required init?(coder aDecoder: NSCoder) {
-        self.deviceType = DeviceType.camera
+        self.deviceType = Device.DeviceType.camera
         super.init(coder: aDecoder)
     }
 
@@ -313,7 +309,7 @@ class DeviceDatabaseController: RXTableViewController, RetryLoadingViewDelegate 
                 log.error("can not get camera")
                 return
             }
-            let detail:DeviceDetailController = DeviceDetailController(camera: camera)
+            let detail:DeviceDetailController = DeviceDetailController(deviceType: Device.DeviceType.camera, device: camera)
             detail.view.backgroundColor = UIColor.white
             next = detail
         }else if self.deviceType == .lens {
@@ -321,6 +317,9 @@ class DeviceDatabaseController: RXTableViewController, RetryLoadingViewDelegate 
                 return
             }
             log.verbose(lens.shortDescription)
+            let detail:DeviceDetailController = DeviceDetailController(deviceType: Device.DeviceType.lens, device: lens)
+            detail.view.backgroundColor = UIColor.white
+            next = detail
         }
         if next != nil {
             self.navigationController?.pushViewController(next!, animated: true)

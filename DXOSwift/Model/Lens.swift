@@ -64,6 +64,9 @@ class Lens: Device {
         return self.image.replacingOccurrences(of: "_small.png", with: ".png")
     }
 
+    // tested camera, key for id, value for camera name
+    var testedCamera:[Specification]?
+
     var shortDescription:String {
         var d:String = "name:"
         d.append(name)
@@ -155,6 +158,11 @@ class Lens: Device {
         zoomfactor = json["zoomfactor"].intValue
 
         return true
+    }
+
+    func scoresLink(cameraID:String) ->String {
+        ///Lenses/Sony/Sony-FE-16-35mm-F28-GM-mounted-on-Sony-A7R-II__1035
+        return self.link.replacingOccurrences(of: "__\(self.idCamera)", with: "__\(cameraID)", options: String.CompareOptions.backwards, range: nil)
     }
 }
 

@@ -15,6 +15,8 @@ class Device {
         case tested = "TESTED"
     }
 
+    var specification:[Specification]?
+
     class func test(){
         let cameraJson = JSON(data: Data(forResource: "cameraDatabase.json")!)
         let lensJson = JSON(data: Data(forResource: "lensDatabase.json")!)
@@ -48,6 +50,58 @@ class Device {
 }
 
 extension Device {
+    enum DeviceType {
+        case camera, lens, mobile
+    }
 
+    struct Specification {
+        var key:String {
+            didSet {
+                updateLocalizedKey()
+            }
+        }
+        var value:String {
+            didSet {
+                updateLocalizedValue()
+            }
+        }
 
+        var description:String {
+            return "key: \(key)\nvalue:\(value)"
+        }
+
+        init(key:String, value:String) {
+            self.key = key
+            self.value = value
+            updateLocalizedKey()
+            updateLocalizedValue()
+        }
+
+        var c_localizedKey:String = ""
+        var c_localizedValue:String = ""
+
+        mutating func updateLocalizedKey() {
+            if key.isEmpty {
+                c_localizedKey = ""
+                return
+            }
+            switch key {
+            case "Announced":
+                c_localizedKey = LocalizedString.camera_detail_landscape_des
+            default:
+                c_localizedKey = key
+            }
+        }
+
+        mutating func updateLocalizedValue(){
+            if value.isEmpty {
+                c_localizedValue = ""
+            }
+            switch value {
+            default:
+                c_localizedValue = value
+            }
+        }
+
+    }
 }

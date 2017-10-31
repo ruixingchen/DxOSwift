@@ -49,7 +49,6 @@
 		806903A61F9607C1005BA062 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 806903A41F9607C1005BA062 /* LaunchScreen.storyboard */; };
 		80873B241FA6D68A00366CD0 /* DeviceDatabaseSortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B231FA6D68A00366CD0 /* DeviceDatabaseSortView.swift */; };
 		80873B261FA6D7FA00366CD0 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B251FA6D7FA00366CD0 /* UserDefaultsManager.swift */; };
-		80873B2A1FA6F93A00366CD0 /* CameraSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B291FA6F93A00366CD0 /* CameraSpecification.swift */; };
 		80873B2C1FA6FF9800366CD0 /* DeviceDetailPictureHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B2B1FA6FF9800366CD0 /* DeviceDetailPictureHeaderView.swift */; };
 		80873B2E1FA7006F00366CD0 /* DeviceDetailScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B2D1FA7006F00366CD0 /* DeviceDetailScoreTableViewCell.swift */; };
 		80873B301FA70ACF00366CD0 /* DeviceDetailSpecificationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B2F1FA70ACF00366CD0 /* DeviceDetailSpecificationsTableViewCell.swift */; };
@@ -129,7 +128,6 @@
 		806903A71F9607C1005BA062 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		80873B231FA6D68A00366CD0 /* DeviceDatabaseSortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDatabaseSortView.swift; sourceTree = "<group>"; };
 		80873B251FA6D7FA00366CD0 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
-		80873B291FA6F93A00366CD0 /* CameraSpecification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSpecification.swift; sourceTree = "<group>"; };
 		80873B2B1FA6FF9800366CD0 /* DeviceDetailPictureHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailPictureHeaderView.swift; sourceTree = "<group>"; };
 		80873B2D1FA7006F00366CD0 /* DeviceDetailScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailScoreTableViewCell.swift; sourceTree = "<group>"; };
 		80873B2F1FA70ACF00366CD0 /* DeviceDetailSpecificationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailSpecificationsTableViewCell.swift; sourceTree = "<group>"; };
@@ -270,7 +268,6 @@
 			children = (
 				8057866D1F961DEB006D2B3C /* Review.swift */,
 				80C3F5E71F9942BD00F5D3E3 /* Camera.swift */,
-				80873B291FA6F93A00366CD0 /* CameraSpecification.swift */,
 				80C3F5E91F9942C600F5D3E3 /* Lens.swift */,
 				80C3F5EB1F9942CD00F5D3E3 /* Mobile.swift */,
 				80C3F5EF1F99441600F5D3E3 /* Device.swift */,
@@ -733,7 +730,6 @@
 				803C4E821FA6128400459151 /* LensDatabaseDataSource.swift in Sources */,
 				8057866E1F961DEB006D2B3C /* Review.swift in Sources */,
 				801D6B1E1F97645600CEAE64 /* RXTableViewController.swift in Sources */,
-				80873B2A1FA6F93A00366CD0 /* CameraSpecification.swift in Sources */,
 				80873B241FA6D68A00366CD0 /* DeviceDatabaseSortView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

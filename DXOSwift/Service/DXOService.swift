@@ -614,10 +614,10 @@ class DXOService {
         }
     }
 
-    class func cameraSpecifications(link:String, completion:(([Camera.Specification]?, RXError?)->Void)?){
+    class func cameraSpecifications(link:String, completion:(([Device.Specification]?, RXError?)->Void)?){
         let handleClosure:(Data?, ServiceError?)->Void = { (inData, inError) in
             var outError:RXError?
-            var outObject:[Camera.Specification]?
+            var outObject:[Device.Specification]?
 
             defer {
                 if outError != nil {
@@ -639,11 +639,14 @@ class DXOService {
                 return
             }
 
-            var array:[Camera.Specification] = []
+            var array:[Device.Specification] = []
             for node in htmlDocument.xpath("//div[@class='liste_descriptif']//tr") {
                 let td:XPathObject = node.xpath("./td/text()")
                 if td.count != 2 {
                     log.error("num of a row is not 2, but: \(td.count)")
+                    for i in td {
+                        print(i.text)
+                    }
                     continue
                 }
                 let key:String = td[0].text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
@@ -652,12 +655,12 @@ class DXOService {
                     //the comment
                     value = ""
                 }
-                array.append(Camera.Specification(key: key, value: value))
+                array.append(Device.Specification(key: key, value: value))
             }
             outObject = array
         }
 
-        guard let url:URL = URL(string: link.appending("---Specifications")) else {
+        guard let url:URL = URL(string: link) else {
             DispatchQueue.global().async {
                 handleClosure(nil, ServiceError.badUrl)
             }
@@ -667,6 +670,48 @@ class DXOService {
         serviceRequest(request: request) { (inData, _, inError) in
             handleClosure(inData, inError)
         }
+    }
+
+    /// lenses have different scores on different devices
+    class func lensScores(link:String, completion:((_ score:Device.Specification?, _ scores:[Device.Specification]?, _ cameras:[Device.Specification]?, _ error:RXError?)->Void)?){
+        let handleClosure:(Data?, URLResponse?, ServiceError?)->Void = { (inData, _, inError) in
+            var outScore:Device.Specification?
+            var outScores:[Device.Specification]?
+            var outCameras:[Device.Specification]?
+            var outError:RXError?
+
+            defer {
+                if outError != nil {
+                    log.info("request with error:\n\(outError!.description)")
+                }
+                completion?(outScore,outScores,outCameras,outError)
+            }
+
+            if inError != nil {
+                outError = RXError(error: inError!, errorDescription: "in error is not nil")
+                return
+            }else if inData == nil {
+                outError = RXError(error: ServiceError.noResponse, errorDescription: "in data is nil")
+                return
+            }
+            //start to parse the HTML document
+            guard let htmlDocument:HTMLDocument = HTML(html: inData!, encoding: .utf8) else {
+                outError = RXError(error: ServiceError.badResponse, errorDescription: "bad html response")
+                return
+            }
+
+            let bestAt:String = htmlDocument.xpath("//div[@id='describe_cam']/div[1]//td[@class='descriptifgauche']/text()").first?.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
+            let bestScore:String = htmlDocument.xpath("//div[@id='describe_cam']/div[@class='liste_descriptif']//td[@class='descriptif_data']/div[@class='graphbarscalepeak']/div/text()").first?.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
+
+            for node in htmlDocument.xpath("//div[@id='describe_cam']/div[@class='liste_descriptif'][2]/table[@class='descriptiftab']/tbody/tr") {
+
+//                let key:String = 
+
+            }
+
+
+        }
+
     }
 
 }

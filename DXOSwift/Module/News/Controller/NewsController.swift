@@ -173,10 +173,10 @@ class NewsController: GenericReviewListController, SDCycleScrollViewDelegate {
         var nextController:UIViewController?
         if review.targetUrl.hasSuffix("www.dxomark.com/Cameras/") || review.targetUrl.hasSuffix("www.dxomark.com/Cameras") {
             //go to camera DB
-            nextController = DeviceDatabaseController(deviceType: DeviceDatabaseController.DeviceType.camera)
+            nextController = DeviceDatabaseController(deviceType: Device.DeviceType.camera)
         }else if review.targetUrl.hasSuffix("www.dxomark.com/Lenses/") || review.targetUrl.hasSuffix("www.dxomark.com/Lenses") {
             //go to lenses DB
-            nextController = DeviceDatabaseController(deviceType: DeviceDatabaseController.DeviceType.lens)
+            nextController = DeviceDatabaseController(deviceType: Device.DeviceType.lens)
         }else {
             nextController = NewsDetailController(review: review)
         }
