@@ -56,11 +56,17 @@ class DeviceDetailScoreTableViewCell: RXTableViewCell {
     }
 
     func updateProgress(progress:Float){
+        var p:Float = progress
+        if p > 1 {
+            p = 1
+        }else if p < 0 {
+            p = 0
+        }
         progressColorView.snp.remakeConstraints { (make) in
             make.left.equalToSuperview().offset(0.5)
             make.top.equalToSuperview()
             make.bottom.equalToSuperview().offset(-0.5)
-            make.width.equalToSuperview().multipliedBy(progress)
+            make.width.equalToSuperview().multipliedBy(p)
         }
     }
 

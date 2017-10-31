@@ -223,37 +223,60 @@ class DeviceDetailController: RXTableViewController, RetryLoadingViewDelegate {
                 var infoText:String?
 
                 switch indexPath.row {
-                case 0: //overall
+                case 0:
                     if deviceType == .camera {
+                        //overall
                         leftText = LocalizedString.camera_detail_overall_score
                         progress = Float(camera.rankDxo)/135
                         infoText = String.init(format: "%d", camera.rankDxo)
                     }else if deviceType == .lens {
-
+                        //sharpness
+                        leftText = LocalizedString.database_camera_sharpness
+                        progress = lens.effmpix/50.5
+                        infoText = String.init(format: "%.1f", lens.effmpix).appending(" P-Mpix") //词穷, 这个怎么翻译? 可辨百万像素?
                     }
-                case 1: //portrait
+                case 1:
                     if deviceType == .camera {
+                        //portrait
                         leftText = LocalizedString.camera_detail_portrait_des
                         progress = camera.rankColor/34
                         infoText = String.init(format: "%.1f", camera.rankColor).appending(" bits")
                     }else if deviceType == .lens {
-
+                        //transmission
+                        leftText = LocalizedString.database_lens_transmission
+                        progress = 1-lens.tstop/2
+                        infoText = String.init(format: "%.1f", lens.tstop).appending(" TStop")
                     }
-                case 2: //Landscape
+                case 2:
                     if deviceType == .camera {
+                        //Landscape
                         leftText = LocalizedString.camera_detail_landscape_des
                         progress = camera.rankDyn/20
                         infoText = String.init(format: "%.1f", camera.rankDyn).appending(" Evs")
                     }else if deviceType == .lens {
-
+                        //Distortion
+                        leftText = LocalizedString.database_lens_distortion
+                        progress = 1-lens.distorsion/0.13
+                        infoText = String.init(format: "%.3f", lens.distorsion).appending(" %")
                     }
-                case 3: //sports
+                case 3:
                     if deviceType == .camera {
+                        //sports
                         leftText = LocalizedString.camera_detail_sports_des
                         progress = Float(camera.rankLln)/5200
                         infoText = String.init(format: "%d", camera.rankLln).appending(" ISO")
                     }else if deviceType == .lens {
-
+                        //Vignetting
+                        leftText = LocalizedString.database_lens_vignetting
+                        progress = 1+lens.vignetting/5.8
+                        infoText = String.init(format: "%.1f", lens.vignetting).appending(" EV")
+                    }
+                case 4:
+                    if deviceType == .lens {
+                        //aberration
+                        leftText = LocalizedString.database_lens_aberration
+                        progress = 1-lens.ac/3.78
+                        infoText = String.init(format: "%.1f", lens.ac).appending(" um")
                     }
                 default:
                     break

@@ -34,7 +34,7 @@ class MoreController: RXTableViewController {
 
         sectionTitles.append(Define.section_mobile)
         sectionTitles.append(Define.section_articles)
-        sectionTitles.append(Define.section_about)
+        //sectionTitles.append(Define.section_about)
         sectionTitles.append(Define.section_open_source)
         sectionTitles.append(Define.section_setting)
         #if DEBUG || debug
