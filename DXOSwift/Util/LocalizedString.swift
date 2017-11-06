@@ -74,7 +74,7 @@ struct LocalizedString {
  
   static var your_star_the_best_motivation: String { return "your_star_the_best_motivation".localized() }
  
-  static var title_dxo: String { return "title_dxo".localized() }
+  static var title_dxo_mark: String { return "title_dxo_mark".localized() }
  
   static var title_camera_review: String { return "title_camera_review".localized() }
  
@@ -98,7 +98,7 @@ struct LocalizedString {
  
   static var title_about: String { return "title_about".localized() }
  
-  static var title_about_dxo: String { return "title_about_dxo".localized() }
+  static var title_about_dxo_mark: String { return "title_about_dxo_mark".localized() }
  
   static var title_open_source: String { return "title_open_source".localized() }
  

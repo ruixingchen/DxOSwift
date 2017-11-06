@@ -24,7 +24,7 @@ class MainTabBarController: UITabBarController {
         var viewControllers:[UINavigationController] = []
 
         let newsNav:UINavigationController = UINavigationController(rootViewController: NewsController())
-        newsNav.tabBarItem = UITabBarItem(title: LocalizedString.title_dxo, image: UIImage(named: "tabbar_image_news"), selectedImage: nil)
+        newsNav.tabBarItem = UITabBarItem(title: LocalizedString.title_dxo_mark, image: UIImage(named: "tabbar_image_news"), selectedImage: nil)
         viewControllers.append(newsNav)
 
         let cameraNav:UINavigationController = UINavigationController(rootViewController: CameraReviewController())

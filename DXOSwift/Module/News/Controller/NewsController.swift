@@ -23,7 +23,7 @@ class NewsController: GenericReviewListController, SDCycleScrollViewDelegate {
 
     override func initFunction() {
         super.initFunction()
-        self.title = LocalizedString.title_dxo
+        self.title = LocalizedString.title_dxo_mark
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 
