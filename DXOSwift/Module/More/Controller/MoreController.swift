@@ -71,7 +71,7 @@ class MoreController: RXTableViewController {
 
     override func setupTableView() {
         super.setupTableView()
-        tableView.tableFooterView = MoreFooterView(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
+        tableView.tableFooterView = MoreFooterView(frame: CGRect(x: 0, y: 0, width: 300, height: 45))
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {

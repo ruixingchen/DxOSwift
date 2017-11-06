@@ -38,18 +38,19 @@ class DatabaseManager {
             log.error("failed to open DB")
         }
         do{
-            let createReviewListCacheTable:String = """
-            CREATE TABLE "main"."\(DXOService.reviewListCacheTableName)" (
-            "for_source_list" text NOT NULL,
-            "addedTime" real NOT NULL,
-            "htmlText" text
-            );
-            """
-            try mainDB.executeUpdate(createReviewListCacheTable, values: nil)
+            if !mainDB.tableExists(DXOService.reviewListCacheTableName) {
+                let createReviewListCacheTable:String = """
+                CREATE TABLE "main"."\(DXOService.reviewListCacheTableName)" (
+                "for_source_list" text NOT NULL,
+                "addedTime" real NOT NULL,
+                "htmlText" text
+                );
+                """
+                try mainDB.executeUpdate(createReviewListCacheTable, values: nil)
+            }
         }catch {
             log.error("create table failed, error:\(error)")
         }
-
     }
 
 }

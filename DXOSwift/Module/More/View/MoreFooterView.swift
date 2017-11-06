@@ -28,8 +28,8 @@ class MoreFooterView: UIView {
         imageView.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
             make.centerX.equalToSuperview()
-            make.width.equalTo(250)
-            make.height.equalTo(30)
+            make.width.equalTo(200)
+            make.height.equalTo(44)
         }
     }
 
