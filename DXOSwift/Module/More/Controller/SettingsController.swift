@@ -79,12 +79,49 @@ class SettingsController: RXTableViewController {
         return rowTitles.safeGet(at: section)?.count ?? 0
     }
 
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let sectionTitle:String = sectionTitles.safeGet(at: section) else {
+            return nil
+        }
+        var localizedTitle:String?
+
+        switch sectionTitle {
+        case Define.section_common:
+            break
+        case Define.section_cache:
+            break
+        case Define.section_debug:
+            #if DEBUG || debug
+                localizedTitle = "DEBUG"
+            #else
+                break
+            #endif
+        default:
+            break
+        }
+        return localizedTitle
+    }
+
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         guard let sectionTitle:String = sectionTitles.safeGet(at: section) else {
             return nil
         }
         var localizedTitle:String?
 
+        switch sectionTitle {
+        case Define.section_common:
+            break
+        case Define.section_cache:
+            break
+        case Define.section_debug:
+            #if DEBUG || debug
+                localizedTitle = nil
+            #else
+                break
+            #endif
+        default:
+            break
+        }
         return localizedTitle
     }
 

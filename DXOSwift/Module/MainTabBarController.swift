@@ -24,19 +24,19 @@ class MainTabBarController: UITabBarController {
         var viewControllers:[UINavigationController] = []
 
         let newsNav:UINavigationController = UINavigationController(rootViewController: NewsController())
-        newsNav.tabBarItem = UITabBarItem(title: LocalizedString.title_dxo, image: nil, selectedImage: nil)
+        newsNav.tabBarItem = UITabBarItem(title: LocalizedString.title_dxo, image: UIImage(named: "tabbar_image_news"), selectedImage: nil)
         viewControllers.append(newsNav)
 
         let cameraNav:UINavigationController = UINavigationController(rootViewController: CameraReviewController())
-        cameraNav.tabBarItem = UITabBarItem(title: LocalizedString.title_camera, image: nil, selectedImage: nil)
+        cameraNav.tabBarItem = UITabBarItem(title: LocalizedString.title_camera, image: UIImage(named: "tabbar_image_camera_review"), selectedImage: nil)
         viewControllers.append(cameraNav)
 
         let lensNav:UINavigationController = UINavigationController(rootViewController: LensReviewController())
-        lensNav.tabBarItem = UITabBarItem(title: LocalizedString.title_lens, image: nil, selectedImage: nil)
+        lensNav.tabBarItem = UITabBarItem(title: LocalizedString.title_lens, image: UIImage(named: "tabbar_image_lens_review"), selectedImage: nil)
         viewControllers.append(lensNav)
 
         let moreNav:UINavigationController = UINavigationController(rootViewController: MoreController())
-        moreNav.tabBarItem = UITabBarItem(title: LocalizedString.title_more, image: nil, selectedImage: nil)
+        moreNav.tabBarItem = UITabBarItem(title: LocalizedString.title_more, image: UIImage(named: "tabbar_image_more"), selectedImage: nil)
         viewControllers.append(moreNav)
 
         for i in viewControllers {
@@ -47,6 +47,7 @@ class MainTabBarController: UITabBarController {
             i.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         }
         self.setViewControllers(viewControllers, animated: false)
+        self.tabBar.tintColor = UIColor.dxoBlue
     }
 
     override func viewDidLoad() {

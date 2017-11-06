@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import Toast_Swift
 
+#if DEBUG || debug
 class TestController: RXTableViewController, RetryLoadingViewDelegate {
 
     var retryLoadingView:RetryLoadingView?
@@ -57,3 +58,4 @@ class TestController: RXTableViewController, RetryLoadingViewDelegate {
     }
 
 }
+#endif
