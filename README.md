@@ -14,10 +14,10 @@ Xcode9, Swift4, iOS11
 
 ### screenshoot
 
-![](https://raw.githubusercontent.com/ruixingchen/DxOSwift/master/screenshot/1.jpg)
+![](/screenshot/1.jpg?raw=true)
 
-![](https://raw.githubusercontent.com/ruixingchen/DxOSwift/master/screenshot/2.jpg)
+![](/screenshot/2.jpg?raw=true)
 
-![](https://raw.githubusercontent.com/ruixingchen/DxOSwift/master/screenshot/3.jpg)
+![](/screenshot/3.jpg?raw=true)
 
-![](https://raw.githubusercontent.com/ruixingchen/DxOSwift/master/screenshot/4.jpg)
+![](/screenshot/4.jpg?raw=true)
