@@ -275,6 +275,7 @@ class SettingsController: RXTableViewController {
                 actions.append(systemAction)
                 actions.append(englishAction)
                 actions.append(chineseAction)
+                title = nil
                 style = UIAlertControllerStyle.actionSheet
             }
         }else if sectionTitle == Define.section_cache {
@@ -291,6 +292,7 @@ class SettingsController: RXTableViewController {
                     })
                 })
                 actions.append(confirmAction)
+                title = nil
                 message = LocalizedString.settings_clear_cache_warning_message
                 style = UIAlertControllerStyle.actionSheet
             }

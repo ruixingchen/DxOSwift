@@ -14,7 +14,6 @@ extension UIRefreshControl {
         sendActions(for: UIControlEvents.valueChanged)
         if let scrollView:UIScrollView = self.superview as? UIScrollView {
             var offset:CGPoint = scrollView.contentOffset
-            let inset:UIEdgeInsets = scrollView.contentInset
             offset.y = offset.y-bounds.height
             scrollView.setContentOffset(offset, animated: true)
         }

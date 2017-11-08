@@ -644,9 +644,6 @@ class DXOService {
                 let td:XPathObject = node.xpath("./td/text()")
                 if td.count != 2 {
                     log.error("num of a row is not 2, but: \(td.count)")
-                    for i in td {
-                        print(i.text)
-                    }
                     continue
                 }
                 let key:String = td[0].text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
@@ -708,8 +705,6 @@ class DXOService {
 //                let key:String = 
 
             }
-
-
         }
 
     }

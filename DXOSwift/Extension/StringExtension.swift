@@ -16,7 +16,7 @@ extension String {
     /// - Parameter length: the length of charactors you want to keep
     /// - Returns: the abstract
     func abstract(length:Int = 20, addDot:Bool = true)->String{
-        if self.characters.count <= length {
+        if self.count <= length {
             return self
         }
         var str:String = String(self[...self.index(self.startIndex, offsetBy: length)])
@@ -87,8 +87,8 @@ extension String {
     /// is this string an URL?
     func isUrl() -> Bool {
         let detector: NSDataDetector? = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-        let first: NSTextCheckingResult? = detector?.firstMatch(in: self, options: .withTransparentBounds, range: NSMakeRange(0, self.characters.count))
-        if first?.range.location == 0 && first?.range.length == self.characters.count {
+        let first: NSTextCheckingResult? = detector?.firstMatch(in: self, options: .withTransparentBounds, range: NSMakeRange(0, self.count))
+        if first?.range.location == 0 && first?.range.length == self.count {
             return true
         }
         return false
