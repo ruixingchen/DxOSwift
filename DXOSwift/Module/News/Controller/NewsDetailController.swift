@@ -45,6 +45,7 @@ class NewsDetailController: RXViewController {
     }
 
     func setupSubviews(){
+        webView.backgroundColor = UIColor.white
         self.view.addSubview(webView)
         webView.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
