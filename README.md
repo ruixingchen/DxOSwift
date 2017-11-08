@@ -11,3 +11,13 @@ clone or download the project, run `pod install` , then open DXOSwift.xcworkspac
 #### Requirement
 
 Xcode9, Swift4, iOS11
+
+### screenshoot
+
+![](https://raw.githubusercontent.com/ruixingchen/DxOSwift/master/screenshoot/1.png)
+
+![](https://raw.githubusercontent.com/ruixingchen/DxOSwift/master/screenshoot/2.png)
+
+![](https://raw.githubusercontent.com/ruixingchen/DxOSwift/master/screenshoot/3.png)
+
+![](https://raw.githubusercontent.com/ruixingchen/DxOSwift/master/screenshoot/4.png)
