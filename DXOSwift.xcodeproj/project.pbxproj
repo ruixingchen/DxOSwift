@@ -32,6 +32,7 @@
 		803C4E861FA6202600459151 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803C4E851FA6202600459151 /* LoadingView.swift */; };
 		803C4E8C1FA6453000459151 /* DeviceDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803C4E8B1FA6453000459151 /* DeviceDetailController.swift */; };
 		80430AD61F9DC6E700224DAA /* ArticlesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80430AD51F9DC6E700224DAA /* ArticlesController.swift */; };
+		8048FDAA1FB71B710031A212 /* Sensitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8048FDA91FB71B710031A212 /* Sensitive.swift */; };
 		80490D4B1FA4641600A14FB4 /* SearchResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80490D4A1FA4641600A14FB4 /* SearchResultController.swift */; };
 		804AC1AB1F99B1C4006A052E /* DeviceDatabaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804AC1AA1F99B1C4006A052E /* DeviceDatabaseTableViewCell.swift */; };
 		8052731A1F9D8F5900F9642F /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805273191F9D8F5900F9642F /* SettingsController.swift */; };
@@ -109,6 +110,7 @@
 		803C4E851FA6202600459151 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		803C4E8B1FA6453000459151 /* DeviceDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailController.swift; sourceTree = "<group>"; };
 		80430AD51F9DC6E700224DAA /* ArticlesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesController.swift; sourceTree = "<group>"; };
+		8048FDA91FB71B710031A212 /* Sensitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sensitive.swift; sourceTree = "<group>"; };
 		80490D4A1FA4641600A14FB4 /* SearchResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultController.swift; sourceTree = "<group>"; };
 		804AC1AA1F99B1C4006A052E /* DeviceDatabaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDatabaseTableViewCell.swift; sourceTree = "<group>"; };
 		805273191F9D8F5900F9642F /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 				805786671F960CEA006D2B3C /* RXError.swift */,
 				805786681F960CEA006D2B3C /* Log.swift */,
 				805786691F960CEA006D2B3C /* Misc.swift */,
+				8048FDA91FB71B710031A212 /* Sensitive.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -497,12 +500,12 @@
 			buildConfigurationList = 806903AA1F9607C1005BA062 /* Build configuration list for PBXNativeTarget "DXOSwift" */;
 			buildPhases = (
 				EEA7B7F6D0C4C181F2A285B5 /* [CP] Check Pods Manifest.lock */,
+				803C4E711FA5703700459151 /* ShellScript */,
 				806903941F9607C1005BA062 /* Sources */,
 				806903951F9607C1005BA062 /* Frameworks */,
 				806903961F9607C1005BA062 /* Resources */,
 				A037DEEA3F747809BFB6B4BD /* [CP] Embed Pods Frameworks */,
 				10E8DADAEFA939A8685BED6D /* [CP] Copy Pods Resources */,
-				803C4E711FA5703700459151 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -704,6 +707,7 @@
 				803C4E8C1FA6453000459151 /* DeviceDetailController.swift in Sources */,
 				80490D4B1FA4641600A14FB4 /* SearchResultController.swift in Sources */,
 				805786651F960A92006D2B3C /* DXOService.swift in Sources */,
+				8048FDAA1FB71B710031A212 /* Sensitive.swift in Sources */,
 				80C3F5E21F993B0700F5D3E3 /* CameraReviewController.swift in Sources */,
 				80C3F5F81F99563200F5D3E3 /* CameraManager.swift in Sources */,
 				8052731E1F9D981100F9642F /* MobileReviewController.swift in Sources */,

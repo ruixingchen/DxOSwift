@@ -328,6 +328,11 @@ class DeviceDetailController: RXTableViewController, RetryLoadingViewDelegate {
                 }
                 print(sep.description)
             }
+
+            #if DEBUG || debug
+                
+            #endif
+
         }else if deviceType == .lens {
 
         }

@@ -639,6 +639,14 @@ class DXOService {
                 return
             }
 
+            #if DEBUG || debug
+                if true {
+                    for node in htmlDocument.xpath("//div[@class='liste_descriptif']/table/tr/td") {
+                        print(node.text ?? "")
+                    }
+                }
+            #endif
+
             var array:[Device.Specification] = []
             for node in htmlDocument.xpath("//div[@class='liste_descriptif']//tr") {
                 let td:XPathObject = node.xpath("./td/text()")
