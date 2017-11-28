@@ -48,6 +48,7 @@
 		8069039C1F9607C1005BA062 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8069039B1F9607C1005BA062 /* AppDelegate.swift */; };
 		806903A31F9607C1005BA062 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806903A21F9607C1005BA062 /* Assets.xcassets */; };
 		806903A61F9607C1005BA062 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 806903A41F9607C1005BA062 /* LaunchScreen.storyboard */; };
+		806E543B1FCC40CF0044D24C /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806E543A1FCC40CF0044D24C /* SearchController.swift */; };
 		80873B241FA6D68A00366CD0 /* DeviceDatabaseSortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B231FA6D68A00366CD0 /* DeviceDatabaseSortView.swift */; };
 		80873B261FA6D7FA00366CD0 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B251FA6D7FA00366CD0 /* UserDefaultsManager.swift */; };
 		80873B2C1FA6FF9800366CD0 /* DeviceDetailPictureHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80873B2B1FA6FF9800366CD0 /* DeviceDetailPictureHeaderView.swift */; };
@@ -128,6 +129,7 @@
 		806903A21F9607C1005BA062 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		806903A51F9607C1005BA062 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		806903A71F9607C1005BA062 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		806E543A1FCC40CF0044D24C /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		80873B231FA6D68A00366CD0 /* DeviceDatabaseSortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDatabaseSortView.swift; sourceTree = "<group>"; };
 		80873B251FA6D7FA00366CD0 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		80873B2B1FA6FF9800366CD0 /* DeviceDetailPictureHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailPictureHeaderView.swift; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 				801D6B1B1F97644600CEAE64 /* RXTableViewController.swift */,
 				801D6B1A1F97644500CEAE64 /* RXViewController.swift */,
 				80EB94F91F9F61CA008EFECB /* GenericReviewListController.swift */,
+				806E543A1FCC40CF0044D24C /* SearchController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -687,6 +690,7 @@
 				805273201F9D9A6500F9642F /* MobileChartController.swift in Sources */,
 				80873B2C1FA6FF9800366CD0 /* DeviceDetailPictureHeaderView.swift in Sources */,
 				800165591F98E2A30010F2BE /* ReviewBadgeView.swift in Sources */,
+				806E543B1FCC40CF0044D24C /* SearchController.swift in Sources */,
 				80DAAC711F996FAB003648BF /* DataExtension.swift in Sources */,
 				80C3F5E41F993C5200F5D3E3 /* LensReviewController.swift in Sources */,
 				80D1F6F61F9EE89300997631 /* TestController.swift in Sources */,

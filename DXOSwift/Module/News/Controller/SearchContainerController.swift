@@ -10,7 +10,7 @@ import UIKit
 
 class SearchContainerController: RXViewController, SearchResultControllerDelegate {
 
-    var searchController:UISearchController!
+    var searchController:SearchController!
     let searchResultController: SearchResultController = SearchResultController()
 
     deinit {
@@ -22,7 +22,7 @@ class SearchContainerController: RXViewController, SearchResultControllerDelegat
     override func initFunction() {
         super.initFunction()
         self.title = LocalizedString.title_search
-        searchController = UISearchController(searchResultsController: searchResultController)
+        searchController = SearchController(searchResultsController: searchResultController)
     }
 
     override func viewDidLoad() {
@@ -44,6 +44,10 @@ class SearchContainerController: RXViewController, SearchResultControllerDelegat
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         searchController.isActive = true
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
     }
 
     func searchResultController(didSelect review:Review) {

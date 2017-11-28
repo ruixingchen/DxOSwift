@@ -50,6 +50,10 @@ class SearchResultController: RXTableViewController, UISearchControllerDelegate,
         self.view.isHidden = false
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
+
     //MARK: - UISearchControllerDelegate
 
     func willPresentSearchController(_ searchController: UISearchController) {
