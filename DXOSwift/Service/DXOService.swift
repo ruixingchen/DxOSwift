@@ -169,7 +169,7 @@ class DXOService {
 
             let postTime:String? = newsNode.xpath(".//div[contains(@class,'post-meta')]/text()").first?.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             let abstract:String? = newsNode.xpath(".//p[contains(@class,'excerpt')]/text()").first?.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            let coverImage:String? = newsNode.xpath(".//div[contains(@class,'image-cover')]/img/@data-src").first?.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let coverImage:String? = newsNode.xpath(".//div[contains(@class,'image-cover')]/img/@src").first?.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 
             let commentNumLabel:String = newsNode.xpath(".//div[contains(@class,'blog-post-inner')]/p[contains(@class,'from_the_blog_comments')]/text()").first?.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
             var commentNum:Int = 0
